@@ -1,10 +1,9 @@
 var events = [
-    "sprite_placement_attempt",
-    "mouse_selection",
-    // "move_start",
-    // "move_end",
+    "request_paint",
+    // "drag_start",
+    // "drag_end",
     "draw",
-    "sprite_selected",
+    "request_sprite",
 ]
 
 function PubSub() {
@@ -12,7 +11,7 @@ function PubSub() {
 };
 
 PubSub.validate_event = function(event) {
-    if (!events.includes(event)) {
+    if (!(events.includes(event))) {
         console.error("bad event: "+event);
     }
 };
