@@ -13,11 +13,11 @@ CanvasRenderingContext2D.prototype.clear =
         }
     };
 
-function draw_centered(image, pos, canvas) {
+function draw_centered(ctx, image, pos) {
     // TODO: center properly; something about the scaling is wonky
-    canvas.getContext('2d').drawImage(image,
-                                      pos.x - (image.width / 2),
-                                      pos.y - (image.height / 2));
+    ctx.drawImage(image,
+                  pos.x - (image.width / 2),
+                  pos.y - (image.height / 2));
 };
 
 function draw_rect(ctx, x1, y1, x2, y2, color, alpha) {
@@ -49,3 +49,7 @@ function clamp(x, a, b) {
     var higher = Math.max(a, b);
     return Math.max(lower, Math.min(x, higher));
 }
+
+MOUSE_LEFT = 0;
+MOUSE_MIDDLE = 1;
+MOUSE_RIGHT = 2;

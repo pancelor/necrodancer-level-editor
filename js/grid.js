@@ -1,13 +1,14 @@
-function Grid(canvas, width, height) {
-    this.canvas = canvas;
+function Grid(pubsub, width, height) {
     this.board = this.init_board(width, height);
     this.pix = 32;
 
-    this.setup();
+    this.setup_subs(pubsub);
 };
 
-Grid.prototype.setup = function() {
-    requestAnimationFrame(this.render.bind(this));
+Grid.prototype.setup_subs = function(pubsub) {
+    pubsub.subscribe("sprite_placement_attempt", this.sprite_placement_attempt.bind(this));
+    pubsub.subscribe("mouse_selection", this.mouse_selection.bind(this));
+    pubsub.subscribe("draw", this.draw.bind(this));
 };
 
 Grid.prototype.width = function() {
@@ -26,21 +27,45 @@ Grid.prototype.init_board = function(width, height) {
     return brd;
 };
 
-Grid.prototype.select = function(coord1, coord2) {
-    var grid_rr_low = clamp(Math.min(coord1.to_grid_rr(this), coord2.to_grid_rr(this)), 0, this.height()-1);
-    var grid_cc_low = clamp(Math.min(coord1.to_grid_cc(this), coord2.to_grid_cc(this)), 0, this.width()-1);
-    var grid_rr_high = clamp(Math.max(coord1.to_grid_rr(this), coord2.to_grid_rr(this)), 0, this.height()-1);
-    var grid_cc_high = clamp(Math.max(coord1.to_grid_cc(this), coord2.to_grid_cc(this)), 0, this.width()-1);
+// pubsub
+Grid.prototype.mouse_selection = function(args) {
+    var coord1 = args.coord1;
+    var coord2 = args.coord2;
 
-    this.select_rect = {
-        c1: Coord.from_grid(this.canvas, this, {rr: grid_rr_low, cc: grid_cc_low}),
-        c2: Coord.from_grid(this.canvas, this, {rr: grid_rr_high, cc: grid_cc_high}),
-    };
+    var grid_rr_1 = Math.min(coord1.to_grid_rr(this), coord2.to_grid_rr(this));
+    var grid_cc_1 = Math.min(coord1.to_grid_cc(this), coord2.to_grid_cc(this));
+    var grid_rr_2 = Math.max(coord1.to_grid_rr(this), coord2.to_grid_rr(this));
+    var grid_cc_2 = Math.max(coord1.to_grid_cc(this), coord2.to_grid_cc(this));
+
+    if (this.inbounds(Coord.from_grid(this, {rr: grid_rr_1, cc: grid_cc_1}))) {
+        this.select_rect = {
+            c1: Coord.from_grid(
+                this,
+                {
+                    rr: clamp(grid_rr_1, 0, this.height()-1),
+                    cc: clamp(grid_cc_1, 0, this.width()-1),
+                }
+            ),
+            c2: Coord.from_grid(
+                this,
+                {
+                    rr: clamp(grid_rr_2, 0, this.height()-1),
+                    cc: clamp(grid_cc_2, 0, this.width()-1),
+                }
+            ),
+        };
+        // console.log(this.select_rect.c1.to_grid(this));
+        // console.log(this.select_rect.c2.to_grid(this));
+    }
 };
 
-Grid.prototype.place_at_click = function(coord, sprite) {
+// pubsub
+Grid.prototype.sprite_placement_attempt = function(args) {
+    var coord = args.coord;
+    var sprite = args.sprite;
+
     if (this.inbounds(coord)) {
-        this.board[grid_y][grid_x] = sprite;
+        this.board[coord.to_grid_rr(this)][coord.to_grid_cc(this)] = sprite;
     }
 };
 
@@ -51,8 +76,10 @@ Grid.prototype.inbounds = function(coord) {
             coord.to_grid_rr(this) < this.height());
 };
 
-Grid.prototype.render = function() {
-    var ctx = this.canvas.getContext('2d');
+// pubsub
+Grid.prototype.draw = function(args) {
+    var ctx = args.ctx;
+
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
 
@@ -82,23 +109,12 @@ Grid.prototype.render = function() {
 
     // select rect
     if (this.select_rect) {
-        var one_past_c2 = Coord.from_grid(
-            this.canvas,
-            this,
-            {rr: this.select_rect.c2.to_grid_rr(this) + 1,
-             cc: this.select_rect.c2.to_grid_cc(this) + 1})
         draw_rect(ctx,
                   this.select_rect.c1.to_canvas_x(),
                   this.select_rect.c1.to_canvas_y(),
-                  one_past_c2.to_canvas_x(),
-                  one_past_c2.to_canvas_y(),
+                  this.select_rect.c2.to_canvas_x() + this.pix,
+                  this.select_rect.c2.to_canvas_y() + this.pix,
                   "blue",
                   0.2);
-        // for (var rr = this.select_rect.y1; rr < this.select_rect.y2; ++rr) {
-        //     for (var cc = this.select_rect.x1; cc < this.select_rect.x2; ++cc) {
-        //         draw_rect();
-        //     }
-        // }
     }
-    requestAnimationFrame(this.render.bind(this));
 };

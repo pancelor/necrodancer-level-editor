@@ -1,24 +1,24 @@
-// don't call this constructor directly pls
-function Coord(canvas, canvas_pos) {
-    this.canvas = canvas;
+// don't call this constructor directly pls...
+function Coord(canvas_pos) {
     this.canvas_pos = canvas_pos;
 }
 
+// ...use these three instead
 Coord.from_mouse = function(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     var canvas_pos = {
         x: Math.round(evt.clientX - rect.left),
         y: Math.round(evt.clientY - rect.top)
     };
-    return new Coord(canvas, canvas_pos);
+    return new Coord(canvas_pos);
 };
 
-Coord.from_canvas = function(canvas, pos) {
-    return new Coord(canvas, pos);
+Coord.from_canvas = function(pos) {
+    return new Coord(pos);
 };
 
-Coord.from_grid = function(canvas, grid, pos) {
-    return new Coord(canvas, {x: pos.cc*grid.pix, y: pos.rr*grid.pix});
+Coord.from_grid = function(grid, pos) {
+    return new Coord({x: pos.cc*grid.pix, y: pos.rr*grid.pix});
 };
 
 

@@ -1,29 +1,21 @@
+var pubsub = new PubSub();
+
 var canvas = $('#main_canvas')[0];
-var ctx = canvas.getContext('2d');
+var grid = new Grid(pubsub, 8, 5);
 
-var mouse_manager = new MouseManager(canvas, $('#red')[0]);
-var grid = new Grid(canvas, 8, 5);
+var input_manager = new InputManager(canvas, pubsub, $('#red')[0]);
+input_manager.register_listeners(canvas);
 
-canvas.addEventListener("mousemove", function(evt) {
-    mouse_manager.mousemove(Coord.from_mouse(canvas, evt));
-});
 
-canvas.addEventListener("click", function(evt) {
-    mouse_manager.click(Coord.from_mouse(canvas, evt), grid);
-});
-
-canvas.addEventListener("mousedown", function(evt) {
-    mouse_manager.mousedown(Coord.from_mouse(canvas, evt), grid);
-});
-
-canvas.addEventListener("mouseup", function(evt) {
-    mouse_manager.mouseup(Coord.from_mouse(canvas, evt), grid);
-});
-
-function make_me_active() {
-    mouse_manager.set_contents(this);
+function choose_sprite(sprite) {
+    pubsub.emit("choose_sprite",
+                input_manager.set_contents.bind(sprite));
 }
 
-$('#red').on("click", make_me_active);
-$('#blue').on("click", make_me_active);
-$('#green').on("click", make_me_active);
+$('#red').on("click", choose_sprite.bind(this));
+$('#blue').on("click", choose_sprite.bind(this));
+$('#green').on("click", choose_sprite.bind(this));
+
+
+var fps = new FPSManager(canvas, pubsub);
+
