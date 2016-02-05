@@ -53,8 +53,6 @@ function removeByIndex(array, index){
     array.splice(index, 1);
 }
 
-MOUSE_LEFT = 0;
-MOUSE_MIDDLE = 1;
-MOUSE_RIGHT = 2;
+function bool_to_int(b) {return b ? 1 : 0}
 
-PIX = 32;
+PIX = 16;

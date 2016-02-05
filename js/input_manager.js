@@ -48,8 +48,8 @@ function InputManager(canvas, grid, pubsub, default_sprite) {
 }
 
 InputManager.prototype.register_listeners = function(canvas) {
-    canvas.addEventListener("mousemove", this.mousemove.bind(this));
     canvas.addEventListener("mousedown", this.mousedown.bind(this));
+    canvas.addEventListener("mousemove", this.mousemove.bind(this));
     canvas.addEventListener("mouseup", this.mouseup.bind(this));
     canvas.addEventListener("mouseleave", this.mouseleave.bind(this));
     canvas.addEventListener("keydown", this.keydown.bind(this));
@@ -58,33 +58,38 @@ InputManager.prototype.register_listeners = function(canvas) {
 
 InputManager.prototype.mousedown = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
-    if (evt.button === MOUSE_LEFT) {
-        if (this.selection && this.selection.has_by_grid(coord)) {
-            this.interact_mode = evt.ctrlKey ? DRAGCOPY : DRAG;
-            this.drag_origin = coord;
-        } else {
+    var buttons = new MouseButtons(evt);
+    if (this.interact_mode === NONE) {
+        if (buttons.visual == "100") {
+            if (this.selection && this.selection.has_by_grid(coord)) {
+                this.interact_mode = evt.ctrlKey ? DRAGCOPY : DRAG;
+                this.drag_origin = coord;
+            } else {
+                this.selection.clear();
+
+                this.interact_mode = PAINT;
+                this.pubsub.emit("request_paint", {
+                     coord: coord,
+                     sprite: this.sprite
+                });
+            }
+        } else if (buttons.visual == "001") {
+            if (!(evt.ctrlKey)) {
+                this.selection.clear();
+            }
+            this.interact_mode = SELECT;
+            this.select_origin = coord;
+        } else if (buttons.visual == "010") {
             this.selection.clear();
 
-            this.interact_mode = PAINT;
+            this.interact_mode = ERASE;
             this.pubsub.emit("request_paint", {
-                 coord: coord,
-                 sprite: this.sprite
+                coord: coord,
+                sprite: undefined
             });
+        } else if (buttons.visual == "101") { // This happens on a right click + double left click, because interact_mode goes NONE -> SELECT -> NONE and then the last left click reaches here
+            this.selection = this.grid.flood_select(coord.snap_to_grid());
         }
-    } else if (evt.button === MOUSE_RIGHT) {
-        if (!(evt.ctrlKey)) {
-            this.selection.clear();
-        }
-        this.interact_mode = SELECT;
-        this.select_origin = coord;
-    } else if (evt.button === MOUSE_MIDDLE) {
-        this.selection.clear();
-
-        this.interact_mode = ERASE;
-        this.pubsub.emit("request_paint", {
-            coord: coord,
-            sprite: undefined
-        });
     }
 }
 
@@ -137,7 +142,7 @@ InputManager.prototype.mouseup = function(evt) {
         this.interact_mode = NONE;
         break;
     default:
-        console.error("switch fall-through in enum:interact_mode.tostring");
+        console.info("switch fall-through in enum:interact_mode.tostring");
     }
 }
 

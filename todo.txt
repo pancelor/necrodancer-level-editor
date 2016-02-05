@@ -2,4 +2,24 @@ choose what to do when you try to drag off-grid... probably just don't let it ha
     well they kinda do already... (PIX)
 
 double click on the toolbar = flood fill selection
-double right click on canvas = flood select
+
+ctrl+a
+
+see forums suggestions:
+    http://braceyourselfgames.com/forums/viewtopic.php?f=2&t=3068&p=19037&hilit=editor#p19037
+
+old suggestions about mcedit features:
+    http://braceyourselfgames.com/forums/viewtopic.php?f=5&t=1232&p=9969&hilit=mcedit#p9969
+    http://braceyourselfgames.com/forums/viewtopic.php?f=2&t=2720
+
+implement dragging as lifting all grid elems up into a new "grid" that you then drag around, and it gets pasted back down when you unclick
+
+    maybe implement grid as coord_map (set:map::coord_set:coord_map)
+
+add listeners for:
+    oncopy
+    oncut
+    onpaste
+
+low priority:
+    interpolate between mouse events so you don't skip (e.g. placing rails in minecraft)

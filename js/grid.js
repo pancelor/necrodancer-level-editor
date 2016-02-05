@@ -15,6 +15,34 @@ Grid.prototype.set = function(coord, sprite) {
     this.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
 }
 
+Grid.prototype.flood_select = function(coord) {
+    var selection = new CoordSet();
+    var sprite = this.get(coord);
+    var DIRECTIONS = [
+        Coord.from_grid({rr: 0, cc: 1}),
+        Coord.from_grid({rr: -1, cc: 0}),
+        Coord.from_grid({rr: 0, cc: -1}),
+        Coord.from_grid({rr: 1, cc: 0}),
+    ];
+
+    var queue = [coord];
+    var that = this;
+    while (queue.length != 0) {
+        var current = queue.pop();
+        selection.add(current);
+
+        DIRECTIONS.forEach(function(dir) {
+            var next = current.plus(dir);
+            if (!selection.has(next)
+                    && that.inbounds(next)
+                    && that.get(next) === sprite) {
+                queue.push(next);
+            }
+        });
+    }
+    return selection;
+}
+
 Grid.prototype.inbounds = function(coord) {
     return (0 <= coord.to_grid_cc() &&
             coord.to_grid_cc() < this.width() &&
