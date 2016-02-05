@@ -17,6 +17,7 @@ function InputManager(canvas, grid, pubsub, default_sprite) {
     // this.drag_origin = undefined;
     // this.dragging_to_copy = undefined;
     this.painting = false;
+    this.erasing = false;
 
     this.pubsub.subscribe("draw", this.draw.bind(this));
     this.pubsub.subscribe("request_sprite", this.request_sprite.bind(this));
@@ -44,7 +45,7 @@ InputManager.prototype.mousedown = function(evt) {
 
             this.painting = true;
             this.pubsub.emit("request_paint",
-                 {coord: this.mouse_pos,
+                 {coord: coord,
                   sprite: this.sprite});
         }
     } else if (evt.button === MOUSE_RIGHT) {
@@ -53,15 +54,28 @@ InputManager.prototype.mousedown = function(evt) {
         }
         this.select_status = IN_PROGRESS;
         this.select_origin = coord;
+    } else if (evt.button === MOUSE_MIDDLE) {
+        this.select_status = NONE;
+        this.selection.clear();
+
+        this.erasing = true;
+        this.pubsub.emit("request_paint",
+            {coord: coord,
+             sprite: undefined});
     }
 }
 
 InputManager.prototype.mousemove = function(evt) {
-    this.mouse_pos = Coord.from_mouse(this.canvas, evt);
+    var coord = Coord.from_mouse(this.canvas, evt);
+    this.mouse_pos = coord;
     if (this.painting) {
         this.pubsub.emit("request_paint",
-                         {coord: this.mouse_pos,
+                         {coord: coord,
                           sprite: this.sprite});
+    } else if (this.erasing) {
+        this.pubsub.emit("request_paint",
+                         {coord: coord,
+                          sprite: undefined});
     }
 }
 
@@ -89,6 +103,8 @@ InputManager.prototype.mouseup = function(evt) {
         this.select_status = COMPLETE;
         this.add_mouse_selection(this.select_origin,
                                  this.mouse_pos);
+    } else if (evt.button === MOUSE_MIDDLE) {
+        this.erasing = false;
     }
 }
 
@@ -103,11 +119,13 @@ InputManager.prototype.mouseout = function(evt) {
 }
 
 InputManager.prototype.keydown = function(evt) {
-    console.log("keydown:" + evt);
+    console.log("keydown:");
+    console.log(evt);
 }
 
 InputManager.prototype.keyup = function(evt) {
-    console.log("keyup:" + evt);
+    console.log("keyup:");
+    console.log(evt);
 }
 
 InputManager.prototype.add_mouse_selection = function(coord1, coord2) {
@@ -169,7 +187,7 @@ InputManager.prototype.draw = function(args) {
                   this.mouse_pos.to_canvas_x(),
                   this.mouse_pos.to_canvas_y(),
                   "blue",
-                  0.2);
+                  0.25);
     }
     // completed selection
     this.selection.forEach(function (coord) {
@@ -192,7 +210,7 @@ InputManager.prototype.draw = function(args) {
                       coord.plus(delta).to_canvas_x() + PIX,
                       coord.plus(delta).to_canvas_y() + PIX,
                       "blue",
-                      0.3);
+                      0.25);
         });
     }
 
