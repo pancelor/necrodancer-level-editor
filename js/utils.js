@@ -20,7 +20,7 @@ function draw_centered(ctx, image, pos) {
                   pos.y - (image.height / 2));
 }
 
-function draw_rect(ctx, x1, y1, x2, y2, color, alpha) {
+function fill_rect(ctx, x1, y1, x2, y2, color, alpha) {
     var width = x2 - x1;
     var height = y2 - y1;
     if (alpha) {

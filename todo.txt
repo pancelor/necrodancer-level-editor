@@ -1,2 +1,5 @@
 choose what to do when you try to drag off-grid... probably just don't let it happen. awkward because now selections have to know about the grid again...
     well they kinda do already... (PIX)
+
+double click on the toolbar = flood fill selection
+double right click on canvas = flood select

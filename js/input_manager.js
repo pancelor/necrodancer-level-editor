@@ -1,3 +1,35 @@
+// an enum; values taken on by this.interact_mode
+var NONE     = 429900;
+var PAINT    = 429901;
+var SELECT   = 429902;
+var DRAG     = 429903;
+var DRAGCOPY = 429904;
+var ERASE    = 429905;
+function interact_mode_to_string(mode) {
+    switch(mode) {
+    case NONE:
+        return "NONE";
+        break;
+    case PAINT:
+        return "PAINT";
+        break;
+    case SELECT:
+        return "SELECT";
+        break;
+    case DRAG:
+        return "DRAG";
+        break;
+    case DRAGCOPY:
+        return "DRAGCOPY";
+        break;
+    case ERASE:
+        return "ERASE";
+        break;
+    default:
+        console.error("switch fall-through in enum:interact_mode.tostring");
+    }
+}
+
 function InputManager(canvas, grid, pubsub, default_sprite) {
     this.canvas = canvas;
     this.grid = grid;
@@ -7,13 +39,9 @@ function InputManager(canvas, grid, pubsub, default_sprite) {
     this.mouse_pos = Coord.from_mouse(canvas, {x: 0, y: 0});
 
     this.selection = new CoordSet();
-    this.selecting = false;
+    this.interact_mode = NONE;
     // this.select_origin = undefined;
-    this.dragging = false;
     // this.drag_origin = undefined;
-    // this.dragging_to_copy = undefined;
-    this.painting = false;
-    this.erasing = false;
 
     this.pubsub.subscribe("draw", this.draw.bind(this));
     this.pubsub.subscribe("request_sprite", this.request_sprite.bind(this));
@@ -23,7 +51,7 @@ InputManager.prototype.register_listeners = function(canvas) {
     canvas.addEventListener("mousemove", this.mousemove.bind(this));
     canvas.addEventListener("mousedown", this.mousedown.bind(this));
     canvas.addEventListener("mouseup", this.mouseup.bind(this));
-    canvas.addEventListener("mouseout", this.mouseout.bind(this));
+    canvas.addEventListener("mouseleave", this.mouseleave.bind(this));
     canvas.addEventListener("keydown", this.keydown.bind(this));
     canvas.addEventListener("keyup", this.keyup.bind(this));
 }
@@ -32,86 +60,89 @@ InputManager.prototype.mousedown = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
     if (evt.button === MOUSE_LEFT) {
         if (this.selection && this.selection.has_by_grid(coord)) {
-            this.dragging = true;
+            this.interact_mode = evt.ctrlKey ? DRAGCOPY : DRAG;
             this.drag_origin = coord;
-            this.dragging_to_copy = evt.ctrlKey;
         } else {
-            this.selecting = false;
             this.selection.clear();
 
-            this.painting = true;
-            this.pubsub.emit("request_paint",
-                 {coord: coord,
-                  sprite: this.sprite});
+            this.interact_mode = PAINT;
+            this.pubsub.emit("request_paint", {
+                 coord: coord,
+                 sprite: this.sprite
+            });
         }
     } else if (evt.button === MOUSE_RIGHT) {
         if (!(evt.ctrlKey)) {
             this.selection.clear();
         }
-        this.selecting = true;
+        this.interact_mode = SELECT;
         this.select_origin = coord;
     } else if (evt.button === MOUSE_MIDDLE) {
-        this.selecting = false;
         this.selection.clear();
 
-        this.erasing = true;
-        this.pubsub.emit("request_paint",
-            {coord: coord,
-             sprite: undefined});
+        this.interact_mode = ERASE;
+        this.pubsub.emit("request_paint", {
+            coord: coord,
+            sprite: undefined
+        });
     }
 }
 
 InputManager.prototype.mousemove = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
     this.mouse_pos = coord;
-    if (this.painting) {
-        this.pubsub.emit("request_paint",
-                         {coord: coord,
-                          sprite: this.sprite});
-    } else if (this.erasing) {
-        this.pubsub.emit("request_paint",
-                         {coord: coord,
-                          sprite: undefined});
+    if (this.interact_mode === PAINT) {
+        this.pubsub.emit("request_paint", {
+            coord: coord,
+            sprite: this.sprite
+        });
+    } else if (this.interact_mode === ERASE) {
+        this.pubsub.emit("request_paint", {
+            coord: coord,
+            sprite: undefined
+        });
     }
 }
 
 InputManager.prototype.mouseup = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
-    if (evt.button === MOUSE_LEFT) {
-        if (this.painting) {
-            this.painting = false;
-        } else if (this.dragging) {
-            this.dragging = false;
-            var delta = coord.snap_to_grid().minus(this.drag_origin.snap_to_grid());
-            this.pubsub.emit("request_drag",
-                             {delta: delta,
-                              copy: this.dragging_to_copy,
-                              selection: this.selection});
-
-            // TODO: redo in one line with _.map when CoordSet s are iterable
-            var shifted_selection = new CoordSet();
-            this.selection.forEach(function(old_coord) {
-                    shifted_selection.add(old_coord.plus(delta));
-            });
-            this.selection = shifted_selection; // TODO: errors when you drag the selection off-grid
-        }
-    } else if (evt.button === MOUSE_RIGHT) {
-        this.selecting = false;
+    switch (this.interact_mode) {
+    case PAINT:
+        this.interact_mode = NONE;
+        break;
+    case SELECT:
         this.add_mouse_selection(this.select_origin,
                                  this.mouse_pos);
-    } else if (evt.button === MOUSE_MIDDLE) {
-        this.erasing = false;
+        this.interact_mode = NONE;
+        break;
+    case DRAG:
+    case DRAGCOPY:
+        var delta = coord.snap_to_grid().minus(this.drag_origin.snap_to_grid());
+        this.pubsub.emit("request_drag", {
+            delta: delta,
+            copy: this.interact_mode === DRAGCOPY,
+            selection: this.selection
+        });
+
+        // TODO: redo in one line with _.map when CoordSet s are iterable
+        var shifted_selection = new CoordSet();
+        this.selection.forEach(function(old_coord) {
+                shifted_selection.add(old_coord.plus(delta));
+        });
+        this.selection = shifted_selection; // TODO: errors when you drag the selection off-grid
+
+        this.interact_mode = NONE;
+        break;
+    case ERASE:
+        this.interact_mode = NONE;
+        break;
+    default:
+        console.error("switch fall-through in enum:interact_mode.tostring");
     }
 }
 
-InputManager.prototype.mouseout = function(evt) {
-    // this.painting = false;
-    // this.dragging = false;
-    // if (this.selecting) {
-    //     this.selecting = false;
-    //     this.add_mouse_selection(this.select_origin,
-    //                              this.mouse_pos);
-    // }
+InputManager.prototype.mouseleave = function(evt) {
+    // this.interact_mode = NONE;
 }
 
 InputManager.prototype.keydown = function(evt) {
@@ -172,12 +203,10 @@ InputManager.prototype.draw = function(args) {
     // default:
     //     console.error("switch fall-through");
     // }
-    if (this.moving) {
-        console.warn("move tool is unimplemented");
-    }
+
     // in-progress selection
-    if (this.selecting) {
-        draw_rect(ctx,
+    if (this.interact_mode === SELECT) {
+        fill_rect(ctx,
                   this.select_origin.to_canvas_x(),
                   this.select_origin.to_canvas_y(),
                   this.mouse_pos.to_canvas_x(),
@@ -187,20 +216,20 @@ InputManager.prototype.draw = function(args) {
     }
     // completed selection
     this.selection.forEach(function (coord) {
-        draw_rect(ctx,
+        fill_rect(ctx,
                   coord.to_canvas_x(),
                   coord.to_canvas_y(),
                   coord.to_canvas_x() + PIX,
                   coord.to_canvas_y() + PIX,
                   "blue",
-                  0.5+0*(this.dragging ? 0.2 : 0.4));
+                  0.5);
     });
     // dragging select rect
     // TODO: this won't display the actual contents moving... kinda lame
-    if (this.dragging) {
+    if (this.interact_mode === DRAG || this.interact_mode === DRAGCOPY) {
         var delta = this.mouse_pos.snap_to_grid().minus(this.drag_origin.snap_to_grid());
         this.selection.forEach(function (coord) {
-            draw_rect(ctx,
+            fill_rect(ctx,
                       coord.plus(delta).to_canvas_x(),
                       coord.plus(delta).to_canvas_y(),
                       coord.plus(delta).to_canvas_x() + PIX,
@@ -210,7 +239,5 @@ InputManager.prototype.draw = function(args) {
         });
     }
 
-    $("#selecting").css("display", (this.selecting ? "inline" : "none"));
-    $("#dragging").css("display", (this.dragging ? "inline" : "none"));
-    $("#painting").css("display", (this.painting ? "inline" : "none"));
+    $("#interact_mode").text(interact_mode_to_string(this.interact_mode));
 }
