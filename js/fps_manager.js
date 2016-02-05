@@ -2,14 +2,14 @@ function FPSManager(canvas, pubsub) {
     this.canvas = canvas;
     this.pubsub = pubsub;
 
-    requestAnimationFrame(this.draw.bind(this));
+    requestAnimationFrame(this.tick.bind(this));
 }
 
-FPSManager.prototype.draw = function() {
+FPSManager.prototype.tick = function() {
     var ctx = canvas.getContext('2d');
 
     ctx.clear();
     this.pubsub.emit("draw", {ctx: ctx});
 
-    requestAnimationFrame(this.draw.bind(this));
-};
+    requestAnimationFrame(this.tick.bind(this));
+}

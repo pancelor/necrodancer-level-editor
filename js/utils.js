@@ -18,7 +18,7 @@ function draw_centered(ctx, image, pos) {
     ctx.drawImage(image,
                   pos.x - (image.width / 2),
                   pos.y - (image.height / 2));
-};
+}
 
 function draw_rect(ctx, x1, y1, x2, y2, color, alpha) {
     var width = x2 - x1;
@@ -32,8 +32,7 @@ function draw_rect(ctx, x1, y1, x2, y2, color, alpha) {
         ctx.fillStyle = color;
     }
 
-    ctx.rect(x1, y1, width, height);
-    ctx.fill();
+    ctx.fillRect(x1, y1, width, height);
 
     // cleanup
     if (alpha) {
@@ -42,7 +41,7 @@ function draw_rect(ctx, x1, y1, x2, y2, color, alpha) {
     if (color) {
         ctx.fillStyle = old_color;
     }
-};
+}
 
 function clamp(x, a, b) {
     var lower = Math.min(a, b);
@@ -50,6 +49,12 @@ function clamp(x, a, b) {
     return Math.max(lower, Math.min(x, higher));
 }
 
+function removeByIndex(array, index){
+    array.splice(index, 1);
+}
+
 MOUSE_LEFT = 0;
 MOUSE_MIDDLE = 1;
 MOUSE_RIGHT = 2;
+
+PIX = 32;

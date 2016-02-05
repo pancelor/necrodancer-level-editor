@@ -10,28 +10,34 @@ function InputManager(canvas, grid, pubsub, default_sprite) {
     this.sprite = default_sprite;
     this.mouse_pos = Coord.from_mouse(canvas, {x: 0, y: 0});
 
-    this.selection = new Set();
+    this.selection = new CoordSet();
     this.select_status = NONE;
+    // this.select_origin = undefined;
     this.dragging = false;
+    // this.drag_origin = undefined;
+    // this.dragging_to_copy = undefined;
     this.painting = false;
 
     this.pubsub.subscribe("draw", this.draw.bind(this));
     this.pubsub.subscribe("request_sprite", this.request_sprite.bind(this));
-};
+}
 
 InputManager.prototype.register_listeners = function(canvas) {
     canvas.addEventListener("mousemove", this.mousemove.bind(this));
     canvas.addEventListener("mousedown", this.mousedown.bind(this));
     canvas.addEventListener("mouseup", this.mouseup.bind(this));
     canvas.addEventListener("mouseout", this.mouseout.bind(this));
-};
+    canvas.addEventListener("keydown", this.keydown.bind(this));
+    canvas.addEventListener("keyup", this.keyup.bind(this));
+}
 
 InputManager.prototype.mousedown = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
     if (evt.button === MOUSE_LEFT) {
-        if (this.selection && this.selection.has(coord)) { // TODO: make Selection; essentially a set of coords
+        if (this.selection && this.selection.has_by_grid(coord)) {
             this.dragging = true;
-            console.warn("dragging is unimplemented");
+            this.drag_origin = coord;
+            this.dragging_to_copy = evt.ctrlKey;
         } else {
             this.select_status = NONE;
             this.selection.clear();
@@ -48,7 +54,7 @@ InputManager.prototype.mousedown = function(evt) {
         this.select_status = IN_PROGRESS;
         this.select_origin = coord;
     }
-};
+}
 
 InputManager.prototype.mousemove = function(evt) {
     this.mouse_pos = Coord.from_mouse(this.canvas, evt);
@@ -56,25 +62,35 @@ InputManager.prototype.mousemove = function(evt) {
         this.pubsub.emit("request_paint",
                          {coord: this.mouse_pos,
                           sprite: this.sprite});
-    } else if (this.dragging) {
-        console.warn("dragging is unimplemented");
     }
-};
+}
 
 InputManager.prototype.mouseup = function(evt) {
+    var coord = Coord.from_mouse(this.canvas, evt);
     if (evt.button === MOUSE_LEFT) {
         if (this.painting) {
             this.painting = false;
         } else if (this.dragging) {
             this.dragging = false;
-            console.warn("dragging is unimplemented");
+            var delta = coord.snap_to_grid().minus(this.drag_origin.snap_to_grid());
+            this.pubsub.emit("request_drag",
+                             {delta: delta,
+                              copy: this.dragging_to_copy,
+                              selection: this.selection});
+
+            // TODO: redo in one line with _.map when CoordSet s are iterable
+            var shifted_selection = new CoordSet();
+            this.selection.forEach(function(old_coord) {
+                    shifted_selection.add(old_coord.plus(delta));
+            });
+            this.selection = shifted_selection; // TODO: errors when you drag the selection off-grid
         }
     } else if (evt.button === MOUSE_RIGHT) {
         this.select_status = COMPLETE;
         this.add_mouse_selection(this.select_origin,
                                  this.mouse_pos);
     }
-};
+}
 
 InputManager.prototype.mouseout = function(evt) {
     // this.painting = false;
@@ -83,9 +99,16 @@ InputManager.prototype.mouseout = function(evt) {
         this.select_status = COMPLETE;
         this.add_mouse_selection(this.select_origin,
                                  this.mouse_pos);
-
     }
-};
+}
+
+InputManager.prototype.keydown = function(evt) {
+    console.log("keydown:" + evt);
+}
+
+InputManager.prototype.keyup = function(evt) {
+    console.log("keyup:" + evt);
+}
 
 InputManager.prototype.add_mouse_selection = function(coord1, coord2) {
     var grid_rr_1 = Math.min(coord1.to_grid_rr(), coord2.to_grid_rr());
@@ -100,26 +123,26 @@ InputManager.prototype.add_mouse_selection = function(coord1, coord2) {
         grid_cc_2 = clamp(0, grid_cc_2, this.grid.width()-1);
         for (var rr = grid_rr_1; rr <= grid_rr_2; ++rr) {
             for (var cc = grid_cc_1; cc <= grid_cc_2; ++cc) {
-                this.selection.add(Coord.from_grid({rr: rr, cc: cc}));
+                this.selection.xor(Coord.from_grid({rr: rr, cc: cc}));
             }
         }
     }
     // console.log(this.selection);
-};
+}
 
 // TODO: deprecated
 InputManager.prototype.current_tool = function() {
     return $("input[name=tool_select]:checked").val();
-};
+}
 
-// pubsub
+// pubsub:
+
 InputManager.prototype.request_sprite = function(args) {
     var sprite = args.sprite;
 
     this.sprite = sprite;
-};
+}
 
-// pubsub
 InputManager.prototype.draw = function(args) {
     var ctx = args.ctx;
 
@@ -138,7 +161,7 @@ InputManager.prototype.draw = function(args) {
     if (this.moving) {
         console.warn("move tool is unimplemented");
     }
-    // in-progress select rect
+    // in-progress selection
     if (this.select_status === IN_PROGRESS) {
         draw_rect(ctx,
                   this.select_origin.to_canvas_x(),
@@ -147,16 +170,33 @@ InputManager.prototype.draw = function(args) {
                   this.mouse_pos.to_canvas_y(),
                   "blue",
                   0.2);
-    } else if (this.select_status === COMPLETE) {
-        // completed select rect
+    }
+    // completed selection
+    this.selection.forEach(function (coord) {
+        draw_rect(ctx,
+                  coord.to_canvas_x(),
+                  coord.to_canvas_y(),
+                  coord.to_canvas_x() + PIX,
+                  coord.to_canvas_y() + PIX,
+                  "blue",
+                  0.5+0*(this.dragging ? 0.2 : 0.4));
+    });
+    // dragging select rect
+    // TODO: this won't display the actual contents moving... kinda lame
+    if (this.dragging) {
+        var delta = this.mouse_pos.snap_to_grid().minus(this.drag_origin.snap_to_grid());
         this.selection.forEach(function (coord) {
             draw_rect(ctx,
-                      coord.to_canvas_x(),
-                      coord.to_canvas_y(),
-                      coord.to_canvas_x() + Grid.pix,
-                      coord.to_canvas_y() + Grid.pix,
+                      coord.plus(delta).to_canvas_x(),
+                      coord.plus(delta).to_canvas_y(),
+                      coord.plus(delta).to_canvas_x() + PIX,
+                      coord.plus(delta).to_canvas_y() + PIX,
                       "blue",
-                      0.2);
+                      0.3);
         });
     }
-};
+
+    $("#select_status").css("display", (this.select_status != NONE ? "inline" : "none"));
+    $("#dragging").css("display", (this.dragging ? "inline" : "none"));
+    $("#painting").css("display", (this.painting ? "inline" : "none"));
+}

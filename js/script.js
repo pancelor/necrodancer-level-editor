@@ -10,7 +10,7 @@ input_manager.register_listeners(canvas);
 
 function request_sprite(sprite) {
     pubsub.emit("request_sprite", {sprite: sprite});
-};
+}
 
 $('#red').on("click", function() {
     request_sprite($('#red')[0]);

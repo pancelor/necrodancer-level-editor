@@ -20,17 +20,24 @@
   <img id="move_cursor" src="images/move_cursor.png" />
 
   <div id="toolbar">
-    <div id="tools">
+    <!-- <div id="tools">
       <input type="radio" name="tool_select" value="place">Place (depr)</input>
       <input type="radio" name="tool_select" value="select" checked>Select (depr)</input>
       <input type="radio" name="tool_select" value="move">Move (depr)</input>
-    </div>
+    </div> -->
     <div id="sprite_holder">
         <img class="sprite" id="red" src="images/red.png" />
         <img class="sprite" id="blue" src="images/blue.png" />
         <img class="sprite" id="green" src="images/green.png" />
     </div>
   </div>
+
+  <div id="debug">
+    <div id="select_status">selecting</div>
+    <div id="dragging">dragging</div>
+    <div id="painting">painting</div>
+  </div>
+
 <!--   <table id="sprite_holder">
     <tr>
       <td> <img class="sprite" id="red" src="images/red.png" /> </td>
@@ -39,12 +46,14 @@
     </tr>
   </table>
  -->
-  <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
   <script src="js/utils.js"></script>
   <script src="js/pubsub.js"></script>
   <script src="js/coord.js"></script>
+  <script src="js/coord_set.js"></script>
+  <script src="js/coord_set_tests.js"></script>
 
   <script src="js/grid.js"></script>
   <script src="js/input_manager.js"></script>
