@@ -1,7 +1,3 @@
-var NONE = 0;
-var IN_PROGRESS = 1;
-var COMPLETE = 2;
-
 function InputManager(canvas, grid, pubsub, default_sprite) {
     this.canvas = canvas;
     this.grid = grid;
@@ -11,7 +7,7 @@ function InputManager(canvas, grid, pubsub, default_sprite) {
     this.mouse_pos = Coord.from_mouse(canvas, {x: 0, y: 0});
 
     this.selection = new CoordSet();
-    this.select_status = NONE;
+    this.selecting = false;
     // this.select_origin = undefined;
     this.dragging = false;
     // this.drag_origin = undefined;
@@ -40,7 +36,7 @@ InputManager.prototype.mousedown = function(evt) {
             this.drag_origin = coord;
             this.dragging_to_copy = evt.ctrlKey;
         } else {
-            this.select_status = NONE;
+            this.selecting = false;
             this.selection.clear();
 
             this.painting = true;
@@ -52,10 +48,10 @@ InputManager.prototype.mousedown = function(evt) {
         if (!(evt.ctrlKey)) {
             this.selection.clear();
         }
-        this.select_status = IN_PROGRESS;
+        this.selecting = true;
         this.select_origin = coord;
     } else if (evt.button === MOUSE_MIDDLE) {
-        this.select_status = NONE;
+        this.selecting = false;
         this.selection.clear();
 
         this.erasing = true;
@@ -100,7 +96,7 @@ InputManager.prototype.mouseup = function(evt) {
             this.selection = shifted_selection; // TODO: errors when you drag the selection off-grid
         }
     } else if (evt.button === MOUSE_RIGHT) {
-        this.select_status = COMPLETE;
+        this.selecting = false;
         this.add_mouse_selection(this.select_origin,
                                  this.mouse_pos);
     } else if (evt.button === MOUSE_MIDDLE) {
@@ -111,11 +107,11 @@ InputManager.prototype.mouseup = function(evt) {
 InputManager.prototype.mouseout = function(evt) {
     // this.painting = false;
     // this.dragging = false;
-    if (this.select_status === IN_PROGRESS) {
-        this.select_status = COMPLETE;
-        this.add_mouse_selection(this.select_origin,
-                                 this.mouse_pos);
-    }
+    // if (this.selecting) {
+    //     this.selecting = false;
+    //     this.add_mouse_selection(this.select_origin,
+    //                              this.mouse_pos);
+    // }
 }
 
 InputManager.prototype.keydown = function(evt) {
@@ -180,7 +176,7 @@ InputManager.prototype.draw = function(args) {
         console.warn("move tool is unimplemented");
     }
     // in-progress selection
-    if (this.select_status === IN_PROGRESS) {
+    if (this.selecting) {
         draw_rect(ctx,
                   this.select_origin.to_canvas_x(),
                   this.select_origin.to_canvas_y(),
@@ -214,7 +210,7 @@ InputManager.prototype.draw = function(args) {
         });
     }
 
-    $("#select_status").css("display", (this.select_status != NONE ? "inline" : "none"));
+    $("#selecting").css("display", (this.selecting ? "inline" : "none"));
     $("#dragging").css("display", (this.dragging ? "inline" : "none"));
     $("#painting").css("display", (this.painting ? "inline" : "none"));
 }
