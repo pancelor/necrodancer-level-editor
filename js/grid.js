@@ -1,5 +1,5 @@
-function Grid(pubsub, width, height) {
-    this.board = this.init_board(width, height);
+function Grid(pubsub, row_count, col_count) {
+    this.board = this.init_board(row_count, col_count);
 
     pubsub.subscribe("request_paint", this.request_paint.bind(this));
     pubsub.subscribe("request_drag", this.request_drag.bind(this));
@@ -58,10 +58,10 @@ Grid.prototype.height = function() {
     return this.board.length;
 }
 
-Grid.prototype.init_board = function(width, height) {
+Grid.prototype.init_board = function(row_count, col_count) {
     brd = new Array();
-    for (var i = 0; i < height; ++i) {
-        brd.push(new Array(width));
+    for (var i = 0; i < row_count; ++i) {
+        brd.push(new Array(col_count));
     }
     return brd;
 }

@@ -1,16 +1,20 @@
 #main_canvas {
 /*    margin: 10px;
-    padding: 2px;
-*/    background: lightgray;
+    padding: 2px; */
+    background: lightgray;
     border: medium solid gray;
 }
 
-#sprite_holder {
-/*    display: none;
-*/  margin: 5px;
-    padding: 2px;
-    border: 1px solid black;
+/*#sprite_holder img {
+    display: none;
+}
+*/
+#test1 {
+    display: none;
+}
 
+#necrodancer_xml {
+    display: none;
 }
 
 #move_cursor {

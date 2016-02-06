@@ -1,9 +1,9 @@
 var pubsub = new PubSub();
 
 var canvas = $('#main_canvas')[0];
-var grid = new Grid(pubsub,
-                    Math.floor(canvas.width / PIX) - 4,
-                    Math.floor(canvas.height / PIX) - 4);
+
+var sizing_rect = Coord.from_canvas({x: canvas.width, y: canvas.height});
+var grid = new Grid(pubsub, sizing_rect.to_grid_rr(), sizing_rect.to_grid_cc());
 
 var input_manager = new InputManager(canvas, grid, pubsub, $('#red')[0]);
 input_manager.register_listeners(canvas);
@@ -12,7 +12,6 @@ input_manager.register_listeners(canvas);
 function request_sprite(sprite) {
     pubsub.emit("request_sprite", {sprite: sprite});
 }
-
 $('#red').on("click", function() {
     request_sprite($('#red')[0]);
 });

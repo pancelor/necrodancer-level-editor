@@ -17,7 +17,15 @@
     </div>
   </div>
 
-  <img id="move_cursor" src="images/move_cursor.png" />
+  <div id="test0">
+    t0
+    <div id="test1">
+      t1
+      <div id="test2">
+        t2
+      </div>
+    </div>
+  </div>
 
   <div id="toolbar">
     <!-- <div id="tools">
@@ -26,26 +34,24 @@
       <input type="radio" name="tool_select" value="move">Move (depr)</input>
     </div> -->
     <div id="sprite_holder">
-        <img class="sprite" id="red" src="images/red16.png" />
-        <img class="sprite" id="blue" src="images/blue16.png" />
-        <img class="sprite" id="green" src="images/green16.png" />
+        <img class="sprite" id="red" src="old/red16.png" />
+        <img class="sprite" id="blue" src="old/blue16.png" />
+        <img class="sprite" id="green" src="old/green16.png" />
     </div>
   </div>
 
   <p> Interaction mode: <strong id="interact_mode"></strong></p>
 
-<!--   <table id="sprite_holder">
-    <tr>
-      <td> <img class="sprite" id="red" src="images/red.png" /> </td>
-      <td> <img class="sprite" id="blue" src="images/blue.png" /> </td>
-      <td> <img class="sprite" id="green" src="images/green.png" /> </td>
-    </tr>
-  </table>
+  <div id="necrodancer_xml" src="images/test.xml"> ...loading... </div>
+<!--   <object id="test5" src="images/text.xml"><embed src="somepage.pdf"></embed></object>
  -->
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
   <script src="js/utils.js"></script>
+  <script src="js/sprite_loader.js"></script>
   <script src="js/mouse_buttons.js"></script>
   <script src="js/pubsub.js"></script>
   <script src="js/coord.js"></script>

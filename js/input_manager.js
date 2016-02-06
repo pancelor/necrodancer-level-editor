@@ -52,8 +52,8 @@ InputManager.prototype.register_listeners = function(canvas) {
     canvas.addEventListener("mousemove", this.mousemove.bind(this));
     canvas.addEventListener("mouseup", this.mouseup.bind(this));
     canvas.addEventListener("mouseleave", this.mouseleave.bind(this));
-    canvas.addEventListener("keydown", this.keydown.bind(this));
-    canvas.addEventListener("keyup", this.keyup.bind(this));
+    // canvas.addEventListener("keydown", this.keydown.bind(this)); // TODO: fix
+    // canvas.addEventListener("keyup", this.keyup.bind(this));
 }
 
 InputManager.prototype.mousedown = function(evt) {
