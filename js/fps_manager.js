@@ -2,10 +2,11 @@ function FPSManager(canvas, pubsub) {
     this.canvas = canvas;
     this.pubsub = pubsub;
 
-    this.start(); // TODO: don't start until after the sprite_loader finishes
+    pubsub.subscribe("sprites_loaded_from_server", this.sprites_loaded_from_server.bind(this));
+    // this.start(); // TODO: don't start until after the sprite_loader finishes
 }
 
-FPSManager.prototype.start = function() {
+FPSManager.prototype.sprites_loaded_from_server = function() {
     requestAnimationFrame(this.tick.bind(this));
 }
 
@@ -16,11 +17,4 @@ FPSManager.prototype.tick = function() {
     this.pubsub.emit("draw", {ctx: ctx});
 
     requestAnimationFrame(this.tick.bind(this));
-
-
-
-    draw_sprite(ctx, 24, 24, $("#bat")[0]); // TODO: working here
-
-
-
 }

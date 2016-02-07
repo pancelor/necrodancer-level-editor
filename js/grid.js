@@ -1,8 +1,11 @@
 function Grid(pubsub, row_count, col_count) {
     this.board = this.init_board(row_count, col_count);
+    this.history = [];
 
     pubsub.subscribe("request_paint", this.request_paint.bind(this));
     pubsub.subscribe("request_drag", this.request_drag.bind(this));
+    pubsub.subscribe("request_undo", this.request_undo.bind(this));
+    pubsub.subscribe("end_stroke", this.end_stroke.bind(this));
     pubsub.subscribe("draw", this.draw.bind(this));
 }
 
@@ -12,7 +15,30 @@ Grid.prototype.get = function(coord) {
 }
 
 Grid.prototype.set = function(coord, sprite) {
+    var old = this.board[coord.to_grid_rr()][coord.to_grid_cc()];
     this.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
+    if (old != sprite) {
+        var entry = new HistoryEntry(coord, old, sprite);
+        this.history.push(entry);
+    }
+}
+
+Grid.prototype.request_undo = function() {
+    var action_chunks = split_by(grid.history, function(e){return e.is_flag();});
+    var last_action = action_chunks.splice(-1)[0]; // mutates action_chunks as well
+    // last_action is a list of history entries
+
+    action_chunks.push([]);
+    this.history = intersperse(action_chunks, HistoryEntry.flag);
+
+    // console.log(last_action)
+    // console.log(this.history)
+
+    var that = this;
+    _(last_action).eachRight(function(entry){
+        // bypass the .set() method to avoid updating the history
+        that.board[entry.coord.to_grid_rr()][entry.coord.to_grid_cc()] = entry.before;
+    });
 }
 
 Grid.prototype.flood_select = function(coord) {
@@ -69,12 +95,15 @@ Grid.prototype.init_board = function(row_count, col_count) {
 // pubsub:
 
 Grid.prototype.request_paint = function(args) {
-    var coord = args.coord;
+    var coords = args.coords;
     var sprite = args.sprite;
 
-    if (this.inbounds(coord)) {
-        this.set(coord, sprite);
-    }
+    var that = this;
+    coords.forEach(function(crd){
+        if (that.inbounds(crd)) {
+            that.set(crd, sprite);
+        }
+    });
 }
 
 Grid.prototype.request_drag = function(args) {
@@ -101,6 +130,10 @@ Grid.prototype.request_drag = function(args) {
         this.apply_changes(delete_buffer);
     }
     this.apply_changes(write_buffer);
+}
+
+Grid.prototype.end_stroke = function(args) {
+    this.history.push(HistoryEntry.flag);
 }
 
 Grid.prototype.apply_changes = function(changes) {
@@ -135,7 +168,8 @@ Grid.prototype.draw = function(args) {
     for (var rr = 0; rr < this.height(); ++rr) {
         for (var cc = 0; cc < this.width(); ++cc) {
             if (this.board[rr][cc]) {
-                ctx.drawImage(this.board[rr][cc], cc*PIX, rr*PIX);
+                draw_sprite(ctx, this.board[rr][cc], cc*PIX, rr*PIX)
+                // ctx.drawImage(this.board[rr][cc], cc*PIX, rr*PIX);
             }
         }
     }

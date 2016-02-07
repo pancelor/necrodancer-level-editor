@@ -1,9 +1,11 @@
-wait for ajax sprites to load before starting?
-
 choose what to do when you try to drag off-grid... probably just don't let it happen. awkward because now selections have to know about the grid again...
     well they kinda do already... (PIX)
 
-double click on the toolbar = flood fill selection
+flood fill is really slow... some of it is drawing but some is the algorithm
+
+some sprites don't show up as options because they're duplicately named
+
+full history for undoing
 
 ctrl+a
 
@@ -27,3 +29,7 @@ add steam/ND/data/level/ and steam/ND/data/traps/ sprites
 
 low priority:
     interpolate between mouse events so you don't skip (e.g. placing rails in minecraft)
+    add alternate names (e.g. "beetle" for "skeletontank")
+        nvm skeletank is just extra... ugh
+        filter out stuff like this?
+    make select rectangles highlight _the sprite_, not just the square

@@ -1,8 +1,11 @@
 var events = [
-    "request_paint",
+    "sprites_loaded_from_server",
+
+    "request_fill", // buttons -> input_manager
+    "request_paint", // input_manager -> grid
     "request_drag",
-    // "drag_start",
-    // "drag_end",
+    "request_undo",
+    "end_stroke",
     "draw",
     "request_sprite",
 ]

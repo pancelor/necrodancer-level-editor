@@ -1,4 +1,4 @@
-// http://stackoverflow.com/questions/2142535/how-to-clear-the-canvas-for-redrawing
+// http://stackoverflow.com/a/9722502/2281633
 CanvasRenderingContext2D.prototype.clear =
     CanvasRenderingContext2D.prototype.clear || function (preserveTransform) {
         if (preserveTransform) {
@@ -55,25 +55,56 @@ function removeByIndex(array, index){
 
 function bool_to_int(b) {return b ? 1 : 0}
 
-function readSingleFile(evt) {
-    //Retrieve the first (and only!) File from the FileList object
-    var f = evt.target.files[0];
-
-    if (f) {
-        var r = new FileReader();
-        r.onload = function(e) {
-            var contents = e.target.result;
-            alert( "Got the file.n"
-                +"name: " + f.name + "n"
-                +"type: " + f.type + "n"
-                +"size: " + f.size + " bytesn"
-                + "starts with: " + contents.substr(1, contents.indexOf("n"))
-            );
-        }
-        r.readAsText(f);
-    } else {
-        alert("Failed to load file");
-    }
+// http://stackoverflow.com/a/15252131/2281633
+function fuzzy_match(string, target) {
+    var hay = string.toLowerCase(), i = 0, n = -1, l;
+    s = target.toLowerCase();
+    for (; l = s[i++] ;) if (!~(n = hay.indexOf(l, n + 1))) return false;
+    return true;
 }
+
+function chunk_by(collection, predicate) {
+  var chunks = []
+  var prevKey = null
+  var chunkValues = []
+  _(collection).each(function (value) {
+    var key = predicate(value)
+    if (key == prevKey) {
+      chunkValues.push(value)
+    } else {
+      // Guard against init values
+      if (chunkValues.length) {
+        chunks.push([ prevKey, chunkValues ])
+      }
+      prevKey = key
+      chunkValues = [ value ]
+    }
+  });
+  // Push hanging values
+  if (chunkValues.length) {
+    chunks.push([ prevKey, chunkValues ])
+  }
+  return chunks
+}
+
+function split_by(collection, predicate) {
+  return _
+    .chain(chunk_by(collection, predicate))
+    .reject(0)
+    .map(1)
+    .value();
+}
+
+function intersperse(array_of_arrays, sep) {
+    var result = _.chain(_(array_of_arrays).head());
+    _(array_of_arrays).tail().forEach(function(arr){
+        if (sep != undefined) {
+            result = result.concat(sep);
+        }
+        result = result.concat(arr);
+    });
+    return result.value();
+}
+
 
 PIX = 24;

@@ -8,32 +8,20 @@ var grid = new Grid(pubsub, sizing_rect.to_grid_rr(), sizing_rect.to_grid_cc());
 var input_manager = new InputManager(canvas, grid, pubsub, $('#red')[0]);
 input_manager.register_listeners(canvas);
 
-
-function request_sprite(sprite) {
-    pubsub.emit("request_sprite", {sprite: sprite});
-}
-$('#red').on("click", function() {
-    request_sprite($('#red')[0]);
-});
-$('#blue').on("click", function() {
-    request_sprite($('#blue')[0]);
-});
-$('#green').on("click", function() {
-    request_sprite($('#green')[0]);
-});
-
-
 var fps = new FPSManager(canvas, pubsub);
 
-// disable unwanted events
-$('#main_canvas').on('contextmenu', _.constant(false));
-$('#main_canvas').on('dblclick',    _.constant(false));
-$('#main_canvas').on('dragstart',   _.constant(false));
-$('#main_canvas').on('drag',        _.constant(false));
-$('#main_canvas').on('dragend',     _.constant(false));
-$('#main_canvas').on('mousedown', function(evt) {
-    var buttons = new MouseButtons(evt);
-    if (buttons.middle) {
-        return false
-    }
-});
+load_sprites(pubsub);
+
+// $("#sprite_search_bar").on("search", function(evt) {
+//     console.log("search");
+//     console.log(evt);
+// })
+
+$("#sprite_search_bar").on("keyup", function(evt) {
+    var search_string = this.value;
+    var results = _.partition($(".sprite_canvas"), function(spr){
+        return fuzzy_match(spr.id, search_string);
+    });
+    $(results[0]).show();
+    $(results[1]).hide();
+})

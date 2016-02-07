@@ -17,38 +17,34 @@
     </div>
   </div>
 
-  <div id="test0">
-    t0
-    <div id="test1">
-      t1
-      <div id="test2">
-        t2
-      </div>
-    </div>
+  <!-- <div id="toolbar">
+    <input type="radio" name="tool_select" value="place">Place (depr)</input>
+    <input type="radio" name="tool_select" value="select" checked>Select (depr)</input>
+    <input type="radio" name="tool_select" value="move">Move (depr)</input>
+  </div> -->
+  <button id="undo">Undo</button>
+
+  <div id="search">
+    Filter sprites by name:
+    <input id="sprite_search_bar" type="search">
   </div>
 
-  <div id="toolbar">
-    <!-- <div id="tools">
-      <input type="radio" name="tool_select" value="place">Place (depr)</input>
-      <input type="radio" name="tool_select" value="select" checked>Select (depr)</input>
-      <input type="radio" name="tool_select" value="move">Move (depr)</input>
-    </div> -->
-    <div id="sprite_holder">
-        <img class="sprite" id="red" src="old/red16.png" />
-        <img class="sprite" id="blue" src="old/blue16.png" />
-        <img class="sprite" id="green" src="old/green16.png" />
-    </div>
+  <p> DEBUG: Interaction mode: <strong id="interact_mode"></strong></p>
+
+  <div id="sprite_selection_area">
   </div>
 
-  <p> Interaction mode: <strong id="interact_mode"></strong></p>
-
-  <div id="necrodancer_xml" src="images/test.xml"> ...loading... </div>
-<!--   <object id="test5" src="images/text.xml"><embed src="somepage.pdf"></embed></object>
+  <div id="resources">
+      <div id="items"></div>
+      <div id="entities"></div>
+<!--       <div id="traps"></div>
+      <div id="walls"></div>
  -->
-
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.2.1/lodash.min.js"></script>
+  <!-- underscore.js/1.8.3/underscore-min.js" -->
 
   <script src="js/utils.js"></script>
   <script src="js/sprite_loader.js"></script>
@@ -57,6 +53,7 @@
   <script src="js/coord.js"></script>
   <script src="js/coord_set.js"></script>
   <script src="js/coord_set_tests.js"></script>
+  <script src="js/history_entry.js"></script>
 
   <script src="js/grid.js"></script>
   <script src="js/input_manager.js"></script>

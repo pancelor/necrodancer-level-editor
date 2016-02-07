@@ -15,11 +15,11 @@ CoordSet.prototype.size = function(coord) {
 }
 
 CoordSet.prototype.has = function(coord) {
-    return _.any(this.elements, coord.equals, coord);
+    return _.some(this.elements, coord.equals.bind(coord));
 }
 
 CoordSet.prototype.has_by_grid = function(coord) {
-    return _.any(this.elements, coord.equals_by_grid, coord);
+    return _.some(this.elements, coord.equals_by_grid.bind(coord));
 }
 
 CoordSet.prototype.add = function(coord) {
@@ -31,7 +31,7 @@ CoordSet.prototype.add = function(coord) {
 }
 
 CoordSet.prototype.delete = function(coord) {
-    var index = _.findIndex(this.elements, coord.equals, coord);
+    var index = _.findIndex(this.elements, coord.equals.bind(coord));
     if (index != -1) {
         removeByIndex(this.elements, index);
         return true;
@@ -48,16 +48,16 @@ CoordSet.prototype.xor = function(coord) {
 }
 
 CoordSet.prototype.clear = function(coords) {
-    this.delete_all(_.clone(this.elements)); // preserves the object id of this.elements
+    this.delete_all(_.cloneDeep(this.elements)); // preserves the object id of this.elements
 }
 
 CoordSet.prototype.xor_all = function(coords) {
-    _.each(coords, this.xor, this);
+    coords.forEach(this.xor.bind(this));
 }
 
 CoordSet.prototype.delete_all = function(coords) {
-    _.each(coords, this.delete, this);
+    coords.forEach(this.delete.bind(this));
 }
 CoordSet.prototype.add_all = function(coords) {
-    _.each(coords, this.add, this);
+    coords.forEach(this.add.bind(this));
 }

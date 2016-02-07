@@ -43,8 +43,28 @@ function InputManager(canvas, grid, pubsub, default_sprite) {
     // this.select_origin = undefined;
     // this.drag_origin = undefined;
 
-    this.pubsub.subscribe("draw", this.draw.bind(this));
+    this.pubsub.subscribe("sprites_loaded_from_server", this.sprites_loaded_from_server.bind(this));
     this.pubsub.subscribe("request_sprite", this.request_sprite.bind(this));
+    this.pubsub.subscribe("request_fill", this.request_fill.bind(this));
+    this.pubsub.subscribe("draw", this.draw.bind(this));
+
+    // disable unwanted events
+    $(canvas).on('contextmenu', _.constant(false));
+    $(canvas).on('dblclick',    _.constant(false));
+    $(canvas).on('dragstart',   _.constant(false));
+    $(canvas).on('drag',        _.constant(false));
+    $(canvas).on('dragend',     _.constant(false));
+    $(canvas).on('selectstart', _.constant(false));
+    $(canvas).on('mousedown', function(evt) {
+        var buttons = new MouseButtons(evt);
+        if (buttons.middle) {
+            return false
+        }
+    });
+
+    $("button#undo").on("click", function(evt){
+        pubsub.emit("request_undo");
+    });
 }
 
 InputManager.prototype.register_listeners = function(canvas) {
@@ -69,7 +89,7 @@ InputManager.prototype.mousedown = function(evt) {
 
                 this.interact_mode = PAINT;
                 this.pubsub.emit("request_paint", {
-                     coord: coord,
+                     coords: new CoordSet([coord]),
                      sprite: this.sprite
                 });
             }
@@ -84,7 +104,7 @@ InputManager.prototype.mousedown = function(evt) {
 
             this.interact_mode = ERASE;
             this.pubsub.emit("request_paint", {
-                coord: coord,
+                coords: new CoordSet([coord]),
                 sprite: undefined
             });
         } else if (buttons.visual == "101") { // This happens on a right click + double left click, because interact_mode goes NONE -> SELECT -> NONE and then the last left click reaches here
@@ -98,12 +118,12 @@ InputManager.prototype.mousemove = function(evt) {
     this.mouse_pos = coord;
     if (this.interact_mode === PAINT) {
         this.pubsub.emit("request_paint", {
-            coord: coord,
+            coords: new CoordSet([coord]),
             sprite: this.sprite
         });
     } else if (this.interact_mode === ERASE) {
         this.pubsub.emit("request_paint", {
-            coord: coord,
+            coords: new CoordSet([coord]),
             sprite: undefined
         });
     }
@@ -111,13 +131,23 @@ InputManager.prototype.mousemove = function(evt) {
 
 InputManager.prototype.mouseup = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
+
     switch (this.interact_mode) {
     case PAINT:
         this.interact_mode = NONE;
+        this.pubsub.emit("end_stroke");
         break;
     case SELECT:
-        this.add_mouse_selection(this.select_origin,
-                                 this.mouse_pos);
+        var new_selection = this.rect_selection(this.select_origin, this.mouse_pos);
+        if (evt.button === 1) { // middle click was just released
+            this.pubsub.emit("request_paint", {
+                coords: new_selection,
+                sprite: undefined
+            });
+            this.pubsub.emit("end_stroke");
+        } else {
+            this.selection.xor_all(new_selection);
+        }
         this.interact_mode = NONE;
         break;
     case DRAG:
@@ -128,6 +158,7 @@ InputManager.prototype.mouseup = function(evt) {
             copy: this.interact_mode === DRAGCOPY,
             selection: this.selection
         });
+        this.pubsub.emit("end_stroke");
 
         // TODO: redo in one line with _.map when CoordSet s are iterable
         var shifted_selection = new CoordSet();
@@ -140,6 +171,7 @@ InputManager.prototype.mouseup = function(evt) {
         break;
     case ERASE:
         this.interact_mode = NONE;
+        this.pubsub.emit("end_stroke");
         break;
     default:
         console.info("switch fall-through in enum:interact_mode.tostring");
@@ -160,7 +192,9 @@ InputManager.prototype.keyup = function(evt) {
     console.log(evt);
 }
 
-InputManager.prototype.add_mouse_selection = function(coord1, coord2) {
+InputManager.prototype.rect_selection = function(coord1, coord2) {
+    var selection = new CoordSet();
+
     var grid_rr_1 = Math.min(coord1.to_grid_rr(), coord2.to_grid_rr());
     var grid_cc_1 = Math.min(coord1.to_grid_cc(), coord2.to_grid_cc());
     var grid_rr_2 = Math.max(coord1.to_grid_rr(), coord2.to_grid_rr());
@@ -173,11 +207,11 @@ InputManager.prototype.add_mouse_selection = function(coord1, coord2) {
         grid_cc_2 = clamp(0, grid_cc_2, this.grid.width()-1);
         for (var rr = grid_rr_1; rr <= grid_rr_2; ++rr) {
             for (var cc = grid_cc_1; cc <= grid_cc_2; ++cc) {
-                this.selection.xor(Coord.from_grid({rr: rr, cc: cc}));
+                selection.add(Coord.from_grid({rr: rr, cc: cc}));
             }
         }
     }
-    // console.log(this.selection);
+    return selection;
 }
 
 // TODO: deprecated
@@ -187,10 +221,24 @@ InputManager.prototype.current_tool = function() {
 
 // pubsub:
 
+InputManager.prototype.sprites_loaded_from_server = function(args) {
+    // load the paintbrush
+    this.sprite = $(".sprite#skeleton")[0];
+}
+
 InputManager.prototype.request_sprite = function(args) {
     var sprite = args.sprite;
 
     this.sprite = sprite;
+}
+
+InputManager.prototype.request_fill = function(args) {
+    var sprite = args.sprite;
+
+    this.pubsub.emit("request_paint", {
+        coords: this.selection,
+        sprite: sprite
+    });
 }
 
 InputManager.prototype.draw = function(args) {
@@ -244,5 +292,14 @@ InputManager.prototype.draw = function(args) {
         });
     }
 
-    $("#interact_mode").text(interact_mode_to_string(this.interact_mode));
+    // show current selected sprite
+    if (this.interact_mode === PAINT || this.interact_mode === NONE) {
+        draw_sprite(ctx,
+            this.sprite,
+            this.mouse_pos.snap_to_grid().to_canvas_x(),
+            this.mouse_pos.snap_to_grid().to_canvas_y(),
+            0.35);
+
+        $("#interact_mode").text(interact_mode_to_string(this.interact_mode));
+    }
 }
