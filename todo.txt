@@ -1,6 +1,17 @@
 choose what to do when you try to drag off-grid... probably just don't let it happen. awkward because now selections have to know about the grid again...
     well they kinda do already... (PIX)
 
+right-click on active selection = context menu with options to rotate/flip/etc
+
+create app cache
+    http://www.w3schools.com/HTML/html5_app_cache.asp
+
+http://html5-demos.appspot.com/static/a.download.html
+    downloading, including drag-drop
+
+drag icons onto mouse picture to bind mouse buttons
+    http://www.w3schools.com/html/html5_draganddrop.asp
+
 flood fill is really slow... some of it is drawing but some is the algorithm
 
 some sprites don't show up as options because they're duplicately named

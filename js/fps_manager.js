@@ -1,5 +1,4 @@
-function FPSManager(canvas, pubsub) {
-    this.canvas = canvas;
+function FPSManager(pubsub) {
     this.pubsub = pubsub;
 
     pubsub.subscribe("sprites_loaded_from_server", this.sprites_loaded_from_server.bind(this));
@@ -11,7 +10,7 @@ FPSManager.prototype.sprites_loaded_from_server = function() {
 }
 
 FPSManager.prototype.tick = function() {
-    var ctx = canvas.getContext('2d');
+    var ctx = $("#main_canvas")[0].getContext('2d');
 
     ctx.clear();
     this.pubsub.emit("draw", {ctx: ctx});

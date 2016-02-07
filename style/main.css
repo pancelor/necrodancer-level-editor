@@ -6,3 +6,7 @@ canvas {
 #resources {
     display: none;
 }
+
+a#download {
+    display: none;
+}

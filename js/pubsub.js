@@ -9,7 +9,8 @@ var events = [
     "start_stroke",
     "end_stroke",
     "draw",
-    "request_sprite",
+    "select_sprite",
+    "request_download",
 ]
 
 function PubSub() {

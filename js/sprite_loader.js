@@ -9,7 +9,8 @@ function load_sprites(pubsub) {
         var name = _load_sprite_from_xml(
             xml_leaf.getElementsByTagName("spritesheet")[0]
         );
-        insert_sprite_into_DOM("entities", "resources/images/entities", name);
+        var type_code = xml_leaf.getAttribute("id");
+        insert_sprite_into_DOM("entities", "resources/images/entities", name, type_code);
         create_button(name);
     }
 
@@ -18,17 +19,18 @@ function load_sprites(pubsub) {
             xml_leaf,
             "resources/images/items"
         );
-        insert_sprite_into_DOM("items", "resources/images/items", name);
+        insert_sprite_into_DOM("items", "resources/images/items", name, name);
         create_button(name);
     }
 
-    function insert_sprite_into_DOM(type, folder, name) {
+    function insert_sprite_into_DOM(type, folder, name, type_code) {
         // type = items | entities | traps | walls
         $("#resources > #"+type).append(
             "<img class='sprite' " +
                 "id='" + name + "' " +
                 "src='"+folder+"/" + name + ".png' " +
                 "title='" + name + "' " +
+                "data-type-code='" + type_code + "' " +
                 "/>"
         );
     }
@@ -62,7 +64,7 @@ function load_sprites(pubsub) {
 
         var img = $(".sprite#"+name)[0];
         $("#canvas_"+name).on("click", function() {
-            pubsub.emit("request_sprite", {sprite: img});
+            pubsub.emit("select_sprite", {sprite: img});
         });
         $("#canvas_"+name).on("dblclick", function() {
             pubsub.emit("request_fill", {sprite: img});

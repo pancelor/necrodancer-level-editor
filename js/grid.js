@@ -108,6 +108,23 @@ Grid.prototype.init_board = function(row_count, col_count) {
     return brd;
 }
 
+Grid.prototype.to_string = function() {
+    var result = [];
+    for (var rr = 0; rr < this.height(); ++rr) {
+        for (var cc = 0; cc < this.width(); ++cc) {
+            var sprite = this.board[rr][cc];
+            if (sprite) {
+                result.push(
+                    '<TODO x="'+cc+'" '
+                    +'y="'+rr+'" '
+                    +'type="'+sprite.dataset.typeCode+'"></TODO>'
+                );
+            }
+        }
+    }
+    return result.join("");
+}
+
 // pubsub:
 
 Grid.prototype.request_paint = function(args) {
