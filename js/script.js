@@ -11,17 +11,3 @@ input_manager.register_listeners(canvas);
 var fps = new FPSManager(canvas, pubsub);
 
 load_sprites(pubsub);
-
-// $("#sprite_search_bar").on("search", function(evt) {
-//     console.log("search");
-//     console.log(evt);
-// })
-
-$("#sprite_search_bar").on("keyup", function(evt) {
-    var search_string = this.value;
-    var results = _.partition($(".sprite_canvas"), function(spr){
-        return fuzzy_match(spr.id, search_string);
-    });
-    $(results[0]).show();
-    $(results[1]).hide();
-})

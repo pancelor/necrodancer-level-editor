@@ -5,9 +5,9 @@ flood fill is really slow... some of it is drawing but some is the algorithm
 
 some sprites don't show up as options because they're duplicately named
 
-full history for undoing
+think about how to put multiple things on a single grid square. probably have 2 grids- one for tiles, one for entities. And entities definitely need to be able to stack
 
-ctrl+a
+moving can be transparent or non-transparent (checkbox to choose?)
 
 see forums suggestions:
     http://braceyourselfgames.com/forums/viewtopic.php?f=2&t=3068&p=19037&hilit=editor#p19037
@@ -33,3 +33,4 @@ low priority:
         nvm skeletank is just extra... ugh
         filter out stuff like this?
     make select rectangles highlight _the sprite_, not just the square
+    ctrl+a

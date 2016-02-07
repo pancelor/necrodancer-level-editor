@@ -1,10 +1,15 @@
 function Grid(pubsub, row_count, col_count) {
     this.board = this.init_board(row_count, col_count);
-    this.history = [];
+
+    // for undo/redo functionality:
+    this.timeline = {past: [], future: []};
+    this.current_action_buffer = [];
 
     pubsub.subscribe("request_paint", this.request_paint.bind(this));
     pubsub.subscribe("request_drag", this.request_drag.bind(this));
     pubsub.subscribe("request_undo", this.request_undo.bind(this));
+    pubsub.subscribe("request_redo", this.request_redo.bind(this));
+    pubsub.subscribe("start_stroke", this.start_stroke.bind(this));
     pubsub.subscribe("end_stroke", this.end_stroke.bind(this));
     pubsub.subscribe("draw", this.draw.bind(this));
 }
@@ -18,27 +23,38 @@ Grid.prototype.set = function(coord, sprite) {
     var old = this.board[coord.to_grid_rr()][coord.to_grid_cc()];
     this.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
     if (old != sprite) {
-        var entry = new HistoryEntry(coord, old, sprite);
-        this.history.push(entry);
+        this.current_action_buffer.push({
+            coord: coord,
+            before: old,
+            after: sprite
+        });
     }
 }
 
 Grid.prototype.request_undo = function() {
-    var action_chunks = split_by(grid.history, function(e){return e.is_flag();});
-    var last_action = action_chunks.splice(-1)[0]; // mutates action_chunks as well
-    // last_action is a list of history entries
-
-    action_chunks.push([]);
-    this.history = intersperse(action_chunks, HistoryEntry.flag);
-
-    // console.log(last_action)
-    // console.log(this.history)
+    var last_action = this.timeline.past.splice(-1)[0]; // note: this mutates the array as well, splitting off its last element
 
     var that = this;
-    _(last_action).eachRight(function(entry){
-        // bypass the .set() method to avoid updating the history
-        that.board[entry.coord.to_grid_rr()][entry.coord.to_grid_cc()] = entry.before;
-    });
+    if (last_action) {
+        last_action.undo(function(coord, sprite){
+            // bypass that.set() to avoid updating the history
+            that.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
+        });
+        this.timeline.future.unshift(last_action);
+    }
+}
+
+Grid.prototype.request_redo = function() {
+    var next_action = this.timeline.future.splice(0, 1)[0]; // note: this mutates the array as well, splitting off its last element
+
+    var that = this;
+    if (next_action) {
+        next_action.redo(function(coord, sprite){
+            // bypass that.set() to avoid updating the history
+            that.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
+        });
+        this.timeline.past.push(next_action);
+    }
 }
 
 Grid.prototype.flood_select = function(coord) {
@@ -132,8 +148,13 @@ Grid.prototype.request_drag = function(args) {
     this.apply_changes(write_buffer);
 }
 
+Grid.prototype.start_stroke = function(args) {
+    this.timeline.future = [];
+    this.current_action_buffer = [];
+}
+
 Grid.prototype.end_stroke = function(args) {
-    this.history.push(HistoryEntry.flag);
+    this.timeline.past.push(new StrokeRecord(this.current_action_buffer));
 }
 
 Grid.prototype.apply_changes = function(changes) {

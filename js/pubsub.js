@@ -5,6 +5,8 @@ var events = [
     "request_paint", // input_manager -> grid
     "request_drag",
     "request_undo",
+    "request_redo",
+    "start_stroke",
     "end_stroke",
     "draw",
     "request_sprite",
