@@ -6,6 +6,8 @@ right-click on active selection = context menu with options to rotate/flip/etc
 create app cache
     http://www.w3schools.com/HTML/html5_app_cache.asp
 
+add images somewhere so the .io page will work
+
 http://html5-demos.appspot.com/static/a.download.html
     downloading, including drag-drop
 
