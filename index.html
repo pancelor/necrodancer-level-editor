@@ -20,19 +20,25 @@
   <p> DEBUG: Interaction mode: <strong id="interact_mode"></strong></p>
 
   <div id="toolbar">
-    <button id="download">Download Level</button>
     <hr>
     <button id="undo">Undo</button>
     <button id="redo">Redo</button>
-<!--     <hr>
-    <input type="radio" name="tool_select" value="place">Place (depr)</input>
-    <input type="radio" name="tool_select" value="select" checked>Select (depr)</input>
-    <input type="radio" name="tool_select" value="move">Move (depr)</input>
- -->  </div>
+    <br>
+    <button id="cut">Cut</button>
+    <button id="copy">Copy</button>
+    <button id="paste">Paste</button>
+    <hr>
+    <button id="download">Download Level</button>
+    <br>
+    Import Level:
+    <input id="upload" type="file" accept="text/xml">
 
-  <div id="search">
-    Filter sprites by name:
-    <input id='sprite_search_bar' type='search' placeholder='e.g. "skeleton"'>
+    <hr>
+    <div id="search">
+      Filter sprites by name:
+      <input id='sprite_search_bar' type='search' placeholder='e.g. "skeleton"'>
+    </div>
+    <hr>
   </div>
 
   <div id="sprite_selection_area">
@@ -62,7 +68,7 @@
   <script src="js/grid.js"></script>
   <script src="js/input_manager.js"></script>
   <script src="js/fps_manager.js"></script>
-  <script src="js/level_downloader.js"></script>
+  <script src="js/file_io.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

@@ -67,7 +67,7 @@ function load_sprites(pubsub) {
             pubsub.emit("select_sprite", {sprite: img});
         });
         $("#canvas_"+name).on("dblclick", function() {
-            pubsub.emit("request_fill", {sprite: img});
+            pubsub.emit("request_fill_selection_with", {sprite: img});
         });
         var ctx = $("#canvas_"+name)[0].getContext('2d');
         ctx.drawImage(img,

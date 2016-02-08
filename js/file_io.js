@@ -1,3 +1,5 @@
+// Downloading
+
 function download_grid(grid){
     var contents = grid.to_string();
     download_file("lname.xml", contents, "text/xml");
@@ -24,3 +26,20 @@ function download_file(name, contents, mime_type) {
     dlink.remove();
 }
 
+// Uploading
+
+function upload_file(file, callback) {
+    var reader = new FileReader();
+    reader.addEventListener("loadend", function() {
+       callback(file.name, reader.result);
+    });
+    reader.readAsText(file);
+}
+
+function upload_grid(file, grid){
+    upload_file(file, function(name, contents){
+        console.warn("file uploading is unimplemented");
+        console.log(name);
+        console.log(contents);
+    });
+}

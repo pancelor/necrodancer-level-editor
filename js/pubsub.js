@@ -1,16 +1,23 @@
 var events = [
     "sprites_loaded_from_server",
 
-    "request_fill", // buttons -> input_manager
-    "request_paint", // input_manager -> grid
-    "request_drag",
-    "request_undo",
-    "request_redo",
+    "select_sprite",
+
     "start_stroke",
     "end_stroke",
-    "draw",
-    "select_sprite",
+
+    "request_fill_selection_with", // buttons -> input_manager
+    "request_paint", // input_manager -> grid
+    "request_drag",
+
+    "request_undo",
+    "request_redo",
+    "request_cut",
+    "request_copy",
+    "request_paste",
     "request_download",
+
+    "draw",
 ]
 
 function PubSub() {
@@ -19,7 +26,7 @@ function PubSub() {
 
 PubSub.validate_event = function(event) {
     if (!(events.includes(event))) {
-        console.error("bad event: "+event);
+        console.error("unknown event: "+event);
     }
 }
 

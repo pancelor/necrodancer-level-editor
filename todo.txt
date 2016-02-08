@@ -1,15 +1,21 @@
 choose what to do when you try to drag off-grid... probably just don't let it happen. awkward because now selections have to know about the grid again...
     well they kinda do already... (PIX)
 
+double click on selection = fill selection with current sprite
+
 right-click on active selection = context menu with options to rotate/flip/etc
+
+why do I need to refresh once for images to work?
 
 create app cache
     http://www.w3schools.com/HTML/html5_app_cache.asp
+    save levels in here
+        also display notice that they should try downloading a level first to be sure it works (?)
 
 add images somewhere so the .io page will work
-
-http://html5-demos.appspot.com/static/a.download.html
-    downloading, including drag-drop
+    http://stackoverflow.com/questions/14494747/add-images-to-readme-md-on-github
+    apparently just push them on the gh-pages branch???:
+        http://www.mopsled.com/2012/hosting-screenshots-on-github/
 
 drag icons onto mouse picture to bind mouse buttons
     http://www.w3schools.com/html/html5_draganddrop.asp
@@ -32,13 +38,6 @@ old suggestions about mcedit features:
 implement dragging as lifting all grid elems up into a new "grid" that you then drag around, and it gets pasted back down when you unclick
 
     maybe implement grid as coord_map (set:map::coord_set:coord_map)
-
-add listeners for:
-    oncopy
-    oncut
-    onpaste
-
-add steam/ND/data/level/ and steam/ND/data/traps/ sprites
 
 low priority:
     interpolate between mouse events so you don't skip (e.g. placing rails in minecraft)

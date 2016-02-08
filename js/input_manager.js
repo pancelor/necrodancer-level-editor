@@ -35,9 +35,10 @@ const ACTION_PAINT_OR_DRAG    = 20429901; // bound to LMB by default
 const ACTION_SELECT           = 20429902; // bound to RMB by default
 const ACTION_ERASE            = 20429903; // bound to MMB by default
 const ACTION_FLOOD_FILL       = 20429904; // bound to R+LMB by default
-// var MOVE_VIEW       = 20429905;
-// var EDIT_SPRITE_PROPERTIES       = 20429906;
-// var STACK_PAINT       = 20429907;
+// var ACTION_MOVE_VIEW       = 20429905;
+// var ACTION_EDIT_SPRITE_PROPERTIES       = 20429906;
+// var ACTION_STACK_PAINT       = 20429907;
+// var ACTION_SELECT_ALL_SIMILAR       = 20429908;
 
 function InputManager(canvas, grid, pubsub) {
     this.canvas = canvas;
@@ -54,15 +55,18 @@ function InputManager(canvas, grid, pubsub) {
 
     pubsub.subscribe("sprites_loaded_from_server", this.sprites_loaded_from_server.bind(this));
     pubsub.subscribe("select_sprite", this.select_sprite.bind(this));
-    pubsub.subscribe("request_fill", this.request_fill.bind(this));
+    pubsub.subscribe("request_fill_selection_with", this.request_fill_selection_with.bind(this));
     pubsub.subscribe("draw", this.draw.bind(this));
+    pubsub.subscribe("request_cut", this.request_cut.bind(this));
+    pubsub.subscribe("request_copy", this.request_copy.bind(this));
+    pubsub.subscribe("request_paste", this.request_paste.bind(this));
 
-    canvas.addEventListener("mousedown", this.mousedown.bind(this));
-    canvas.addEventListener("mousemove", this.mousemove.bind(this));
-    canvas.addEventListener("mouseup", this.mouseup.bind(this));
-    canvas.addEventListener("mouseleave", this.mouseleave.bind(this));
-    // canvas.addEventListener("keydown", this.keydown.bind(this)); // TODO: fix
-    // canvas.addEventListener("keyup", this.keyup.bind(this));
+    $(canvas).on("mousedown", this.mousedown.bind(this));
+    $(canvas).on("mousemove", this.mousemove.bind(this));
+    $(canvas).on("mouseup", this.mouseup.bind(this));
+    $(canvas).on("mouseleave", this.mouseleave.bind(this));
+    $(document).on("keydown", this.keydown.bind(this)); // TODO: fix
+    $(canvas).on('wheel', this.wheel.bind(this));
 
     // misc input events:
         // disable unwanted events
@@ -74,7 +78,7 @@ function InputManager(canvas, grid, pubsub) {
         $(canvas).on('selectstart', _.constant(false));
         $(canvas).on('mousedown', function(evt) {
             var buttons = new MouseButtons(evt);
-            if (buttons.middle) {
+            if (buttons.middle) { // disable middle-click-to-scroll
                 return false
             }
         });
@@ -83,12 +87,29 @@ function InputManager(canvas, grid, pubsub) {
             download_grid(grid);
         });
 
+        $("input#upload").on("change", function(evt){
+            var file = evt.target.files[0];
+            upload_grid(file, grid);
+        });
+
         $("button#undo").on("click", function(evt){
             pubsub.emit("request_undo");
         });
 
         $("button#redo").on("click", function(evt){
             pubsub.emit("request_redo");
+        });
+
+        $("button#cut").on("click", function(evt){
+            pubsub.emit("request_cut");
+        });
+
+        $("button#copy").on("click", function(evt){
+            pubsub.emit("request_copy");
+        });
+
+        $("button#paste").on("click", function(evt){
+            pubsub.emit("request_paste");
         });
 
         $("#sprite_search_bar").on("input", function(evt) {
@@ -148,14 +169,24 @@ InputManager.prototype.begin_mouse_action = function(mode, coord, modifier) {
         this.select_origin = coord;
         break;
     case ACTION_ERASE:
-        this.selection.clear();
+        if (this.selection && this.selection.has_by_grid(coord)) {
+            this.pubsub.emit("start_stroke");
+            this.pubsub.emit("request_paint", {
+                coords: this.selection,
+                sprite: undefined
+            });
+            this.pubsub.emit("end_stroke");
 
-        this.interact_mode = ERASE;
-        this.pubsub.emit("start_stroke");
-        this.pubsub.emit("request_paint", {
-            coords: new CoordSet([coord]),
-            sprite: undefined
-        });
+        } else {
+            this.selection.clear();
+
+            this.interact_mode = ERASE;
+            this.pubsub.emit("start_stroke");
+            this.pubsub.emit("request_paint", {
+                coords: new CoordSet([coord]),
+                sprite: undefined
+            });
+        }
         break;
     case ACTION_FLOOD_FILL:
         this.selection = this.grid.flood_select(coord.snap_to_grid());
@@ -191,16 +222,16 @@ InputManager.prototype.mouseup = function(evt) {
         break;
     case SELECT:
         var new_selection = this.rect_selection(this.select_origin, this.mouse_pos);
-        if (evt.button === 1) { // middle click was just released
-            this.pubsub.emit("start_stroke");
-            this.pubsub.emit("request_paint", {
-                coords: new_selection,
-                sprite: undefined
-            });
-            this.pubsub.emit("end_stroke");
-        } else {
+        // if (evt.button === 1) { // middle click was just released
+        //     this.pubsub.emit("start_stroke");
+        //     this.pubsub.emit("request_paint", {
+        //         coords: new_selection,
+        //         sprite: undefined
+        //     });
+        //     this.pubsub.emit("end_stroke");
+        // } else {
             this.selection.xor_all(new_selection);
-        }
+        // }
         this.interact_mode = NONE;
         break;
     case DRAG:
@@ -233,18 +264,39 @@ InputManager.prototype.mouseup = function(evt) {
 }
 
 InputManager.prototype.mouseleave = function(evt) {
-    // this.interact_mode = NONE;
-    // this.pubsub.emit("end_stroke");
+    this.mouse_pos = Coord.from_grid({rr: -1, cc: -1});
+    this.interact_mode = NONE;
+    this.pubsub.emit("end_stroke");
 }
 
 InputManager.prototype.keydown = function(evt) {
-    console.log("keydown:");
-    console.log(evt);
+    const Z_KEYCODE = 90;
+    const Y_KEYCODE = 89;
+    const X_KEYCODE = 88;
+    const V_KEYCODE = 86;
+    const C_KEYCODE = 67;
+
+    // var evt = window.event? event : evt
+    if (evt.ctrlKey) {
+        if (evt.keyCode == Z_KEYCODE && evt.shiftKey || evt.keyCode == Y_KEYCODE) {
+            this.pubsub.emit("request_redo");
+        } else if (evt.keyCode == Z_KEYCODE && !evt.shiftKey) {
+            this.pubsub.emit("request_undo");
+        } else if (evt.keyCode == X_KEYCODE) {
+            this.pubsub.emit("request_cut");
+        } else if (evt.keyCode == C_KEYCODE) {
+            this.pubsub.emit("request_copy");
+        } else if (evt.keyCode == V_KEYCODE) {
+            this.pubsub.emit("request_paste");
+        }
+    }
 }
 
-InputManager.prototype.keyup = function(evt) {
-    console.log("keyup:");
-    console.log(evt);
+InputManager.prototype.wheel = function(evt) {
+    // evt.preventDefault();
+    console.warn("No behavior currently bound to mouse wheel");
+    var dir = Math.sign(evt.originalEvent.wheelDeltaY);
+    console.log(dir);
 }
 
 InputManager.prototype.rect_selection = function(coord1, coord2) {
@@ -256,10 +308,10 @@ InputManager.prototype.rect_selection = function(coord1, coord2) {
     var grid_cc_2 = Math.max(coord1.to_grid_cc(), coord2.to_grid_cc());
 
     if (this.grid.inbounds(Coord.from_grid({rr: grid_rr_1, cc: grid_cc_1}))) {
-        grid_rr_1 = clamp(0, grid_rr_1, this.grid.height()-1);
-        grid_cc_1 = clamp(0, grid_cc_1, this.grid.width()-1);
-        grid_rr_2 = clamp(0, grid_rr_2, this.grid.height()-1);
-        grid_cc_2 = clamp(0, grid_cc_2, this.grid.width()-1);
+        grid_rr_1 = clamp(0, grid_rr_1, this.grid.height() - 1);
+        grid_cc_1 = clamp(0, grid_cc_1, this.grid.width()  - 1);
+        grid_rr_2 = clamp(0, grid_rr_2, this.grid.height() - 1);
+        grid_cc_2 = clamp(0, grid_cc_2, this.grid.width()  - 1);
         for (var rr = grid_rr_1; rr <= grid_rr_2; ++rr) {
             for (var cc = grid_cc_1; cc <= grid_cc_2; ++cc) {
                 selection.add(Coord.from_grid({rr: rr, cc: cc}));
@@ -267,11 +319,6 @@ InputManager.prototype.rect_selection = function(coord1, coord2) {
         }
     }
     return selection;
-}
-
-// TODO: deprecated
-InputManager.prototype.current_tool = function() {
-    return $("input[name=tool_select]:checked").val();
 }
 
 // pubsub:
@@ -287,7 +334,7 @@ InputManager.prototype.select_sprite = function(args) {
     this.sprite = sprite;
 }
 
-InputManager.prototype.request_fill = function(args) {
+InputManager.prototype.request_fill_selection_with = function(args) {
     var sprite = args.sprite;
 
     this.pubsub.emit("request_paint", {
@@ -296,21 +343,18 @@ InputManager.prototype.request_fill = function(args) {
     });
 }
 
+InputManager.prototype.request_cut = function(args) {
+    console.warn("cut is unimplemented");
+}
+InputManager.prototype.request_copy = function(args) {
+    console.warn("copy is unimplemented");
+}
+InputManager.prototype.request_paste = function(args) {
+    console.warn("paste is unimplemented");
+}
+
 InputManager.prototype.draw = function(args) {
     var ctx = args.ctx;
-
-    // switch (this.current_tool()) {
-    // case "place":
-    //     draw_centered(ctx, this.sprite, this.mouse_pos.to_canvas());
-    //     break;
-    // case "select":
-    //     break;
-    // case "move":
-    //     draw_centered(ctx, $("img#move_cursor")[0], this.mouse_pos.to_canvas());
-    //     break;
-    // default:
-    //     console.error("switch fall-through");
-    // }
 
     // in-progress selection
     if (this.interact_mode === SELECT) {
