@@ -1,7 +1,7 @@
 function FPSManager(pubsub) {
     this.pubsub = pubsub;
 
-    pubsub.subscribe("sprites_loaded_from_server", this.sprites_loaded_from_server.bind(this));
+    pubsub.on("sprites_loaded_from_server", this.sprites_loaded_from_server.bind(this));
     // this.start(); // TODO: don't start until after the sprite_loader finishes
 }
 

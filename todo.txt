@@ -3,6 +3,8 @@ choose what to do when you try to drag off-grid... probably just don't let it ha
 
 double click on selection = fill selection with current sprite
 
+get rid of eraser tool? maybe keep it in the UI but it's just painting with undefined...
+
 right-click on active selection = context menu with options to rotate/flip/etc
 
 why do I need to refresh once for images to work?

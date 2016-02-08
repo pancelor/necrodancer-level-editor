@@ -5,13 +5,13 @@ function Grid(pubsub, row_count, col_count) {
     this.timeline = {past: [], future: []};
     this.current_action_buffer = [];
 
-    pubsub.subscribe("request_paint", this.request_paint.bind(this));
-    pubsub.subscribe("request_drag", this.request_drag.bind(this));
-    pubsub.subscribe("request_undo", this.request_undo.bind(this));
-    pubsub.subscribe("request_redo", this.request_redo.bind(this));
-    pubsub.subscribe("start_stroke", this.start_stroke.bind(this));
-    pubsub.subscribe("end_stroke", this.end_stroke.bind(this));
-    pubsub.subscribe("draw", this.draw.bind(this));
+    pubsub.on("request_paint", this.request_paint.bind(this));
+    pubsub.on("request_drag", this.request_drag.bind(this));
+    pubsub.on("request_undo", this.request_undo.bind(this));
+    pubsub.on("request_redo", this.request_redo.bind(this));
+    pubsub.on("start_stroke", this.start_stroke.bind(this));
+    pubsub.on("end_stroke", this.end_stroke.bind(this));
+    pubsub.on("draw", this.draw.bind(this));
 }
 
 // TODO: bounds checking? none on set() ...
@@ -205,10 +205,8 @@ Grid.prototype.draw = function(args) {
     // sprites
     for (var rr = 0; rr < this.height(); ++rr) {
         for (var cc = 0; cc < this.width(); ++cc) {
-            if (this.board[rr][cc]) {
-                draw_sprite(ctx, this.board[rr][cc], cc*PIX, rr*PIX)
-                // ctx.drawImage(this.board[rr][cc], cc*PIX, rr*PIX);
-            }
+            var coord = Coord.from_grid({rr: rr, cc: cc});
+            draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y())
         }
     }
 }

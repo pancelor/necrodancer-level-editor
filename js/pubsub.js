@@ -25,14 +25,15 @@ function PubSub() {
 }
 
 PubSub.validate_event = function(event) {
-    if (!(events.includes(event))) {
+    if (!_(events).includes(event)) {
         console.error("unknown event: "+event);
     }
 }
 
-PubSub.prototype.subscribe = function(event, action) {
+PubSub.prototype.on = function(event, action) {
     PubSub.validate_event(event);
-    // initialize if no one else is subbed to this channel yet
+
+    // initialize subscriber list if no one else is subbed to this channel yet
     if (!this.dispatch_table[event]) {
         this.dispatch_table[event] = [];
     }

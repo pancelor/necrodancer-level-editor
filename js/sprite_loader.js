@@ -9,9 +9,9 @@ function load_sprites(pubsub) {
         var name = _load_sprite_from_xml(
             xml_leaf.getElementsByTagName("spritesheet")[0]
         );
-        var type_code = xml_leaf.getAttribute("id");
-        insert_sprite_into_DOM("entities", "resources/images/entities", name, type_code);
-        create_button(name);
+        var type_code = xml_leaf.getAttribute("id"); // e.g. warlocks are id #319 in the necrodancer.exe level editor
+        var img = insert_sprite_into_DOM("entities", "resources/images/entities", name, type_code);
+        create_sprite_selector(img, $("#sprite_palette > details > div#entities"));
     }
 
     function load_item(xml_leaf) {
@@ -19,20 +19,23 @@ function load_sprites(pubsub) {
             xml_leaf,
             "resources/images/items"
         );
-        insert_sprite_into_DOM("items", "resources/images/items", name, name);
-        create_button(name);
+        var img = insert_sprite_into_DOM("items", "resources/images/items", name, name);
+        create_sprite_selector(img, $("#sprite_palette > details > div#items"));
     }
 
     function insert_sprite_into_DOM(type, folder, name, type_code) {
-        // type = items | entities | traps | walls
-        $("#resources > #"+type).append(
-            "<img class='sprite' " +
-                "id='" + name + "' " +
-                "src='"+folder+"/" + name + ".png' " +
-                "title='" + name + "' " +
-                "data-type-code='" + type_code + "' " +
-                "/>"
-        );
+        // type_code = items | entities | traps | walls
+
+        var img = $("<img/>", {
+            class: 'sprite',
+            id: name,
+            src: folder + "/" + name + ".png",
+            title: name,
+            "data-type-code": type_code
+        })[0];
+        $("#resources > #"+type).append(img);
+
+        return img;
     }
 
     function _load_sprite_from_xml(xml_leaf) {
@@ -53,26 +56,50 @@ function load_sprites(pubsub) {
         return name;
     }
 
-    function create_button(name) {
+    function create_sprite_selector(img, jq_DOM_location) {
+        var name = img.id;
         var sdata = sprite_table.get(name);
-        $("#sprite_selection_area").append(
-            "<canvas class='sprite_holder' "+
-                     "id='canvas_"+name+"' " +
-                     "width="+sdata.width+" "+
-                     "height="+sdata.height+"></canvas>"
-        );
 
-        var img = $(".sprite#"+name)[0];
-        $("#canvas_"+name).on("click", function() {
+        var canvas_button = $("<canvas/>", {
+            class: 'sprite_holder',
+            id: 'canvas_' + name,
+        })[0]
+        canvas_button.width  = sdata.width; // can't initialize these earlier b/c jquery would think it's css instead of attributes
+        canvas_button.height = sdata.height;
+
+        jq_DOM_location.append(canvas_button);
+
+        $(canvas_button).on("click", function() {
             pubsub.emit("select_sprite", {sprite: img});
-        });
-        $("#canvas_"+name).on("dblclick", function() {
+        }).on("dblclick", function() {
             pubsub.emit("request_fill_selection_with", {sprite: img});
         });
-        var ctx = $("#canvas_"+name)[0].getContext('2d');
-        ctx.drawImage(img,
-                      0, 0, sdata.width, sdata.height,
-                      0, 0, sdata.width, sdata.height);
+
+        canvas_button.getContext('2d').drawImage(img,
+            0, 0, sdata.width, sdata.height,
+            0, 0, sdata.width, sdata.height);
+    }
+
+    function load_eraser_palette_entry(){
+        var name = "eraser";
+        var sdata = {width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT};
+        var img = undefined;
+        var jq_DOM_location = $("#sprite_palette > details > div#eraser");
+
+        var canvas_button = $("<canvas/>", {
+            class: 'sprite_holder',
+            id: 'canvas_' + name,
+        })[0]
+        canvas_button.width  = sdata.width; // can't initialize these earlier b/c jquery would think it's css instead of attributes
+        canvas_button.height = sdata.height;
+
+        jq_DOM_location.append(canvas_button);
+
+        $("#canvas_"+name).on("click", function() {
+            pubsub.emit("select_sprite", {sprite: img});
+        }).on("dblclick", function() {
+            pubsub.emit("request_fill_selection_with", {sprite: img});
+        });
     }
 
     $.get("resources/necrodancer.xml", function(xml) {
@@ -80,26 +107,29 @@ function load_sprites(pubsub) {
         var entities = xml.getElementsByTagName("enemies")[0];
         _.each(items.children, load_item);
         _.each(entities.children, load_entity);
+        load_eraser_palette_entry();
 
         pubsub.emit("sprites_loaded_from_server");
     });
 }
 
 function draw_sprite(ctx, img, x, y, alpha) {
-    var sdata = sprite_table.get(img.id);
-    if (alpha) {
-        var old_alpha = ctx.globalAlpha;
-        ctx.globalAlpha = alpha;
-    }
+    if (img) {
+        var sdata = sprite_table.get(img.id);
+        if (alpha) {
+            var old_alpha = ctx.globalAlpha;
+            ctx.globalAlpha = alpha;
+        }
 
-    ctx.drawImage(img,
-                  0, 0,
-                  sdata.width, sdata.height,
-                  x + sdata.dx, y + sdata.dy,
-                  sdata.width, sdata.height);
+        ctx.drawImage(img,
+                      0, 0,
+                      sdata.width, sdata.height,
+                      x + sdata.dx, y + sdata.dy,
+                      sdata.width, sdata.height);
 
-    // cleanup
-    if (alpha) {
-        ctx.globalAlpha = old_alpha;
+        // cleanup
+        if (alpha) {
+            ctx.globalAlpha = old_alpha;
+        }
     }
 }

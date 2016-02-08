@@ -14,12 +14,23 @@
       <canvas id="main_canvas" width="640" height="480">
       Your browser does not support HTML5 Canvas, so this application cannot run.
       </canvas>
+      <!-- <canvas id="favorites" width="72" height="480"> -->
     </div>
   </div>
 
   <p> DEBUG: Interaction mode: <strong id="interact_mode"></strong></p>
 
   <div id="toolbar">
+    <hr>
+    <div>
+      Middle-Click tool:
+      <input type="radio" name="MMB-tool" value="PAINT">Paint</input>
+      <input type="radio" name="MMB-tool" value="ERASE" checked>Erase</input>
+      <input type="radio" name="MMB-tool" value="SELECT">Select</input>
+      <input type="radio" name="MMB-tool" value="FLOOD_SELECT">Flood Select</input>
+      <input type="radio" name="MMB-tool" value="EYE_DROPPER">Eye Dropper</input>
+      <input type="radio" name="MMB-tool" value="MENU">Context Menu</input>
+    </div>
     <hr>
     <button id="undo">Undo</button>
     <button id="redo">Redo</button>
@@ -41,7 +52,10 @@
     <hr>
   </div>
 
-  <div id="sprite_selection_area">
+  <div id="sprite_palette">
+    <details open> <summary>Eraser</summary> <div id="eraser"></div> </details>
+    <details open> <summary>Items</summary> <div id="items"></div> </details>
+    <details open> <summary>Entities</summary> <div id="entities"></div> </details>
   </div>
 
   <div id="resources">

@@ -3,6 +3,11 @@ canvas {
     border: medium solid gray;
 }
 
+canvas.sprite_holder {
+    background: #a06228;
+    border: medium solid #171b1e;
+}
+
 #resources {
     display: none;
 }
