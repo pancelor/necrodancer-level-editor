@@ -25,6 +25,8 @@ function draw_centered(ctx, image, pos) {
 function fill_rect(ctx, x1, y1, x2, y2, color, alpha) {
     var width = x2 - x1;
     var height = y2 - y1;
+
+    // prep
     if (alpha) {
         var old_alpha = ctx.globalAlpha;
         ctx.globalAlpha = alpha;
@@ -34,6 +36,7 @@ function fill_rect(ctx, x1, y1, x2, y2, color, alpha) {
         ctx.fillStyle = color;
     }
 
+    // draw
     ctx.fillRect(x1, y1, width, height);
 
     // cleanup

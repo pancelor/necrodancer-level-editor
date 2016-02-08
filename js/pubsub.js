@@ -45,9 +45,7 @@ PubSub.prototype.emit = function(event, data) {
     PubSub.validate_event(event);
 
     var actions = this.dispatch_table[event];
-    if (actions) {
-        _.each(actions, function(action) {
-            action(data);
-        });
-    }
+    _(actions).each(function(axn) {
+        axn(data);
+    });
 }
