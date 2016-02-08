@@ -18,9 +18,18 @@
     </div>
   </div>
 
+  <!--
   <p> DEBUG: Interaction mode: <strong id="interact_mode"></strong></p>
+  -->
 
   <div id="toolbar">
+    <hr>
+    <button id="undo">Undo</button>
+    <button id="redo">Redo</button>
+    <br>
+    <button id="cut">Cut</button>
+    <button id="copy">Copy</button>
+    <button id="paste">Paste</button>
     <hr>
     <div>
       Middle-Click tool:
@@ -32,27 +41,18 @@
       <input type="radio" name="MMB-tool" value="MENU">Context Menu</input>
     </div>
     <hr>
-    <button id="undo">Undo</button>
-    <button id="redo">Redo</button>
-    <br>
-    <button id="cut">Cut</button>
-    <button id="copy">Copy</button>
-    <button id="paste">Paste</button>
-    <hr>
     <button id="download">Download Level</button>
     <br>
     Import Level:
     <input id="upload" type="file" accept="text/xml">
-
-    <hr>
-    <div id="search">
-      Filter sprites by name:
-      <input id='sprite_search_bar' type='search' placeholder='e.g. "skeleton"'>
-    </div>
     <hr>
   </div>
 
   <div id="sprite_palette">
+    <div id="search">
+      Filter sprites by name:
+      <input id='sprite_search_bar' type='search' placeholder='e.g. "skeleton"'>
+    </div>
     <details open> <summary>Eraser</summary> <div id="eraser"></div> </details>
     <details open> <summary>Items</summary> <div id="items"></div> </details>
     <details open> <summary>Entities</summary> <div id="entities"></div> </details>
@@ -77,7 +77,7 @@
   <script src="js/coord.js"></script>
   <script src="js/coord_set.js"></script>
   <script src="js/coord_set_tests.js"></script>
-  <script src="js/user_action_record.js"></script>
+  <script src="js/stroke_record.js"></script>
 
   <script src="js/grid.js"></script>
   <script src="js/input_manager.js"></script>

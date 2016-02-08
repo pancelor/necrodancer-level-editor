@@ -10,8 +10,10 @@ function load_sprites(pubsub) {
             xml_leaf.getElementsByTagName("spritesheet")[0]
         );
         var type_code = xml_leaf.getAttribute("id"); // e.g. warlocks are id #319 in the necrodancer.exe level editor
-        var img = insert_sprite_into_DOM("entities", "resources/images/entities", name, type_code);
-        create_sprite_selector(img, $("#sprite_palette > details > div#entities"));
+        if (type_code) { // If there's no type code, it's impossible to put into a level (e.g. it's a boss)
+            var img = insert_sprite_into_DOM("entities", "resources/images/entities", name, type_code);
+            create_sprite_selector(img, $("#sprite_palette > details > div#entities"));
+        }
     }
 
     function load_item(xml_leaf) {
@@ -24,7 +26,7 @@ function load_sprites(pubsub) {
     }
 
     function insert_sprite_into_DOM(type, folder, name, type_code) {
-        // type_code = items | entities | traps | walls
+        // type = items | entities | traps | walls
 
         var img = $("<img/>", {
             class: 'sprite',

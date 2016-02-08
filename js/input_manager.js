@@ -1,33 +1,11 @@
 // an enum; values taken on by this.interact_mode
-const NONE     = 10429900;
-const PAINT    = 10429901;
-const SELECT   = 10429902;
-const DRAG     = 10429903;
-const DRAGCOPY = 10429904;
-const ERASE    = 10429905;
-function interact_mode_to_string(mode) {
-    switch(mode) {
-    case NONE:
-        return "NONE";
-        break;
-    case PAINT:
-        return "PAINT";
-        break;
-    case SELECT:
-        return "SELECT";
-        break;
-    case DRAG:
-        return "DRAG";
-        break;
-    case DRAGCOPY:
-        return "DRAGCOPY";
-        break;
-    case ERASE:
-        return "ERASE";
-        break;
-    default:
-        console.error("switch fall-through in enum:interact_mode.tostring");
-    }
+const IMODE = {
+    NONE:     "IMODE_NONE",
+    PAINT:    "IMODE_PAINT",
+    SELECT:   "IMODE_SELECT",
+    DRAG:     "IMODE_DRAG",
+    DRAGCOPY: "IMODE_DRAGCOPY",
+    ERASE:    "IMODE_ERASE"
 }
 
 function InputManager(canvas, grid, pubsub) {
@@ -39,7 +17,7 @@ function InputManager(canvas, grid, pubsub) {
     this.mouse_pos = Coord.from_mouse(canvas, {x: 0, y: 0});
 
     this.selection = new CoordSet();
-    this.interact_mode = NONE;
+    this.interact_mode = IMODE.NONE;
     this.select_origin = undefined;
     this.drag_origin = undefined;
 
@@ -113,37 +91,39 @@ function InputManager(canvas, grid, pubsub) {
 }
 
 // an enum of possible user mouse interactions
-const ACTION_PAINT_OR_DRAG    = 20429901; // bound to LMB by default
-const ACTION_SELECT           = 20429903; // bound to RMB by default
-const ACTION_ERASE            = 20429904; // bound to MMB by default
-const ACTION_FLOOD_SELECT     = 20429905; // bound to R+LMB by default
-const ACTION_EYE_DROPPER      = 20429906;
-const ACTION_MENU             = 20429907;
-// var ACTION_MOVE_VIEW       = 20429908;
-// var ACTION_EDIT_SPRITE_PROPERTIES       = 20429909;
-// var ACTION_STACK_PAINT       = 20429910;
-// var ACTION_SELECT_ALL_SIMILAR       = 20429911;
+const ACTION = {
+    PAINT_OR_DRAG: "PAINT_OR_DRAG", // bound to LMB by default
+    SELECT:        "SELECT",        // bound to RMB by default
+    ERASE:         "ERASE",         // bound to MMB by default
+    FLOOD_SELECT:  "FLOOD_SELECT",  // bound to R+LMB by default
+    EYE_DROPPER:   "EYE_DROPPER",
+    MENU:          "MENU"
+    // ACTION_MOVE_VIEW: "ACTION_MOVE_VIEW",
+    // ACTION_EDIT_SPRITE_PROPERTIES: "ACTION_EDIT_SPRITE_PROPERTIES",
+    // ACTION_STACK_PAINT: "ACTION_STACK_PAINT",
+    // ACTION_SELECT_ALL_SIMILAR: "ACTION_SELECT_ALL_SIMILAR",
+}
 
 InputManager.prototype.get_current_MMB_tool = function() {
     var selected = $("input[name=MMB-tool]:checked").val();
     switch (selected) {
     case "PAINT":
-        return ACTION_PAINT_OR_DRAG;
+        return ACTION.PAINT_OR_DRAG;
         break;
     case "ERASE":
-        return ACTION_ERASE;
+        return ACTION.ERASE;
         break;
     case "SELECT":
-        return ACTION_SELECT;
+        return ACTION.SELECT;
         break;
     case "FLOOD_SELECT":
-        return ACTION_FLOOD_SELECT;
+        return ACTION.FLOOD_SELECT;
         break;
     case "EYE_DROPPER":
-        return ACTION_EYE_DROPPER;
+        return ACTION.EYE_DROPPER;
         break;
     case "MENU":
-        return ACTION_MENU;
+        return ACTION.MENU;
         break;
     default:
         console.error("switch fall-through");
@@ -156,23 +136,23 @@ InputManager.prototype.mousedown = function(evt) {
     var coord_in_selection = this.selection && this.selection.has_by_grid(coord);
 
     var action_code;
-    if (this.interact_mode === NONE) {
+    if (this.interact_mode === IMODE.NONE) {
         switch ((new MouseButtons(evt)).visual) {
         case "100":
-            action_code = ACTION_PAINT_OR_DRAG;
+            action_code = ACTION.PAINT_OR_DRAG;
             break;
         case "001":
             if (coord_in_selection && this.selection.size() == 1) {
-                action_code = ACTION_MENU;
+                action_code = ACTION.MENU;
             } else {
-                action_code = ACTION_SELECT;
+                action_code = ACTION.SELECT;
             }
             break;
         case "010":
             action_code = this.get_current_MMB_tool();
             break;
-        case "101": // This happens on a right click + double left click, because interact_mode goes NONE -> SELECT -> NONE and then the last left click reaches here
-            action_code = ACTION_FLOOD_SELECT;
+        case "101": // This happens on a right click + double left click, because interact_mode goes IMODE.NONE -> IMODE.SELECT -> IMODE.NONE and then the last left click reaches here
+            action_code = ACTION.FLOOD_SELECT;
             break;
         }
 
@@ -183,14 +163,14 @@ InputManager.prototype.mousedown = function(evt) {
 InputManager.prototype.begin_mouse_action = function(mode, coord, coord_in_selection, modifier) {
     // modifier is whether the ctrl key is pressed
     switch(mode) {
-    case ACTION_PAINT_OR_DRAG:
+    case ACTION.PAINT_OR_DRAG:
         if (coord_in_selection) {
-            this.interact_mode = modifier ? DRAGCOPY : DRAG;
+            this.interact_mode = modifier ? IMODE.DRAGCOPY : IMODE.DRAG;
             this.drag_origin = coord;
         } else {
             this.selection.clear();
 
-            this.interact_mode = PAINT;
+            this.interact_mode = IMODE.PAINT;
             this.pubsub.emit("start_stroke");
             this.pubsub.emit("request_paint", {
                  coords: new CoordSet([coord]),
@@ -198,14 +178,14 @@ InputManager.prototype.begin_mouse_action = function(mode, coord, coord_in_selec
             });
         }
         break;
-    case ACTION_SELECT:
+    case ACTION.SELECT:
         if (!modifier) {
             this.selection.clear();
         }
-        this.interact_mode = SELECT;
+        this.interact_mode = IMODE.SELECT;
         this.select_origin = coord;
         break;
-    case ACTION_ERASE:
+    case ACTION.ERASE:
         // if (coord_in_selection) {
         //     this.pubsub.emit("start_stroke");
         //     this.pubsub.emit("request_paint", {
@@ -216,7 +196,7 @@ InputManager.prototype.begin_mouse_action = function(mode, coord, coord_in_selec
         // } else {
             this.selection.clear();
 
-            this.interact_mode = ERASE;
+            this.interact_mode = IMODE.ERASE;
             this.pubsub.emit("start_stroke");
             this.pubsub.emit("request_paint", {
                 coords: new CoordSet([coord]),
@@ -224,15 +204,15 @@ InputManager.prototype.begin_mouse_action = function(mode, coord, coord_in_selec
             });
         // }
         break;
-    case ACTION_FLOOD_SELECT:
+    case ACTION.FLOOD_SELECT:
         this.selection = this.grid.flood_select(coord.snap_to_grid());
         break;
-    case ACTION_EYE_DROPPER:
+    case ACTION.EYE_DROPPER:
         this.pubsub.emit("select_sprite", {
            sprite: this.grid.get(coord)
         });
         break;
-    case ACTION_MENU:
+    case ACTION.MENU:
         console.warn("context menu is not implemented")
         $(this.canvas).contextmenu();
         break;
@@ -244,12 +224,12 @@ InputManager.prototype.begin_mouse_action = function(mode, coord, coord_in_selec
 InputManager.prototype.mousemove = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
     this.mouse_pos = coord;
-    if (this.interact_mode === PAINT) {
+    if (this.interact_mode === IMODE.PAINT) {
         this.pubsub.emit("request_paint", {
             coords: new CoordSet([coord]),
             sprite: this.sprite
         });
-    } else if (this.interact_mode === ERASE) {
+    } else if (this.interact_mode === IMODE.ERASE) {
         this.pubsub.emit("request_paint", {
             coords: new CoordSet([coord]),
             sprite: undefined
@@ -261,22 +241,22 @@ InputManager.prototype.mouseup = function(evt) {
     var coord = Coord.from_mouse(this.canvas, evt);
 
     switch (this.interact_mode) {
-    case PAINT:
-        this.interact_mode = NONE;
+    case IMODE.PAINT:
+        this.interact_mode = IMODE.NONE;
         this.pubsub.emit("end_stroke");
         break;
-    case SELECT:
+    case IMODE.SELECT:
         this.selection.xor_all(this.rect_selection(this.select_origin, this.mouse_pos));
-        this.interact_mode = NONE;
+        this.interact_mode = IMODE.NONE;
         break;
-    case DRAG:
-    case DRAGCOPY:
+    case IMODE.DRAG:
+    case IMODE.DRAGCOPY:
         var delta = coord.snap_to_grid().minus(this.drag_origin.snap_to_grid());
         this.pubsub.emit("start_stroke");
         this.pubsub.emit("request_drag", {
             selection: this.selection,
             delta: delta,
-            copy: this.interact_mode === DRAGCOPY
+            copy: this.interact_mode === IMODE.DRAGCOPY
         });
         this.pubsub.emit("end_stroke");
 
@@ -287,10 +267,10 @@ InputManager.prototype.mouseup = function(evt) {
         });
         this.selection = shifted_selection; // TODO: errors when you drag the selection off-grid
 
-        this.interact_mode = NONE;
+        this.interact_mode = IMODE.NONE;
         break;
-    case ERASE:
-        this.interact_mode = NONE;
+    case IMODE.ERASE:
+        this.interact_mode = IMODE.NONE;
         this.pubsub.emit("end_stroke");
         break;
     default:
@@ -300,13 +280,11 @@ InputManager.prototype.mouseup = function(evt) {
 
 InputManager.prototype.mouseleave = function(evt) {
     this.mouse_pos = Coord.from_grid({rr: -1, cc: -1});
-    this.interact_mode = NONE;
+    this.interact_mode = IMODE.NONE;
     this.pubsub.emit("end_stroke");
 }
 
 InputManager.prototype.keydown = function(evt) {
-    console.log(evt.keyCode)
-
     const KEYCODE = {
         BACKSPACE: 8,
         DELETE: 46,
@@ -410,7 +388,7 @@ InputManager.prototype.draw = function(args) {
     var ctx = args.ctx;
 
     // in-progress selection
-    if (this.interact_mode === SELECT) {
+    if (this.interact_mode === IMODE.SELECT) {
         fill_rect(ctx,
                   this.select_origin.to_canvas_x(),
                   this.select_origin.to_canvas_y(),
@@ -431,7 +409,7 @@ InputManager.prototype.draw = function(args) {
     });
     // dragging select rect
     // TODO: this won't display the actual contents moving... kinda lame
-    if (this.interact_mode === DRAG || this.interact_mode === DRAGCOPY) {
+    if (this.interact_mode === IMODE.DRAG || this.interact_mode === IMODE.DRAGCOPY) {
         var delta = this.mouse_pos.snap_to_grid().minus(this.drag_origin.snap_to_grid());
         this.selection.forEach(function (coord) {
             fill_rect(ctx,
@@ -445,7 +423,7 @@ InputManager.prototype.draw = function(args) {
     }
 
     // show current selected sprite
-    if (this.interact_mode === PAINT || this.interact_mode === NONE) {
+    if (this.interact_mode === IMODE.PAINT || this.interact_mode === IMODE.NONE) {
         draw_sprite(ctx,
             this.sprite,
             this.mouse_pos.snap_to_grid().to_canvas_x(),
@@ -454,5 +432,5 @@ InputManager.prototype.draw = function(args) {
 
     }
 
-    $("#interact_mode").text(interact_mode_to_string(this.interact_mode)); // DEBUG
+    $("#interact_mode").text(this.interact_mode); // DEBUG
 }

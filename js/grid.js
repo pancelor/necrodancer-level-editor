@@ -1,9 +1,10 @@
 function Grid(pubsub, row_count, col_count) {
+    this.pos =
     this.board = this.init_board(row_count, col_count);
 
     // for undo/redo functionality:
-    this.timeline = {past: [], future: []};
-    this.current_action_buffer = [];
+    this.timeline = {past: [], future: []}; // each holds a list of StrokeRecords
+    this.current_action_buffer = []; // holds {coord:, before:, after:} objects
 
     pubsub.on("request_paint", this.request_paint.bind(this));
     pubsub.on("request_drag", this.request_drag.bind(this));
@@ -14,7 +15,6 @@ function Grid(pubsub, row_count, col_count) {
     pubsub.on("draw", this.draw.bind(this));
 }
 
-// TODO: bounds checking? none on set() ...
 Grid.prototype.get = function(coord) {
     return this.board[coord.to_grid_rr()][coord.to_grid_cc()];
 }
@@ -108,7 +108,8 @@ Grid.prototype.init_board = function(row_count, col_count) {
     return brd;
 }
 
-Grid.prototype.to_string = function() {
+Grid.prototype.to_xml = function() {
+    // TODO: this is just proof-of-concept for now
     var result = [];
     for (var rr = 0; rr < this.height(); ++rr) {
         for (var cc = 0; cc < this.width(); ++cc) {
@@ -184,8 +185,26 @@ Grid.prototype.apply_changes = function(changes) {
 Grid.prototype.draw = function(args) {
     var ctx = args.ctx;
 
+    this.draw_gridlines(ctx);
+
+    // sprites
+    for (var rr = 0; rr < this.height(); ++rr) {
+        for (var cc = 0; cc < this.width(); ++cc) {
+            var coord = Coord.from_grid({rr: rr, cc: cc});
+            draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y())
+        }
+    }
+}
+
+Grid.prototype.draw_gridlines = function(ctx) {
+    // prep
+    var old_line_width = ctx.lineWidth;
     ctx.lineWidth = 1;
+
+    var old_line_dash = ctx.getLineDash();
     ctx.setLineDash([4, 4]);
+
+    //draw
 
     // vertical lines
     for (var rr = 0; rr <= this.height(); ++rr) {
@@ -202,11 +221,8 @@ Grid.prototype.draw = function(args) {
         ctx.lineTo(cc*PIX, PIX*this.height());
         ctx.stroke();
     }
-    // sprites
-    for (var rr = 0; rr < this.height(); ++rr) {
-        for (var cc = 0; cc < this.width(); ++cc) {
-            var coord = Coord.from_grid({rr: rr, cc: cc});
-            draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y())
-        }
-    }
+
+    // cleanup
+    ctx.lineWidth = old_line_width;
+    ctx.setLineDash(old_line_dash);
 }

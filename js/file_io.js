@@ -1,7 +1,7 @@
 // Downloading
 
 function download_grid(grid){
-    var contents = grid.to_string();
+    var contents = grid.to_xml();
     download_file("lname.xml", contents, "text/xml");
 }
 
