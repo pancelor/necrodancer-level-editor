@@ -1,24 +1,28 @@
 // don't call this constructor directly pls...
-function Coord(canvas_pos) {
+function Coord(grid, canvas_pos) {
+    this.grid = grid;
     this.canvas_pos = canvas_pos;
 }
 
 // ...use these three instead
-Coord.from_mouse = function(canvas, evt) {
+Coord.from_mouse = function(canvas, grid, evt) {
     var rect = canvas.getBoundingClientRect();
     var canvas_pos = {
         x: Math.round(evt.clientX - rect.left),
         y: Math.round(evt.clientY - rect.top)
     };
-    return new Coord(canvas_pos);
+    return new Coord(grid, canvas_pos);
 }
 
 Coord.from_canvas = function(pos) {
-    return new Coord({x: pos.x, y: pos.y});
+    return new Coord(undefined, {x: pos.x, y: pos.y});
 }
 
-Coord.from_grid = function(pos) {
-    return new Coord({x: pos.cc*PIX, y: pos.rr*PIX});
+Coord.from_grid = function(grid, pos) {
+    return new Coord(grid, {
+        x: pos.cc*grid.PIX + grid.embed_pos.x,
+        y: pos.rr*grid.PIX + grid.embed_pos.y
+    });
 }
 
 
@@ -28,12 +32,15 @@ Coord.prototype.to_canvas = function() {
 }
 
 Coord.prototype.to_grid = function() {
-    return {cc: Math.floor(this.canvas_pos.x / PIX),
-            rr: Math.floor(this.canvas_pos.y / PIX)};
+    if (!this.grid) {
+        console.error("coord.grid is undefined")
+    }
+    return {cc: Math.floor((this.canvas_pos.x - this.grid.embed_pos.x) / this.grid.PIX),
+            rr: Math.floor((this.canvas_pos.y - this.grid.embed_pos.y) / this.grid.PIX)};
 }
 
-Coord.prototype.snap_to_grid = function() {
-    return Coord.from_grid(this.to_grid());
+Coord.prototype.snap_to_grid = function(grid) {
+    return Coord.from_grid(grid ? grid : this.grid, this.to_grid());
 }
 
 
@@ -58,17 +65,27 @@ Coord.prototype.to_grid_cc = function() {
 // other:
 
 Coord.prototype.minus = function(other) {
-    return Coord.from_canvas({
-        x: this.to_canvas_x() - other.to_canvas_x(),
-        y: this.to_canvas_y() - other.to_canvas_y()
-    })
+    if (this.grid !== other.grid) {
+        console.error("mismatched grids");
+    }
+    var coord = Coord.from_canvas({
+        x: this.to_canvas_x() - other.to_canvas_x() + this.grid.embed_pos.x,
+        y: this.to_canvas_y() - other.to_canvas_y() + this.grid.embed_pos.y
+    });
+    coord.grid = this.grid;
+    return coord;
 }
 
 Coord.prototype.plus = function(other) {
-    return Coord.from_canvas({
-        x: this.to_canvas_x() + other.to_canvas_x(),
-        y: this.to_canvas_y() + other.to_canvas_y()
-    })
+    if (this.grid !== other.grid) {
+        console.error("mismatched grids");
+    }
+    var coord = Coord.from_canvas({
+        x: this.to_canvas_x() + other.to_canvas_x() - this.grid.embed_pos.x,
+        y: this.to_canvas_y() + other.to_canvas_y() - this.grid.embed_pos.y
+    });
+    coord.grid = this.grid;
+    return coord;
 }
 
 Coord.prototype.equals = function(other) {

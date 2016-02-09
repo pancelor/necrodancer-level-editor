@@ -11,6 +11,11 @@ console.log("CoordSet test suite has started");
     var a2 = Coord.from_canvas({x: 10, y: 20});
     var b = Coord.from_canvas({x: 20, y: 10});
 
+    var grid = {PIX: 32, embed_pos: {x: 0, y: 0}};
+    a1.grid = grid;
+    a2.grid = grid;
+    b.grid = grid;
+
     console.assert(a1.equals(a1));
     console.assert(a1.equals(a2));
     console.assert(!a1.equals(b));

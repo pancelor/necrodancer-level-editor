@@ -2,7 +2,7 @@
 
 function download_grid(grid){
     var contents = grid.to_xml();
-    download_file("lname.xml", contents, "text/xml");
+    download_file($('input[name=level_name]').val(), contents, "text/xml");
 }
 
 // adapted from http://html5-demos.appspot.com/static/a.download.html

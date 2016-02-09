@@ -74,7 +74,7 @@ function load_sprites(pubsub) {
         $(canvas_button).on("click", function() {
             pubsub.emit("select_sprite", {sprite: img});
         }).on("dblclick", function() {
-            pubsub.emit("request_fill_selection_with", {sprite: img});
+            pubsub.emit("request_fill_selection", {sprite: img});
         });
 
         canvas_button.getContext('2d').drawImage(img,
@@ -100,7 +100,7 @@ function load_sprites(pubsub) {
         $("#canvas_"+name).on("click", function() {
             pubsub.emit("select_sprite", {sprite: img});
         }).on("dblclick", function() {
-            pubsub.emit("request_fill_selection_with", {sprite: img});
+            pubsub.emit("request_fill_selection", {sprite: img});
         });
     }
 

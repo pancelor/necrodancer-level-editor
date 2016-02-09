@@ -14,7 +14,7 @@ function InputManager(canvas, grid, pubsub) {
     this.pubsub = pubsub;
 
     this.sprite = undefined;
-    this.mouse_pos = Coord.from_mouse(canvas, {x: 0, y: 0});
+    this.mouse_pos = Coord.from_mouse(canvas, grid, {x: 0, y: 0}); // TODO: undefined ?
 
     this.selection = new CoordSet();
     this.interact_mode = IMODE.NONE;
@@ -23,7 +23,7 @@ function InputManager(canvas, grid, pubsub) {
 
     pubsub.on("sprites_loaded_from_server", this.sprites_loaded_from_server.bind(this));
     pubsub.on("select_sprite", this.select_sprite.bind(this));
-    pubsub.on("request_fill_selection_with", this.request_fill_selection_with.bind(this));
+    pubsub.on("request_fill_selection", this.request_fill_selection.bind(this));
     pubsub.on("draw", this.draw.bind(this));
     pubsub.on("request_cut", this.request_cut.bind(this));
     pubsub.on("request_copy", this.request_copy.bind(this));
@@ -132,7 +132,7 @@ InputManager.prototype.get_current_MMB_tool = function() {
 }
 
 InputManager.prototype.mousedown = function(evt) {
-    var coord = Coord.from_mouse(this.canvas, evt);
+    var coord = Coord.from_mouse(this.canvas, this.grid, evt);
     var coord_in_selection = this.selection && this.selection.has_by_grid(coord);
 
     var action_code;
@@ -222,7 +222,7 @@ InputManager.prototype.begin_mouse_action = function(action_mode, coord, coord_i
 }
 
 InputManager.prototype.mousemove = function(evt) {
-    var coord = Coord.from_mouse(this.canvas, evt);
+    var coord = Coord.from_mouse(this.canvas, this.grid, evt);
     this.mouse_pos = coord;
     if (this.interact_mode === IMODE.PAINT) {
         this.pubsub.emit("request_paint", {
@@ -238,7 +238,7 @@ InputManager.prototype.mousemove = function(evt) {
 }
 
 InputManager.prototype.mouseup = function(evt) {
-    var coord = Coord.from_mouse(this.canvas, evt);
+    var coord = Coord.from_mouse(this.canvas, this.grid, evt);
 
     switch (this.interact_mode) {
     case IMODE.PAINT:
@@ -279,9 +279,9 @@ InputManager.prototype.mouseup = function(evt) {
 }
 
 InputManager.prototype.mouseleave = function(evt) {
-    this.mouse_pos = Coord.from_grid({rr: -1, cc: -1});
-    this.interact_mode = IMODE.NONE;
     this.pubsub.emit("end_stroke");
+    this.interact_mode = IMODE.NONE;
+    this.mouse_pos = Coord.from_mouse(this.canvas, this.grid, {x: -100, y: -100});
 }
 
 InputManager.prototype.keydown = function(evt) {
@@ -338,14 +338,14 @@ InputManager.prototype.rect_selection = function(coord1, coord2) {
     var grid_rr_2 = Math.max(coord1.to_grid_rr(), coord2.to_grid_rr());
     var grid_cc_2 = Math.max(coord1.to_grid_cc(), coord2.to_grid_cc());
 
-    if (this.grid.inbounds(Coord.from_grid({rr: grid_rr_1, cc: grid_cc_1}))) {
+    if (this.grid.inbounds(Coord.from_grid(this.grid, {rr: grid_rr_1, cc: grid_cc_1}))) {
         grid_rr_1 = clamp(0, grid_rr_1, this.grid.height() - 1);
         grid_cc_1 = clamp(0, grid_cc_1, this.grid.width()  - 1);
         grid_rr_2 = clamp(0, grid_rr_2, this.grid.height() - 1);
         grid_cc_2 = clamp(0, grid_cc_2, this.grid.width()  - 1);
         for (var rr = grid_rr_1; rr <= grid_rr_2; ++rr) {
             for (var cc = grid_cc_1; cc <= grid_cc_2; ++cc) {
-                selection.add(Coord.from_grid({rr: rr, cc: cc}));
+                selection.add(Coord.from_grid(this.grid, {rr: rr, cc: cc}));
             }
         }
     }
@@ -355,7 +355,7 @@ InputManager.prototype.rect_selection = function(coord1, coord2) {
 // pubsub:
 
 InputManager.prototype.sprites_loaded_from_server = function(args) {
-    // load the paintbrush
+    // load the paintbrush with a default
     this.sprite = $(".sprite#skeleton")[0];
 }
 
@@ -365,21 +365,25 @@ InputManager.prototype.select_sprite = function(args) {
     this.sprite = sprite;
 }
 
-InputManager.prototype.request_fill_selection_with = function(args) {
+InputManager.prototype.request_fill_selection = function(args) {
     var sprite = args.sprite;
 
+    this.pubsub.emit("start_stroke");
     this.pubsub.emit("request_paint", {
         coords: this.selection,
         sprite: sprite
     });
+    this.pubsub.emit("end_stroke");
 }
 
 InputManager.prototype.request_cut = function(args) {
     console.warn("cut is unimplemented");
 }
+
 InputManager.prototype.request_copy = function(args) {
     console.warn("copy is unimplemented");
 }
+
 InputManager.prototype.request_paste = function(args) {
     console.warn("paste is unimplemented");
 }
@@ -402,8 +406,8 @@ InputManager.prototype.draw = function(args) {
         fill_rect(ctx,
                   coord.to_canvas_x(),
                   coord.to_canvas_y(),
-                  coord.to_canvas_x() + PIX,
-                  coord.to_canvas_y() + PIX,
+                  coord.to_canvas_x() + this.grid.PIX,
+                  coord.to_canvas_y() + this.grid.PIX,
                   "blue",
                   0.5);
     });
@@ -415,8 +419,8 @@ InputManager.prototype.draw = function(args) {
             fill_rect(ctx,
                       coord.plus(delta).to_canvas_x(),
                       coord.plus(delta).to_canvas_y(),
-                      coord.plus(delta).to_canvas_x() + PIX,
-                      coord.plus(delta).to_canvas_y() + PIX,
+                      coord.plus(delta).to_canvas_x() + this.grid.PIX,
+                      coord.plus(delta).to_canvas_y() + this.grid.PIX,
                       "blue",
                       0.25);
         });
@@ -425,11 +429,10 @@ InputManager.prototype.draw = function(args) {
     // show current selected sprite
     if (this.interact_mode === IMODE.PAINT || this.interact_mode === IMODE.NONE) {
         draw_sprite(ctx,
-            this.sprite,
-            this.mouse_pos.snap_to_grid().to_canvas_x(),
-            this.mouse_pos.snap_to_grid().to_canvas_y(),
-            0.35);
-
+                    this.sprite,
+                    this.mouse_pos.snap_to_grid().to_canvas_x(),
+                    this.mouse_pos.snap_to_grid().to_canvas_y(),
+                    0.35);
     }
 
     $("#interact_mode").text(this.interact_mode); // DEBUG

@@ -1,5 +1,12 @@
-function Grid(pubsub, row_count, col_count) {
-    this.pos =
+function Grid(pubsub, width, height) {
+    // set up position data, then use it to determine how big to make the internal array representation
+    this.PIX = 24;
+    this.embed_pos = {x: 5, y: 8};
+
+    var sizing_rectangle = Coord.from_canvas({x: width, y: height});
+    sizing_rectangle.grid = this;
+    var row_count = sizing_rectangle.to_grid_rr();
+    var col_count = sizing_rectangle.to_grid_cc();
     this.board = this.init_board(row_count, col_count);
 
     // for undo/redo functionality:
@@ -61,19 +68,20 @@ Grid.prototype.flood_select = function(coord) {
     var selection = new CoordSet();
     var sprite = this.get(coord);
     var DIRECTIONS = [
-        Coord.from_grid({rr: 0, cc: 1}),
-        Coord.from_grid({rr: -1, cc: 0}),
-        Coord.from_grid({rr: 0, cc: -1}),
-        Coord.from_grid({rr: 1, cc: 0}),
+        Coord.from_grid(coord.grid, {rr: 0, cc: 1}),
+        Coord.from_grid(coord.grid, {rr: -1, cc: 0}),
+        Coord.from_grid(coord.grid, {rr: 0, cc: -1}),
+        Coord.from_grid(coord.grid, {rr: 1, cc: 0}),
     ];
 
     var queue = [coord];
     var that = this;
     while (queue.length != 0) {
+        // console.log(queue.length)
         var current = queue.pop();
         selection.add(current);
 
-        DIRECTIONS.forEach(function(dir) {
+        _(DIRECTIONS).each(function(dir) {
             var next = current.plus(dir);
             if (!selection.has(next)
                     && that.inbounds(next)
@@ -177,7 +185,7 @@ Grid.prototype.end_stroke = function(args) {
 
 Grid.prototype.apply_changes = function(changes) {
     var that = this;
-    _.each(changes, function(args) {
+    _(changes).each(function(args) {
         that.set(args.coord, args.sprite);
     });
 }
@@ -185,44 +193,45 @@ Grid.prototype.apply_changes = function(changes) {
 Grid.prototype.draw = function(args) {
     var ctx = args.ctx;
 
-    this.draw_gridlines(ctx);
+    // draw grid lines
+        // prep
+        var old_line_width = ctx.lineWidth;
+        ctx.lineWidth = 1;
 
-    // sprites
+        var old_line_dash = ctx.getLineDash();
+        ctx.setLineDash([4, 4]);
+
+        //draw
+
+        // vertical lines
+        for (var rr = 0; rr <= this.height(); ++rr) {
+            this.draw_line(ctx,
+                           0, rr*this.PIX,
+                           this.PIX*this.width(), rr*this.PIX);
+        }
+        // horizonal lines
+        for (var cc = 0; cc <= this.width(); ++cc) {
+            this.draw_line(ctx,
+                           cc*this.PIX, 0,
+                           cc*this.PIX, this.PIX*this.height());
+        }
+
+        // cleanup
+        ctx.lineWidth = old_line_width;
+        ctx.setLineDash(old_line_dash);
+
+    // draw sprites
     for (var rr = 0; rr < this.height(); ++rr) {
         for (var cc = 0; cc < this.width(); ++cc) {
-            var coord = Coord.from_grid({rr: rr, cc: cc});
+            var coord = Coord.from_grid(this, {rr: rr, cc: cc});
             draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y())
         }
     }
 }
 
-Grid.prototype.draw_gridlines = function(ctx) {
-    // prep
-    var old_line_width = ctx.lineWidth;
-    ctx.lineWidth = 1;
-
-    var old_line_dash = ctx.getLineDash();
-    ctx.setLineDash([4, 4]);
-
-    //draw
-
-    // vertical lines
-    for (var rr = 0; rr <= this.height(); ++rr) {
-        ctx.beginPath();
-        ctx.moveTo(0, rr*PIX);
-        ctx.lineTo(PIX*this.width(), rr*PIX);
-        ctx.stroke();
-    }
-    // horizonal lines
-    for (var cc = 0; cc <= this.width(); ++cc) {
-
-        ctx.beginPath();
-        ctx.moveTo(cc*PIX, 0);
-        ctx.lineTo(cc*PIX, PIX*this.height());
-        ctx.stroke();
-    }
-
-    // cleanup
-    ctx.lineWidth = old_line_width;
-    ctx.setLineDash(old_line_dash);
+Grid.prototype.draw_line = function(ctx, x1, y1, x2, y2) {
+    ctx.beginPath();
+    ctx.moveTo(x1 + this.embed_pos.x, y1 + this.embed_pos.y);
+    ctx.lineTo(x2 + this.embed_pos.x, y2 + this.embed_pos.y);
+    ctx.stroke();
 }

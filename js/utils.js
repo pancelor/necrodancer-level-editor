@@ -1,5 +1,3 @@
-PIX = 24;
-
 // http://stackoverflow.com/a/9722502/2281633
 CanvasRenderingContext2D.prototype.clear =
     CanvasRenderingContext2D.prototype.clear || function (preserveTransform) {

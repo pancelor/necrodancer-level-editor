@@ -2,8 +2,7 @@
     var pubsub = new PubSub();
     var canvas = $('#main_canvas')[0];
 
-    var sizing_rect = Coord.from_canvas({x: canvas.width, y: canvas.height});
-    var grid = new Grid(pubsub, sizing_rect.to_grid_rr(), sizing_rect.to_grid_cc());
+    var grid = new Grid(pubsub, canvas.width, canvas.height);
 
     var input_manager = new InputManager(canvas, grid, pubsub);
     var fps = new FPSManager(pubsub);

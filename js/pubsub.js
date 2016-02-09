@@ -6,7 +6,7 @@ var events = [
     "start_stroke",
     "end_stroke",
 
-    "request_fill_selection_with", // buttons -> input_manager
+    "request_fill_selection", // buttons -> input_manager
     "request_paint", // input_manager -> grid
     "request_drag",
 
