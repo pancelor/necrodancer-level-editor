@@ -5,9 +5,9 @@ function Grid(pubsub, width, height) {
 
     var sizing_rectangle = Coord.from_canvas({x: width, y: height});
     sizing_rectangle.grid = this;
-    var row_count = sizing_rectangle.to_grid_rr();
-    var col_count = sizing_rectangle.to_grid_cc();
-    this.board = this.init_board(row_count, col_count);
+    this.row_count = sizing_rectangle.to_grid_rr();
+    this.col_count = sizing_rectangle.to_grid_cc();
+    this.store = new CoordMap();
 
     // for undo/redo functionality:
     this.timeline = {past: [], future: []}; // each holds a list of StrokeRecords
@@ -23,13 +23,13 @@ function Grid(pubsub, width, height) {
 }
 
 Grid.prototype.get = function(coord) {
-    return this.board[coord.to_grid_rr()][coord.to_grid_cc()];
+    return this.store.get(coord.snap_to_grid());
 }
 
 Grid.prototype.set = function(coord, sprite) {
-    var old = this.board[coord.to_grid_rr()][coord.to_grid_cc()];
-    this.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
-    if (old != sprite) {
+    var old = this.get(coord);
+    this.store.push(coord.snap_to_grid(), sprite);
+    if (old !== sprite) {
         this.current_action_buffer.push({
             coord: coord,
             before: old,
@@ -101,19 +101,11 @@ Grid.prototype.inbounds = function(coord) {
 }
 
 Grid.prototype.width = function() {
-    return this.board[0].length;
+    return this.col_count;
 }
 
 Grid.prototype.height = function() {
-    return this.board.length;
-}
-
-Grid.prototype.init_board = function(row_count, col_count) {
-    brd = new Array();
-    for (var i = 0; i < row_count; ++i) {
-        brd.push(new Array(col_count));
-    }
-    return brd;
+    return this.row_count;
 }
 
 Grid.prototype.to_xml = function() {
@@ -221,12 +213,9 @@ Grid.prototype.draw = function(args) {
         ctx.setLineDash(old_line_dash);
 
     // draw sprites
-    for (var rr = 0; rr < this.height(); ++rr) {
-        for (var cc = 0; cc < this.width(); ++cc) {
-            var coord = Coord.from_grid(this, {rr: rr, cc: cc});
-            draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y())
-        }
-    }
+    this.store.forEachPair(function(coord, sprite) {
+        draw_sprite(ctx, sprite, coord.to_canvas_x(), coord.to_canvas_y())
+    });
 }
 
 Grid.prototype.draw_line = function(ctx, x1, y1, x2, y2) {

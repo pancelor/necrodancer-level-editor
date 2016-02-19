@@ -1,11 +1,11 @@
 function CoordSet(coords) {
-    this.elements = new Array();
+    this.elements = [];
     if (coords) {
         this.add_all(coords);
     }
 }
 
-// TODO: figure out the iterable interface instead so I can use _.each(coord_set, fxn)
+// TODO: figure out the iterable interface instead so I can use _(coord_set).each(fxn)
 CoordSet.prototype.forEach = function(fxn, this_arg) {
     this.elements.forEach(fxn);
 }
