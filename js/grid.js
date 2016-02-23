@@ -13,10 +13,6 @@ function Grid(pubsub, timeline, width, height) {
 
     pubsub.on("request_paint", this.request_paint.bind(this));
     pubsub.on("request_drag", this.request_drag.bind(this));
-    pubsub.on("request_undo", this.request_undo.bind(this));
-    pubsub.on("request_redo", this.request_redo.bind(this));
-    pubsub.on("start_stroke", this.start_stroke.bind(this));
-    pubsub.on("end_stroke", this.end_stroke.bind(this));
     pubsub.on("draw", this.draw.bind(this));
 }
 
@@ -26,40 +22,19 @@ Grid.prototype.get = function(coord) {
 
 Grid.prototype.set = function(coord, sprite) {
     var old = this.get(coord);
-    this.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
+    this.raw_set(coord, sprite);
     if (old !== sprite) {
         this.timeline.current_action_buffer.push({
             coord: coord,
+            grid: this,
             before: old,
             after: sprite
         });
     }
 }
 
-Grid.prototype.request_undo = function() {
-    var last_action = this.timeline.past.splice(-1)[0]; // note: this mutates the array as well, splitting off its last element
-
-    if (last_action) {
-        var that = this;
-        last_action.undo(function(coord, sprite){
-            // bypass that.set() to avoid updating the history
-            that.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
-        });
-        this.timeline.future.unshift(last_action);
-    }
-}
-
-Grid.prototype.request_redo = function() {
-    var next_action = this.timeline.future.splice(0, 1)[0]; // note: this mutates the array as well, splitting off its last element
-
-    if (next_action) {
-        var that = this;
-        next_action.redo(function(coord, sprite){
-            // bypass that.set() to avoid updating the history
-            that.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
-        });
-        this.timeline.past.push(next_action);
-    }
+Grid.prototype.raw_set = function(coord, sprite) {
+    this.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
 }
 
 Grid.prototype.flood_select = function(coord) {
@@ -170,18 +145,6 @@ Grid.prototype.request_drag = function(args) {
         this.apply_changes(delete_buffer);
     }
     this.apply_changes(write_buffer);
-}
-
-Grid.prototype.start_stroke = function(args) {
-    this.timeline.future = [];
-    this.timeline.current_action_buffer = [];
-}
-
-Grid.prototype.end_stroke = function(args) {
-    if (this.timeline.current_action_buffer.length) {
-        this.timeline.past.push(new StrokeRecord(this.timeline.current_action_buffer));
-        this.timeline.current_action_buffer = [];
-    }
 }
 
 Grid.prototype.apply_changes = function(changes) {
