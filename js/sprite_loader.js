@@ -1,6 +1,3 @@
-var DEFAULT_WIDTH  = 24;
-var DEFAULT_HEIGHT = 24;
-
 var sprite_table = new Map();
 
 const ERASER = $('#resources > #custom > #eraser')[0];
@@ -54,14 +51,10 @@ function load_sprites(pubsub) {
     function _load_sprite_from_xml(xml_leaf) {
         var name = _.last(xml_leaf.textContent.split("/")).replace(".png", "").toLowerCase();
 
-        var height   = xml_leaf.getAttribute("imageH") || xml_leaf.getAttribute("frameH") || DEFAULT_WIDTH;
-        var width    = xml_leaf.getAttribute("imageW") || xml_leaf.getAttribute("frameW") || DEFAULT_HEIGHT;
-        var y_offset = xml_leaf.getAttribute("yOff")   || Math.floor((24-height)/2);
-        var x_offset = xml_leaf.getAttribute("xOff")   || Math.floor((24-width)/2);
+        var y_offset = xml_leaf.getAttribute("yOff")   || 0;//Math.floor((24-height)/2);
+        var x_offset = xml_leaf.getAttribute("xOff")   || 0;//Math.floor((24-width)/2);
 
         sprite_table.set(name, {
-            width:  parseInt(width),
-            height: parseInt(height),
             dx:     parseInt(x_offset),
             dy:     parseInt(y_offset),
         });
@@ -98,7 +91,7 @@ function load_sprites(pubsub) {
         var jq_DOM_location = $("#sprite_palette > details > div#eraser");
 
         var name = ERASER.id;
-        var sdata = {width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT};
+        var sdata = {width: ERASER.width, height: ERASER.height};
 
         var canvas_button = $("<canvas/>", {
             class: 'sprite_holder',
@@ -124,8 +117,8 @@ function load_sprites(pubsub) {
 
 
         sprite_table.set(name, {
-            width:  DEFAULT_WIDTH,
-            height: DEFAULT_HEIGHT,
+            width:  ERASER.width,
+            height: ERASER.height,
             dx:     0,
             dy:     0,
         });
@@ -154,9 +147,9 @@ function draw_sprite(ctx, img, x, y, alpha, source_dx, source_dy) {
         draw_with(ctx, {alpha: alpha}, function(ctx){
             ctx.drawImage(img,
                           0, 0,
-                          sdata.width, sdata.height,
+                          img.width, img.height,
                           x + sdata.dx, y + sdata.dy,
-                          sdata.width, sdata.height);
+                          img.width, img.height);
         });
     }
 }

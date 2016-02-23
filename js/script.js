@@ -7,7 +7,7 @@
     var input_manager = new InputManager(canvas, grid, pubsub);
     var fps = new FPSManager(pubsub);
 
-    $(document).ready(function(){
+    window.onload = function(){
         load_sprites(pubsub);
-    });
+    };
 // })();
