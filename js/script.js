@@ -2,7 +2,8 @@
     var pubsub = new PubSub();
     var canvas = $('#main_canvas')[0];
 
-    var grid = new Grid(pubsub, canvas.width, canvas.height);
+    var timeline = new Timeline();
+    var grid = new Grid(pubsub, timeline, canvas.width, canvas.height);
 
     var input_manager = new InputManager(canvas, grid, pubsub);
     var fps = new FPSManager(pubsub);

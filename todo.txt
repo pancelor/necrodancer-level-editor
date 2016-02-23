@@ -1,3 +1,7 @@
+think about how to put multiple things on a single grid square. probably have 2 grids- one for tiles, one for entities. And entities definitely need to be able to stack
+    new placeholder sprite that holds multipls sprites
+    implement dragging as lifting all grid elems up into a new "grid" that you then drag around, and it gets pasted back down when you unclick
+
 choose what to do when you try to drag off-grid... probably just don't let it happen. awkward because now selections have to know about the grid again...
     well they kinda do already... (PIX)
 
@@ -19,12 +23,6 @@ add images somewhere so the .io page will work
     apparently just push them on the gh-pages branch???:
         http://www.mopsled.com/2012/hosting-screenshots-on-github/
 
-drag icons onto mouse picture to bind mouse buttons
-    http://www.w3schools.com/html/html5_draganddrop.asp
-
-some sprites don't show up as options because they're duplicately named
-
-think about how to put multiple things on a single grid square. probably have 2 grids- one for tiles, one for entities. And entities definitely need to be able to stack
 
 moving can be transparent or non-transparent (checkbox to choose?)
 
@@ -35,9 +33,6 @@ old suggestions about mcedit features:
     http://braceyourselfgames.com/forums/viewtopic.php?f=5&t=1232&p=9969&hilit=mcedit#p9969
     http://braceyourselfgames.com/forums/viewtopic.php?f=2&t=2720
 
-implement dragging as lifting all grid elems up into a new "grid" that you then drag around, and it gets pasted back down when you unclick
-
-    maybe implement grid as coord_map (set:map::coord_set:coord_map)
 
 low priority:
     interpolate between mouse events so you don't skip (e.g. placing rails in minecraft)
@@ -47,3 +42,5 @@ low priority:
     make select rectangles highlight _the sprite_, not just the square
     ctrl+a
     flood fill is really slow... some of it is drawing but some is the algorithm
+    drag icons onto mouse picture to bind mouse buttons
+        http://www.w3schools.com/html/html5_draganddrop.asp
