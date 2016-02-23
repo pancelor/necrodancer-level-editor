@@ -66,36 +66,43 @@ function fuzzy_match(string, target) {
     return true;
 }
 
+// adapted from https://github.com/aj0strow (https://github.com/lodash/lodash/issues/1379)
 function chunk_by(collection, predicate) {
-  var chunks = []
-  var prevKey = null
-  var chunkValues = []
-  _(collection).each(function (value) {
-    var key = predicate(value)
-    if (key == prevKey) {
-      chunkValues.push(value)
-    } else {
-      // Guard against init values
-      if (chunkValues.length) {
-        chunks.push([ prevKey, chunkValues ])
-      }
-      prevKey = key
-      chunkValues = [ value ]
+    var chunks = [];
+    var prev_key = null;
+    var chunk_values = [];
+    _(collection).each(function (value) {
+        var key = predicate(value);
+        if (key == prev_key) {
+            chunk_values.push(value);
+        } else {
+            // Guard against init values
+            if (chunk_values.length) {
+                chunks.push([prev_key, chunk_values]);
+            }
+            prev_key = key;
+            chunk_values = [value];
+        }
+    });
+    // Push hanging values
+    if (chunk_values.length) {
+        chunks.push([prev_key, chunk_values]);
     }
-  });
-  // Push hanging values
-  if (chunkValues.length) {
-    chunks.push([ prevKey, chunkValues ])
-  }
-  return chunks
+    return chunks;
 }
 
-function split_by(collection, predicate) {
-  return _
-    .chain(chunk_by(collection, predicate))
-    .reject(0)
-    .map(1)
-    .value();
+function split_chunks(collection, predicate) {
+  // Note that this is not quite string.split:
+  //   "0120030".split("0")
+  //   ["", "12", "", "3", ""]
+  //
+  //   split_chunks([0,1,2,0,0,3,0], function(x){return x==0});
+  //   [[1, 2], [3]]
+    return _
+        .chain(chunk_by(collection, predicate))
+        .reject(0)
+        .map(1)
+        .value();
 }
 
 function intersperse(array_of_arrays, sep) {
@@ -111,15 +118,15 @@ function intersperse(array_of_arrays, sep) {
 
 // http://stackoverflow.com/a/16436975
 function arraysEqual(a, b) {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length != b.length) return false;
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length != b.length) return false;
 
-  // If you don't care about the order of the elements inside
-  // the array, you should sort both arrays here.
+    // If you don't care about the order of the elements inside
+    // the array, you should sort both arrays here.
 
-  for (var i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
+    for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
 }

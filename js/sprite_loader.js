@@ -3,6 +3,8 @@ var DEFAULT_HEIGHT = 24;
 
 var sprite_table = new Map();
 
+const ERASER = $('#resources > #custom > #eraser')[0];
+
 function load_sprites(pubsub) {
 
     function load_entity(xml_leaf) {
@@ -82,11 +84,12 @@ function load_sprites(pubsub) {
             0, 0, sdata.width, sdata.height);
     }
 
-    function load_eraser_palette_entry(){
-        var name = "eraser";
-        var sdata = {width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT};
+    function create_eraser_selector(){
         var img = undefined;
         var jq_DOM_location = $("#sprite_palette > details > div#eraser");
+
+        var name = ERASER.id;
+        var sdata = {width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT};
 
         var canvas_button = $("<canvas/>", {
             class: 'sprite_holder',
@@ -97,19 +100,35 @@ function load_sprites(pubsub) {
 
         jq_DOM_location.append(canvas_button);
 
-        $("#canvas_"+name).on("click", function() {
+        $(canvas_button).on("click", function() {
             pubsub.emit("select_sprite", {sprite: img});
         }).on("dblclick", function() {
             pubsub.emit("request_fill_selection", {sprite: img});
         });
+
+        canvas_button.getContext('2d').drawImage(ERASER,
+            0, 0, sdata.width, sdata.height,
+            0, 0, sdata.width, sdata.height);
+
+
+
+
+
+        sprite_table.set(name, {
+            width:  DEFAULT_WIDTH,
+            height: DEFAULT_HEIGHT,
+            dx:     0,
+            dy:     0,
+        });
+
     }
 
     $.get("resources/necrodancer.xml", function(xml) {
         var items = xml.getElementsByTagName("items")[0];
         var entities = xml.getElementsByTagName("enemies")[0];
-        _.each(items.children, load_item);
-        _.each(entities.children, load_entity);
-        load_eraser_palette_entry();
+        _(items.children).each(load_item);
+        _(entities.children).each(load_entity);
+        create_eraser_selector();
 
         pubsub.emit("sprites_loaded_from_server");
     });

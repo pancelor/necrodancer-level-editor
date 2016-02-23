@@ -33,6 +33,7 @@ Grid.prototype.set = function(coord, sprite) {
     }
 }
 
+// only call this method (instead of .set()) if you don't want the changes to be recorded in the timeline
 Grid.prototype.raw_set = function(coord, sprite) {
     this.board[coord.to_grid_rr()][coord.to_grid_cc()] = sprite;
 }
@@ -188,7 +189,8 @@ Grid.prototype.draw = function(args) {
     for (var rr = 0; rr < this.height(); ++rr) {
         for (var cc = 0; cc < this.width(); ++cc) {
             var coord = Coord.from_grid(this, {rr: rr, cc: cc});
-            draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y())
+            // TODO: need to change this to some sort of sprite.draw once I add multi-objects
+            draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y());
         }
     }
 }

@@ -2,6 +2,8 @@ think about how to put multiple things on a single grid square. probably have 2 
     new placeholder sprite that holds multipls sprites
     implement dragging as lifting all grid elems up into a new "grid" that you then drag around, and it gets pasted back down when you unclick
 
+recent spites panel... also maybe a middle-click option
+
 choose what to do when you try to drag off-grid... probably just don't let it happen. awkward because now selections have to know about the grid again...
     well they kinda do already... (PIX)
 

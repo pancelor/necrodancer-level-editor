@@ -128,7 +128,6 @@ InputManager.prototype.get_current_MMB_tool = function() {
     default:
         console.error("switch fall-through");
     }
-
 }
 
 InputManager.prototype.mousedown = function(evt) {
@@ -429,7 +428,7 @@ InputManager.prototype.draw = function(args) {
     // show current selected sprite
     if (this.interact_mode === IMODE.PAINT || this.interact_mode === IMODE.NONE) {
         draw_sprite(ctx,
-                    this.sprite,
+                    this.sprite ? this.sprite : ERASER,
                     this.mouse_pos.snap_to_grid().to_canvas_x(),
                     this.mouse_pos.snap_to_grid().to_canvas_y(),
                     0.35);
