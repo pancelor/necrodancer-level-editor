@@ -1,10 +1,12 @@
 // for undo/redo functionality
-function Timeline(pubsub) {
+function Timeline(pubsub, grid) {
+    this.grid = grid;
+
     // past and future each hold a list of StrokeRecords
     this.past = [];
     this.future = [];
 
-    this.current_action_buffer = []; // holds {coord:, grid:, before:, after:} objects
+    this.current_action_buffer = []; // holds {coord:, layer:, before:, after:} objects
 
     pubsub.on("start_stroke", this.start_stroke.bind(this));
     pubsub.on("end_stroke", this.end_stroke.bind(this));
@@ -28,8 +30,9 @@ Timeline.prototype.request_undo = function() {
     if (this.past.length) {
         var last_action = this.past.splice(-1)[0]; // note: this mutates the array as well, splitting off its last element
 
+        var grid = this.grid;
         _(last_action).eachRight(function(axn){
-            axn.grid.raw_set(axn.coord, axn.before);
+            grid.raw_set(axn.coord, axn.layer, axn.before);
         });
 
         this.future.unshift(last_action);
@@ -40,8 +43,9 @@ Timeline.prototype.request_redo = function() {
     if (this.future.length) {
         var next_action = this.future.splice(0, 1)[0]; // note: this mutates the array as well, splitting off its last element
 
+        var grid = this.grid;
         _(next_action).each(function(axn){
-            axn.grid.raw_set(axn.coord, axn.after);
+            grid.raw_set(axn.coord, axn.layer, axn.after);
         });
 
         this.past.push(next_action);
