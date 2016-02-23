@@ -46,13 +46,19 @@ Grid.prototype.infer_layer = function(sprite) {
     }
 }
 
-Grid.prototype.get = function(coord) {
-    return this.board[this.layer][coord.to_grid_rr()][coord.to_grid_cc()];
+Grid.prototype.get = function(coord, layer) {
+    if (!layer) {
+        return (this.board["entities"][coord.to_grid_rr()][coord.to_grid_cc()]
+            || this.board["env"][coord.to_grid_rr()][coord.to_grid_cc()]);
+    } else {
+        return this.board[layer][coord.to_grid_rr()][coord.to_grid_cc()];
+    }
 }
 
 Grid.prototype.set = function(coord, sprite) {
-    var old = this.get(coord);
     var layer = this.infer_layer(sprite);
+    this.layer = layer;
+    var old = this.get(coord, layer);
     this.raw_set(coord, layer, sprite);
     if (old !== sprite) {
         this.timeline.current_action_buffer.push({
@@ -71,7 +77,7 @@ Grid.prototype.raw_set = function(coord, layer, sprite) {
 
 Grid.prototype.flood_select = function(coord) {
     var selection = new CoordSet();
-    var sprite = this.get(coord);
+    var sprite = this.get(coord, this.layer);
     var DIRECTIONS = [
         Coord.from_grid(coord.grid, {rr: 0, cc: 1}),
         Coord.from_grid(coord.grid, {rr: -1, cc: 0}),
@@ -90,7 +96,7 @@ Grid.prototype.flood_select = function(coord) {
             var next = current.plus(dir);
             if (!selection.has(next)
                     && that.inbounds(next)
-                    && that.get(next) === sprite) {
+                    && that.get(next, that.layer) === sprite) {
                 queue.push(next);
             }
         });
@@ -166,7 +172,7 @@ Grid.prototype.request_drag = function(args) {
 
     var that = this;
     selection.forEach(function(coord) { // TODO: copy to buffer first
-        sprite = that.get(coord);
+        sprite = that.get(coord, that.layer);
         delete_buffer.push({coord: coord, sprite: undefined});
 
         var new_coord = coord.plus(delta);
@@ -219,13 +225,18 @@ Grid.prototype.draw = function(args) {
         ctx.setLineDash(old_line_dash);
 
     // draw sprites
-    for (var rr = 0; rr < this.height(); ++rr) {
-        for (var cc = 0; cc < this.width(); ++cc) {
-            var coord = Coord.from_grid(this, {rr: rr, cc: cc});
-            // TODO: need to change this to some sort of sprite.draw once I add multi-objects
-            draw_sprite(ctx, this.get(coord), coord.to_canvas_x(), coord.to_canvas_y());
+    var that = this;
+    _(["env", "entities"]).each(function(layer) {
+        for (var rr = 0; rr < that.height(); ++rr) {
+            for (var cc = 0; cc < that.width(); ++cc) {
+                var coord = Coord.from_grid(that, {rr: rr, cc: cc});
+                // TODO: need to change this to some sort of sprite.draw once I add multi-objects
+                draw_sprite(ctx, that.get(coord, layer), coord.to_canvas_x(), coord.to_canvas_y());
+            }
         }
-    }
+    });
+
+    $(".debug#layer").text(this.layer); // DEBUG
 }
 
 Grid.prototype.draw_line = function(ctx, x1, y1, x2, y2) {

@@ -24,24 +24,30 @@ function fill_rect(ctx, x1, y1, x2, y2, color, alpha) {
     var width = x2 - x1;
     var height = y2 - y1;
 
+    draw_with(ctx, {alpha: alpha, color: color}, function(ctx) {
+        ctx.fillRect(x1, y1, width, height);
+    });
+}
+
+function draw_with(ctx, settings, callback) {
     // prep
-    if (alpha) {
+    if ("alpha" in settings) {
         var old_alpha = ctx.globalAlpha;
-        ctx.globalAlpha = alpha;
+        ctx.globalAlpha = settings.alpha;
     }
-    if (color) {
+    if ("color" in settings) {
         var old_color = ctx.fillStyle;
-        ctx.fillStyle = color;
+        ctx.fillStyle = settings.color;
     }
 
     // draw
-    ctx.fillRect(x1, y1, width, height);
+    callback(ctx)
 
     // cleanup
-    if (alpha) {
+    if ("alpha" in settings) {
         ctx.globalAlpha = old_alpha;
     }
-    if (color) {
+    if ("color" in settings) {
         ctx.fillStyle = old_color;
     }
 }

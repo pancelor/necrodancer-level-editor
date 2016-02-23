@@ -207,13 +207,15 @@ InputManager.prototype.begin_mouse_action = function(action_mode, coord, coord_i
         this.selection = this.grid.flood_select(coord.snap_to_grid());
         break;
     case ACTION.EYE_DROPPER:
+        var sprite = this.grid.get(coord);
         this.pubsub.emit("select_sprite", {
-           sprite: this.grid.get(coord)
+           sprite: sprite
         });
+        this.grid.layer = this.grid.infer_layer(sprite); // TODO: when to do this? probably also at click onb button, and remove from request_paint event
         break;
     case ACTION.MENU:
         console.warn("context menu is not implemented")
-        $(this.canvas).contextmenu();
+        // $(this.canvas).contextmenu();
         break;
     default:
         console.error("switch fall-through")
@@ -434,5 +436,5 @@ InputManager.prototype.draw = function(args) {
                     0.35);
     }
 
-    $("#interact_mode").text(this.interact_mode); // DEBUG
+    $(".debug#interact_mode").text(this.interact_mode); // DEBUG
 }

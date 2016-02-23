@@ -33,6 +33,7 @@ Timeline.prototype.request_undo = function() {
         var grid = this.grid;
         _(last_action).eachRight(function(axn){
             grid.raw_set(axn.coord, axn.layer, axn.before);
+            grid.layer = axn.layer;
         });
 
         this.future.unshift(last_action);
@@ -46,6 +47,7 @@ Timeline.prototype.request_redo = function() {
         var grid = this.grid;
         _(next_action).each(function(axn){
             grid.raw_set(axn.coord, axn.layer, axn.after);
+            grid.layer = axn.layer;
         });
 
         this.past.push(next_action);
