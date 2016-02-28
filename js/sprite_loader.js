@@ -1,8 +1,16 @@
 var sprite_table = new Map();
 
+const DEFAULT_WIDTH  = 24;
+const DEFAULT_HEIGHT = 24;
 const ERASER = $('#resources > #custom > #eraser')[0];
 
 function load_sprites(pubsub) {
+
+    function load_item(xml_leaf) {
+        var name = _load_sprite_from_xml(xml_leaf);
+        var img = insert_sprite_into_DOM("items", "resources/images/items", name, name);
+        create_sprite_selector(img, $("#sprite_palette > details > div#items"));
+    }
 
     function load_entity(xml_leaf) {
         var name = _load_sprite_from_xml(
@@ -13,12 +21,6 @@ function load_sprites(pubsub) {
             var img = insert_sprite_into_DOM("entities", "resources/images/entities", name, type_code);
             create_sprite_selector(img, $("#sprite_palette > details > div#entities"));
         }
-    }
-
-    function load_item(xml_leaf) {
-        var name = _load_sprite_from_xml(xml_leaf);
-        var img = insert_sprite_into_DOM("items", "resources/images/items", name, name);
-        create_sprite_selector(img, $("#sprite_palette > details > div#items"));
     }
 
     function load_trap(xml_leaf) {
@@ -51,10 +53,14 @@ function load_sprites(pubsub) {
     function _load_sprite_from_xml(xml_leaf) {
         var name = _.last(xml_leaf.textContent.split("/")).replace(".png", "").toLowerCase();
 
-        var y_offset = xml_leaf.getAttribute("yOff")   || 0;//Math.floor((24-height)/2);
-        var x_offset = xml_leaf.getAttribute("xOff")   || 0;//Math.floor((24-width)/2);
+        var height   = xml_leaf.getAttribute("imageH") || xml_leaf.getAttribute("frameH") || DEFAULT_WIDTH;
+        var width    = xml_leaf.getAttribute("imageW") || xml_leaf.getAttribute("frameW") || DEFAULT_HEIGHT;
+        var y_offset = xml_leaf.getAttribute("yOff")   || Math.floor((24-height)/2);
+        var x_offset = xml_leaf.getAttribute("xOff")   || Math.floor((24-width)/2);
 
         sprite_table.set(name, {
+            width:  parseInt(width),
+            height: parseInt(height),
             dx:     parseInt(x_offset),
             dy:     parseInt(y_offset),
         });
@@ -70,8 +76,8 @@ function load_sprites(pubsub) {
             class: 'sprite_holder',
             id: 'canvas_' + name,
         })[0];
-        canvas_button.width  = sdata.width; // can't initialize these earlier b/c jquery would think it's css instead of attributes
-        canvas_button.height = sdata.height;
+        canvas_button.width  = img.width; // can't initialize these earlier b/c jquery would think it's css instead of attributes
+        canvas_button.height = img.height;
 
         jq_DOM_location.append(canvas_button);
 
@@ -82,8 +88,8 @@ function load_sprites(pubsub) {
         });
 
         canvas_button.getContext('2d').drawImage(img,
-            0, 0, sdata.width, sdata.height,
-            0, 0, sdata.width, sdata.height);
+            0, 0, img.width, img.height,
+            0, 0, img.width, img.height);
     }
 
     function create_eraser_selector(){
@@ -124,24 +130,29 @@ function load_sprites(pubsub) {
         });
     }
 
-    $.get("resources/necrodancer.xml", function(necro_xml) {
-        $.get("resources/extra_data.xml", function(extra_xml) {
-            var items    = necro_xml.getElementsByTagName("items")[0];
-            var entities = necro_xml.getElementsByTagName("enemies")[0];
-            var walls    = extra_xml.getElementsByTagName("walls")[0];
-            var traps    = extra_xml.getElementsByTagName("traps")[0];
+    $.get("resources/sprite_data.xml", function(xml) {
+            var items    = xml.getElementsByTagName("items")[0];
+            var entities = xml.getElementsByTagName("enemies")[0];
+            var walls    = xml.getElementsByTagName("walls")[0];
+            var traps    = xml.getElementsByTagName("traps")[0];
+
+            console.log("pre-loading")
             _(items.children).each(load_item);
+            console.log("items loaded")
             _(entities.children).each(load_entity);
+            console.log("entities loaded")
             _(walls.children).each(load_wall);
+            console.log("walls loaded")
             _(traps.children).each(load_trap);
+            console.log("traps loaded")
             create_eraser_selector();
+            console.log("eraser loaded")
 
             pubsub.emit("sprites_loaded_from_server");
-        });
     });
 }
 
-function draw_sprite(ctx, img, x, y, alpha, source_dx, source_dy) {
+function draw_sprite(ctx, img, x, y, alpha) {
     if (img) {
         var sdata = sprite_table.get(img.id);
         draw_with(ctx, {alpha: alpha}, function(ctx){
