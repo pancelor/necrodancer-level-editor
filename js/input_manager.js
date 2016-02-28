@@ -185,23 +185,14 @@ InputManager.prototype.begin_mouse_action = function(action_mode, coord, coord_i
         this.select_origin = coord;
         break;
     case ACTION.ERASE:
-        // if (coord_in_selection) {
-        //     this.pubsub.emit("start_stroke");
-        //     this.pubsub.emit("request_paint", {
-        //         coords: this.selection,
-        //         sprite: undefined
-        //     });
-        //     this.pubsub.emit("end_stroke");
-        // } else {
-            this.selection.clear();
+        this.selection.clear();
 
-            this.interact_mode = IMODE.ERASE;
-            this.pubsub.emit("start_stroke");
-            this.pubsub.emit("request_paint", {
-                coords: new CoordSet([coord]),
-                sprite: undefined
-            });
-        // }
+        this.interact_mode = IMODE.ERASE;
+        this.pubsub.emit("start_stroke");
+        this.pubsub.emit("request_paint", {
+            coords: new CoordSet([coord]),
+            sprite: undefined
+        });
         break;
     case ACTION.FLOOD_SELECT:
         this.selection = this.grid.flood_select(coord.snap_to_grid());

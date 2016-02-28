@@ -131,24 +131,25 @@ function load_sprites(pubsub) {
     }
 
     $.get("resources/sprite_data.xml", function(xml) {
-            var items    = xml.getElementsByTagName("items")[0];
-            var entities = xml.getElementsByTagName("enemies")[0];
-            var walls    = xml.getElementsByTagName("walls")[0];
-            var traps    = xml.getElementsByTagName("traps")[0];
+        var items    = xml.getElementsByTagName("items")[0];
+        var entities = xml.getElementsByTagName("enemies")[0];
+        var walls    = xml.getElementsByTagName("walls")[0];
+        var traps    = xml.getElementsByTagName("traps")[0];
 
-            console.log("pre-loading")
-            _(items.children).each(load_item);
-            console.log("items loaded")
-            _(entities.children).each(load_entity);
-            console.log("entities loaded")
-            _(walls.children).each(load_wall);
-            console.log("walls loaded")
-            _(traps.children).each(load_trap);
-            console.log("traps loaded")
-            create_eraser_selector();
-            console.log("eraser loaded")
+        console.log("loading images...")
+        _(items.children).each(load_item);
+        console.log("> items loaded")
+        _(entities.children).each(load_entity);
+        console.log("> entities loaded")
+        _(walls.children).each(load_wall);
+        console.log("> walls loaded")
+        _(traps.children).each(load_trap);
+        console.log("> traps loaded")
+        create_eraser_selector();
+        console.log("> eraser loaded")
+        console.log("images loaded...")
 
-            pubsub.emit("sprites_loaded_from_server");
+        pubsub.emit("sprites_loaded_from_server");
     });
 }
 
@@ -158,7 +159,7 @@ function draw_sprite(ctx, img, x, y, alpha) {
         draw_with(ctx, {alpha: alpha}, function(ctx){
             ctx.drawImage(img,
                           0, 0,
-                          img.width, img.height,
+                          img.width, img.height, // s/img/sdata/4 for interesting stuff
                           x + sdata.dx, y + sdata.dy,
                           img.width, img.height);
         });

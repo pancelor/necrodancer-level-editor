@@ -1,203 +1,202 @@
 <necrodancer>
     <items>
-        <armor_chainmail flyaway="|317|CHAINMAIL|" hint="|508|+1 DEFENSE|" slotPriority="1" slot="body" coinCost="60" diamondCost="2" diamondDealable="2" isArmor="True" data="2" chestChance="0|50|75|0" shopChance="25|100|75|50|25|0">armor_chainmail.png</armor_chainmail>
-        <armor_heavyplate flyaway="|318|HEAVY PLATE|" hint="|509|+2 DEFENSE, HEAVY|" slotPriority="1" slot="body" coinCost="400" diamondCost="7" diamondDealable="6" isArmor="True" data="4" chestChance="0|0|0|1" shopChance="0|0|75|100" urnChance="30">armor_heavyplate.png</armor_heavyplate>
-        <armor_leather flyaway="|319|LEATHER ARMOR|" hint="|510|+0.5 DEFENSE|" slotPriority="1" slot="body" coinCost="20" isArmor="True" data="1" diamondDealable="1" chestChance="100|50|0" shopChance="100|75|50|0" unlocked="true">armor_leather.png</armor_leather>
-        <armor_platemail flyaway="|320|PLATE ARMOR|" hint="|511|+1.5 DEFENSE|" slotPriority="1" slot="body" coinCost="200" diamondCost="3" isArmor="True" data="3" diamondDealable="4" chestChance="0|0|1|30" shopChance="0|0|10|75|50|25|0">armor_platemail.png</armor_platemail>
-        <armor_platemail_dorian flyaway="|320|PLATE ARMOR|" hint="|511|+1.5 DEFENSE|" slotPriority="1" slot="body" coinCost="200" isArmor="True" imageH="26" data="3">armor_platemail_dorian.png</armor_platemail_dorian>
-        <armor_gi flyaway="|321|KARATE GI|" hint="|513|TAKE AND DEAL DOUBLE DAMAGE|" slotPriority="1" slot="body" coinCost="40" diamondCost="3" diamondDealable="2" isArmor="True" data="-1" chestChance="1|5" shopChance="1|30">armor_gi.png</armor_gi>
-        <armor_glass flyaway="|322|GLASS ARMOR|" hint="|514|PREVENTS DAMAGE, THEN SHATTERS|" slotPriority="1" slot="body" coinCost="50" diamondCost="4" diamondDealable="3" isArmor="True" data="-1" chestChance="1" shopChance="10">armor_glass.png</armor_glass>
-        <armor_obsidian flyaway="|323|OBSIDIAN ARMOR|" hint="|515|MULTIPLIER-BASED DEFENSE|" slotPriority="1" slot="body" coinCost="100" diamondCost="3" diamondDealable="3" isArmor="True" numFrames="3" imageW="26" imageH="26" data="-1" lockedChestChance="75" lockedShopChance="100">armor_obsidian.png</armor_obsidian>
-        <feet_ballet_shoes flyaway="|326|BALLET SHOES|" hint="|516|STAND STILL, KEEP MULTIPLIER|" slot="feet" coinCost="25" lockedChestChance="50" lockedShopChance="100" diamondDealable="1" unlocked="true">feet_ballet_shoes.png</feet_ballet_shoes>
-        <feet_boots_speed flyaway="|327|BOOTS OF SPEED|" hint="|517|DOUBLE TIME|" slot="feet" coinCost="200">feet_boots_speed.png</feet_boots_speed>
-        <feet_boots_winged flyaway="|328|WINGED BOOTS|" hint="|518|LEVITATION|" slot="feet" coinCost="50" lockedChestChance="100" lockedShopChance="100" diamondDealable="2" unlocked="true">feet_boots_winged.png</feet_boots_winged>
-        <feet_boots_explorers flyaway="|329|EXPLORERS BOOTS|" hint="|519|HELPS WITH SOME TERRAIN|" slot="feet" coinCost="15" shopChance="2|35" chestChance="2|10|10|0" diamondDealable="1" unlocked="true">feet_boots_explorers.png</feet_boots_explorers>
-        <feet_boots_lead flyaway="|330|LEAD BOOTS|" hint="|520|HELPS WITH TRAPS AND ICE|" slot="feet" imageH="25" coinCost="15" shopChance="2|35" chestChance="2|10|10|0" diamondDealable="1" unlocked="true">feet_boots_lead.png</feet_boots_lead>
-        <feet_boots_leaping flyaway="|331|BOOTS OF LEAPING|" hint="|521|LONG JUMP|" slot="feet" coinCost="5" lockedChestChance="1" lockedShopChance="25" diamondDealable="2" unlocked="true">feet_boots_leaping.png</feet_boots_leaping>
-        <feet_boots_lunging flyaway="|332|BOOTS OF LUNGING|" hint="|522|LONG JUMP ATTACK|" slot="feet" coinCost="10" lockedChestChance="1" lockedShopChance="1" diamondDealable="2" unlocked="true" imageW="15" imageH="24">feet_boots_lunging.png</feet_boots_lunging>
-        <feet_boots_pain flyaway="|333|BOOTS OF PAIN|" hint="|523|DO DAMAGE AS YOU WALK|" slot="feet" coinCost="50" lockedChestChance="100" lockedShopChance="100" diamondCost="3" diamondDealable="2">feet_boots_pain.png</feet_boots_pain>
-        <feet_greaves flyaway="|334|HARGREAVES|" hint="|510|+0.5 DEFENSE|" slot="feet" coinCost="35" diamondCost="4" shopChance="2|25" chestChance="1|5|5|0" diamondDealable="2">feet_greaves.png</feet_greaves>
-        <feet_boots_strength flyaway="|335|BOOTS OF STRENGTH|" hint="|524|+1 DAMAGE|" slot="feet" coinCost="70" shopChance="5" chestChance="3|10|7|1" diamondDealable="2" urnChance="5" unlocked="true">feet_boots_strength.png</feet_boots_strength>
-        <food_1 flyaway="|336|APPLE|" hint="|525|RESTORE 1 HEALTH|" slot="action" coinCost="10" isFood="True" data="2" chestChance="75|50|12|0" shopChance="100|50|25|10" diamondDealable="1" unlocked="true">food_1.png</food_1>
-        <food_2 flyaway="|337|CHEESE|" hint="|526|RESTORE 2 HEALTH|" slot="action" coinCost="25" diamondCost="1" isFood="True" data="4" chestChance="12|50|25|0" shopChance="25|100|50|25|10" diamondDealable="2">food_2.png</food_2>
-        <food_3 flyaway="|338|DRUMSTICK|" hint="|527|RESTORE 3 HEALTH|" slot="action" coinCost="40" diamondCost="2" isFood="True" data="6" chestChance="0|12|50|25|0" shopChance="0|25|100|50|25|10" diamondDealable="2">food_3.png</food_3>
-        <food_4 flyaway="|339|HAM|" hint="|528|RESTORE 4 HEALTH|" slot="action" coinCost="65" diamondCost="6" isFood="True" data="8" chestChance="0|0|25|50" shopChance="0|10|50|75|50|25|10" diamondDealable="3">food_4.png</food_4>
-        <holy_water flyaway="|340|HOLY WATER|" hint="|529|USE NEAR ENEMIES|" slot="action" coinCost="100" diamondCost="5" chestChance="10|25" shopChance="15" diamondDealable="4">holy_water.png</holy_water>
-        <bomb flyaway="|342|BOMB|" hint="" slot="bomb" numFrames="5" coinCost="20" chestChance="10" shopChance="10" diamondDealable="1" unlocked="true">bomb.png</bomb>
-        <bomb_3 flyaway="|343|3 BOMBS|" hint="" slot="bomb" coinCost="60" chestChance="5" shopChance="10" diamondDealable="2" unlocked="true">bomb_3.png</bomb_3>
-        <war_drum flyaway="|344|WAR DRUM|" hint="|531|STAND STILL, INCREASE DAMAGE|" slot="action" numFrames="3" imageW="26" imageH="28" coinCost="5" diamondCost="3" chestChance="10" shopChance="20" diamondDealable="2">war_drum.png</war_drum>
-        <blood_drum flyaway="|345|BLOOD DRUM|" hint="|532|TAKES HEALTH, INCREASES DAMAGE|" slot="action" numFrames="2" imageW="26" imageH="28" coinCost="25" diamondCost="3" chestChance="10" shopChance="20" diamondDealable="2">blood_drum.png</blood_drum>
-        <heart_transplant flyaway="|347|HEART TRANSPLANT|" hint="|533|PACEMAKER|" slot="action" coinCost="50" diamondCost="3" lockedChestChance="50" lockedShopChance="100" diamondDealable="2">heart_transplant.png</heart_transplant>
-        <head_crown_of_thorns flyaway="|348|CROWN OF THORNS|" hint="|534|10 KILLS = HEAL|" slot="head" coinCost="30" diamondCost="3" lockedChestChance="50" shopChance="20" diamondDealable="2">head_crown_of_thorns.png</head_crown_of_thorns>
-        <head_crown_of_greed flyaway="|349|CROWN OF GREED|" hint="|535|DOUBLE COINS + LEAK COINS|" slot="head" coinCost="200" >head_crown_of_greed.png</head_crown_of_greed>
-        <head_crown_of_teleportation flyaway="|350|CROWN OF TELEPORTATION|" hint="|536|TELEPORT ON HIT|" slot="head" coinCost="20" lockedChestChance="50" shopChance="20" unlocked="true" diamondDealable="3">head_crown_of_teleportation.png</head_crown_of_teleportation>
-        <head_circlet_telepathy flyaway="|351|CIRCLET OF TELEPATHY|" hint="|537|SEE ALL ENEMIES|" slot="head" coinCost="20" lockedChestChance="50" shopChance="20" lockedShopChance="10" unlocked="true" diamondDealable="2">head_circlet_telepathy.png</head_circlet_telepathy>
-        <head_miners_cap flyaway="|352|MINER'S CAP|" hint="|538|MOVE + DIG|" slot="head" coinCost="40" chestChance="1" lockedChestChance="30" shopChance="30" unlocked="true" diamondDealable="1">head_miners_cap.png</head_miners_cap>
-        <head_monocle flyaway="|353|MONOCLE|" hint="|539|SEE ALL ITEMS|" slot="head" coinCost="35" lockedChestChance="100" shopChance="40" unlocked="true" diamondDealable="1" urnChance="5">head_monocle.png</head_monocle>
-        <head_helm flyaway="|355|HELM|" hint="|510|+0.5 DEFENSE|" slot="head" coinCost="40" diamondCost="4" chestChance="10" shopChance="10" diamondDealable="2">head_helmet.png</head_helm>
-        <head_glass_jaw flyaway="|356|GLASS JAW|" hint="|541|DOUBLE ALL DMG, FRAILTY|" slot="head" isGlass="True" coinCost="60" diamondCost="3" chestChance="5" lockedChestChance="25" shopChance="5" diamondDealable="2" imageW="20" imageH="14">head_glass_jaw.png</head_glass_jaw>
-        <head_blast_helm flyaway="|357|BLAST HELM|" hint="|542|BOMB IMMUNITY, +3 BOMBS|" slot="head" coinCost="60" diamondCost="5" chestChance="15" lockedChestChance="35" shopChance="15" diamondDealable="2" imageW="22" imageH="21">head_blast_helm.png</head_blast_helm>
-        <head_sunglasses flyaway="|358|SUNGLASSES|" hint="|543|+1 DMG, STRANGE VISION|" slot="head" coinCost="40" diamondCost="3" chestChance="15" lockedChestChance="35" shopChance="15" diamondDealable="2" imageW="30">head_sunglasses.png</head_sunglasses>
-        <hud_backpack flyaway="|359|BACKPACK|" hint="|544|+1 STORAGE|" slot="hud" coinCost="5" chestChance="5" shopChance="125|100|75|50" unlocked="true" diamondDealable="1">hud_backpack.png</hud_backpack>
-        <holster flyaway="|360|HOLSTER|" hint="|545|HOLD 2ND WEAPON|" slot="hud" coinCost="10" diamondCost="1" chestChance="10" shopChance="40" diamondDealable="1">holster.png</holster>
-        <bag_holding flyaway="|361|PACK OF HOLDING|" hint="|546|INFINITE STORAGE|" slot="hud" coinCost="10" diamondCost="3" chestChance="0" shopChance="0" lockedShopChance="50" lockedChestChance="20" diamondDealable="2">bag_holding.png</bag_holding>
-        <misc_compass flyaway="|362|COMPASS|" hint="|547|ARROW SHOWS EXIT|" slot="misc" coinCost="6" lockedChestChance="25" shopChance="30" unlocked="true" diamondDealable="1">misc_compass.png</misc_compass>
-        <misc_coupon flyaway="|363|COUPON|" hint="|548|SHOPPING SPREE|" slot="misc" coinCost="100" chestChance="10" lockedChestChance="35" unlocked="true" diamondDealable="3" imageW="26" imageH="21">misc_coupon.png</misc_coupon>
-        <misc_heart_container flyaway="|366|HEART CONTAINER|" hint="|552|+1 HEART CONTAINER|" consumable="True" coinCost="50" lockedChestChance="100" shopChance="1" lockedShopChance="80" unlocked="true">misc_heart_container.png</misc_heart_container>
-        <misc_heart_container2 flyaway="|367|DOUBLE HEART CONTAINER|" hint="|553|+2 HEART CONTAINER|" consumable="True" coinCost="200" lockedChestChance="10" shopChance="1" lockedShopChance="40" unlocked="true" urnChance="15">misc_heart_container2.png</misc_heart_container2>
-        <misc_heart_container_empty flyaway="|368|EMPTY HEART CONTAINER|" hint="|554|+1 EMPTY HEART CONTAINER|" consumable="True" coinCost="25" lockedChestChance="100" shopChance="50" lockedShopChance="120" unlocked="true">misc_heart_container_empty.png</misc_heart_container_empty>
-        <misc_heart_container_empty2 flyaway="|369|EMPTY DOUBLE HEART CONTAINER|" hint="|555|+2 EMPTY HEART CONTAINER|" consumable="True" coinCost="100" lockedChestChance="10" shopChance="25" lockedShopChance="60" unlocked="true">misc_heart_container_empty2.png</misc_heart_container_empty2>
-        <misc_key flyaway="|370|KEY|" hint="|556|OPEN LOCKS|" slot="misc" slotPriority="5">misc_key.png</misc_key>
-        <misc_map flyaway="|372|MAP|" hint="|558|REVEAL DUNGEON MINIMAP|" slot="misc" slotPriority="1" coinCost="25" lockedChestChance="50" shopChance="30" unlocked="true" diamondDealable="2">misc_map.png</misc_map>
-        <misc_potion flyaway="|373|POTION|" hint="|559|SAVES YOUR LIFE|" slot="misc" slotPriority="4" coinCost="500" diamondDealable="4">misc_potion.png</misc_potion>
-        <charm_frost flyaway="|374|FROST CHARM|" hint="|560|AUTOMATIC FREEZE|" slot="misc" coinCost="150" chestChance="10" lockedChestChance="25" lockedShopChance="15" unlocked="true" diamondDealable="3" imageW="21" imageH="25">charm_frost.png</charm_frost>
-        <charm_gluttony flyaway="|375|GLUTTONY CHARM|" hint="|561|REWARDS OVEREATING, ONCE|" slot="misc" coinCost="250" chestChance="3" lockedChestChance="10" lockedShopChance="15" unlocked="true" diamondDealable="5" imageW="25" imageH="33" yOff="-9">charm_gluttony.png</charm_gluttony>
-        <charm_luck flyaway="|376|LUCKY CHARM|" hint="|562|FIND BETTER ITEMS|" slot="misc" coinCost="50" unlocked="true" imageW="25" imageH="27">charm_lucky.png</charm_luck>
-        <charm_nazar flyaway="|377|NAZAR CHARM|" hint="|563|WARDS OFF SPIRITS|" slot="misc" coinCost="75" chestChance="10" lockedChestChance="25" lockedShopChance="15" unlocked="true" diamondDealable="2" imageW="19" imageH="29" yOff="-5">charm_nazar.png</charm_nazar>
-        <charm_protection flyaway="|378|PROTECTION CHARM|" hint="|510|+0.5 DEFENSE|" slot="misc" coinCost="50" chestChance="10" lockedChestChance="25" lockedShopChance="15" unlocked="true" diamondDealable="2" imageW="17" imageH="27" yOff="-3">charm_protection.png</charm_protection>
-        <charm_risk flyaway="|379|RISK CHARM|" hint="|564|+2 DMG AT LOW HEALTH|" slot="misc" coinCost="100" chestChance="3" lockedChestChance="20" lockedShopChance="15" unlocked="true" diamondDealable="3" imageW="19" imageH="27" yOff="-3">charm_risk.png</charm_risk>
-        <charm_strength flyaway="|380|STRENGTH CHARM|" hint="|524|+1 DAMAGE|" slot="misc" coinCost="150" chestChance="1" lockedChestChance="10" lockedShopChance="15" unlocked="true" diamondDealable="3" imageW="20" imageH="26">charm_strength.png</charm_strength>
-        <resource_coin0 levelEditor="False" isCoin="True" data="0">resource_coin1.png</resource_coin0>
-        <resource_coin1 levelEditor="False" isCoin="True" data="1">resource_coin1.png</resource_coin1>
-        <resource_coin2 levelEditor="False" isCoin="True" data="2">resource_coin2.png</resource_coin2>
-        <resource_coin3 levelEditor="False" isCoin="True" data="3">resource_coin3.png</resource_coin3>
-        <resource_coin4 levelEditor="False" isCoin="True" data="4">resource_coin4.png</resource_coin4>
-        <resource_coin5 levelEditor="False" isCoin="True" data="5">resource_coin5.png</resource_coin5>
-        <resource_coin6 levelEditor="False" isCoin="True" data="6">resource_coin6.png</resource_coin6>
-        <resource_coin7 levelEditor="False" isCoin="True" data="7">resource_coin7.png</resource_coin7>
-        <resource_coin8 levelEditor="False" isCoin="True" data="8">resource_coin8.png</resource_coin8>
-        <resource_coin9 levelEditor="False" isCoin="True" data="9">resource_coin9.png</resource_coin9>
-        <resource_coin10 levelEditor="False" isCoin="True" data="10">resource_coin10.png</resource_coin10>
-        <resource_coin50 imageW="34" imageH="19" data="50" bouncer="False" flyaway="|382|+50 COINS|">resource_hoard.png</resource_coin50>
-        <resource_coin100 imageW="34" imageH="19" data="100" bouncer="False" flyaway="|383|+100 COINS|">resource_hoard.png</resource_coin100>
-        <resource_coin150 imageW="34" imageH="19" data="150" bouncer="False" flyaway="|384|+150 COINS|">resource_hoard.png</resource_coin150>
-        <resource_diamond levelEditor="False" flyaway="|385|DIAMOND|" data="1" isDiamond="True">resource_diamond.png</resource_diamond>
-        <resource_diamond2 levelEditor="False" flyaway="|386|2 DIAMONDS|" data="2" isDiamond="True">resource_diamond2.png</resource_diamond2>
-        <resource_diamond3 levelEditor="False" flyaway="|387|3 DIAMONDS|" data="3" isDiamond="True">resource_diamond3.png</resource_diamond3>
-        <resource_diamond4 levelEditor="False" flyaway="|388|4 DIAMONDS|" data="4" isDiamond="True">resource_diamond4.png</resource_diamond4>
-        <resource_hoard1 levelEditor="False" imageW="34" imageH="19" bouncer="False" flyaway="|389|+5 DIAMONDS|">resource_hoard.png</resource_hoard1>
-        <resource_hoard2 levelEditor="False" imageW="34" imageH="19" bouncer="False" flyaway="|390|+10 DIAMONDS|">resource_hoard.png</resource_hoard2>
-        <resource_hoard3 levelEditor="False" imageW="34" imageH="19" bouncer="False" flyaway="|391|+15 DIAMONDS|">resource_hoard.png</resource_hoard3>
-        <resource_hoard4 levelEditor="False" imageW="34" imageH="19" bouncer="False" flyaway="|392|+20 DIAMONDS|">resource_hoard.png</resource_hoard4>
-        <resource_hoard_gold_small levelEditor="False" imageW="24" imageH="24" bouncer="False" isCoin="True" flyaway="|313|COINS|" data="25">resource_hoard_gold_small.png</resource_hoard_gold_small>
-        <resource_hoard_gold levelEditor="False" imageW="24" imageH="24" bouncer="False" isCoin="True" flyaway="|313|COINS|" data="50">resource_hoard_gold.png</resource_hoard_gold>
-        <ring_courage flyaway="|393|RING OF COURAGE|" hint="|565|+1 DMG, KILL DASH|" slot="ring" coinCost="150" diamondCost="1" chestChance="7" shopChance="25" diamondDealable="3">ring_courage.png</ring_courage>
-        <ring_war flyaway="|394|RING OF WAR|" hint="|566|+1 DAMAGE, MORE ENEMIES|" slot="ring" coinCost="60" diamondCost="6" chestChance="5" shopChance="10" diamondDealable="3">ring_war.png</ring_war>
-        <ring_peace flyaway="|395|RING OF PEACE|" hint="|567|+1 HEART, FEWER ENEMIES|" slot="ring" coinCost="80" diamondCost="4" chestChance="3" shopChance="5" diamondDealable="3">ring_peace.png</ring_peace>
-        <ring_mana flyaway="|396|RING OF MANA|" hint="|568|MORE POWERFUL SPELLS|" slot="ring" coinCost="80" diamondCost="3" chestChance="0|1" shopChance="10" urnChance="5" diamondDealable="3">ring_mana.png</ring_mana>
-        <ring_shadows flyaway="|397|RING OF SHADOWS|" hint="???" slot="ring" coinCost="60" diamondCost="1" chestChance="0" lockedChestChance="25" shopChance="20" diamondDealable="2">ring_shadows.png</ring_shadows>
-        <ring_might flyaway="|398|RING OF MIGHT|" hint="|524|+1 DAMAGE|" slot="ring" coinCost="60" diamondCost="3" chestChance="0" lockedChestChance="100" shopChance="15" diamondDealable="4">ring_might.png</ring_might>
-        <ring_charisma flyaway="|399|RING OF CHARISMA|" hint="|569|CHEAPER SHOPS|" slot="ring" coinCost="40" chestChance="6" shopChance="20" unlocked="true" diamondDealable="2">ring_charisma.png</ring_charisma>
-        <ring_luck flyaway="|400|RING OF LUCK|" hint="|570|FIND BETTER ITEMS|" slot="ring" coinCost="40" diamondCost="1" chestChance="6" shopChance="20" diamondDealable="2">ring_luck.png</ring_luck>
-        <ring_gold flyaway="|401|RING OF GOLD|" hint="|571|MORE GOLD, AUTO GOLD PICKUP|" slot="ring" coinCost="30" diamondCost="2" chestChance="6" shopChance="20" diamondDealable="2">ring_gold.png</ring_gold>
-        <ring_phasing flyaway="|402|RING OF PHASING|" hint="???" slot="ring" coinCost="5" diamondCost="1" chestChance="4" shopChance="10" lockedShopChance="10" diamondDealable="5">ring_phasing.png</ring_phasing>
-        <ring_regeneration flyaway="|403|RING OF REGENERATION|" hint="|572|HEALS EACH LEVEL|" slot="ring" coinCost="60" diamondCost="5" chestChance="5" shopChance="10" diamondDealable="4">ring_regeneration.png</ring_regeneration>
-        <ring_protection flyaway="|404|RING OF PROTECTION|" hint="|510|+0.5 DEFENSE|" slot="ring" coinCost="40" diamondCost="4" chestChance="2" shopChance="6" diamondDealable="2">ring_protection.png</ring_protection>
-        <ring_shielding flyaway="|405|RING OF SHIELDING|" hint="|573|AUTOMATIC SHIELD|" slot="ring" coinCost="40" diamondCost="5" chestChance="2" shopChance="6" diamondDealable="3">ring_shielding.png</ring_shielding>
-        <ring_becoming flyaway="|406|RING OF BECOMING|" hint="???" slot="ring" coinCost="100" diamondCost="5" lockedChestChance="20" shopChance="15" lockedShopChance="5" chestChance="1" diamondDealable="5" imageW="22" imageH="19">ring_becoming.png</ring_becoming>
-        <ring_wonder levelEditor="False" flyaway="|407|RING OF WONDER|" hint="|574|+ ALL|" slot="ring" coinCost="200" imageW="22" imageH="21">ring_wonder.png</ring_wonder>
-        <scroll_earthquake flyaway="|408|EARTHQUAKE SCROLL|" hint="|575|DAMAGE NON-FLYING ENEMIES|" slot="action" coinCost="20" diamondCost="3" isScroll="True" spell="spell_earthquake" chestChance="1" shopChance="15" diamondDealable="1">scroll_brown.png</scroll_earthquake>
-        <scroll_fear flyaway="|409|FEAR SCROLL|" hint="|576|SCARE ENEMIES AWAY|" slot="action" coinCost="1" diamondCost="1" isScroll="True" spell="spell_fear" chestChance="1" shopChance="10" diamondDealable="1">scroll_black.png</scroll_fear>
-        <scroll_fireball flyaway="|410|FIREBALL SCROLL|" hint="|577|HORIZONTAL FIRE BLAST|" slot="action" coinCost="5" isScroll="True" spell="spell_fireball" chestChance="2" shopChance="5" unlocked="true" diamondDealable="1">scroll_red.png</scroll_fireball>
-        <scroll_freeze_enemies flyaway="|411|FREEZE ENEMIES SCROLL|" hint="|578|FREEZE ENEMIES|" slot="action" coinCost="10" diamondCost="1" isScroll="True" spell="spell_freeze_enemies" chestChance="2" shopChance="5" unlocked="true" diamondDealable="1">scroll_white.png</scroll_freeze_enemies>
-        <scroll_gigantism flyaway="|412|GIGANTISM SCROLL|" hint="|530|GIGANTISM|" slot="action" coinCost="20" isScroll="True" spell="spell_gigantism" chestChance="0" shopChance="0" diamondDealable="1">scroll_purple.png</scroll_gigantism>
-        <scroll_riches flyaway="|413|RICHES SCROLL|" hint="|579|RICHES|" slot="action" coinCost="50" diamondCost="1" isScroll="True" spell="spell_riches" chestChance="2" shopChance="10" diamondDealable="1">scroll_yellow.png</scroll_riches>
-        <scroll_shield flyaway="|414|SHIELD SCROLL|" hint="|580|TEMPORARY SHIELD|" slot="action" coinCost="25" diamondCost="1" isScroll="True" spell="spell_shield" chestChance="2" shopChance="10" unlocked="true" diamondDealable="1">scroll_magenta.png</scroll_shield>
-        <scroll_enchant_weapon flyaway="|415|ENCHANT WEAPON SCROLL|" hint="|581|ENCHANT WEAPON|" slot="action" coinCost="40" diamondCost="2" isScroll="True" spell="spell_enchant_weapon" chestChance="1" shopChance="10" diamondDealable="1">scroll_orange.png</scroll_enchant_weapon>
-        <scroll_need flyaway="|416|SCROLL OF NEED|" hint="|582|GIVES WHAT YOU NEED|" slot="action" coinCost="50" diamondCost="4" isScroll="True" spell="spell_need" chestChance="1" shopChance="10" diamondDealable="2">scroll_green.png</scroll_need>
-        <scroll_transmute flyaway="|417|TRANSMUTE SCROLL|" hint="|583|TRANSFORMS ALL NON-EQUIPPED ITEMS|" slot="action" coinCost="50" diamondCost="3" isScroll="True" spell="spell_transmute" chestChance="1" shopChance="10" diamondDealable="1">scroll_transmute.png</scroll_transmute>
-        <shovel_crystal flyaway="|418|CRYSTAL SHOVEL|" hint="|584|+2 DIG|" slotPriority="4" slot="shovel" isShovel="True" coinCost="250" diamondDealable="5" urnChance="5">shovel_crystal.png</shovel_crystal>
-        <shovel_titanium flyaway="|419|TITANIUM SHOVEL|" hint="|585|+1 DIG|" slotPriority="3" slot="shovel" isShovel="True" coinCost="40" lockedChestChance="100|100|100|0" shopChance="100" unlocked="true" diamondDealable="3">shovel_titanium.png</shovel_titanium>
-        <shovel_blood flyaway="|420|BLOOD SHOVEL|" hint="|586|DIG ANYTHING, BUT TAKE DAMAGE|" slotPriority="3" slot="shovel" diamondCost="3" isShovel="True" coinCost="80" lockedChestChance="50|50|50|1" shopChance="50" diamondDealable="3">shovel_blood.png</shovel_blood>
-        <shovel_obsidian flyaway="|421|OBSIDIAN SHOVEL|" hint="|587|MULTIPLIER-BASED DIG|" slotPriority="3" slot="shovel" isShovel="True" numFrames="3" imageW="26" imageH="26" coinCost="60" diamondCost="4" lockedChestChance="20|20|20|0" shopChance="25" diamondDealable="4">shovel_obsidian.png</shovel_obsidian>
-        <shovel_glass flyaway="|422|GLASS SHOVEL|" hint="|588|+2 DIG, BREAKABLE|" slotPriority="3" slot="shovel" isShovel="True" coinCost="20" diamondCost="4" lockedChestChance="20" shopChance="5" diamondDealable="4">shovel_glass.png</shovel_glass>
-        <shovel_shard flyaway="|423|GLASS SHARD|" hint="|423|GLASS SHARD|" slotPriority="1" slot="shovel" isShovel="True">shovel_shard.png</shovel_shard>
-        <shovel_basic flyaway="|424|SHOVEL|" hint="" slotPriority="2" slot="shovel" isShovel="True">shovel_basic.png</shovel_basic>
-        <pickaxe flyaway="|425|PICKAXE|" hint="|589|SLOW, STRONG DIG|" slotPriority="3" slot="shovel" isShovel="True" coinCost="50" diamondCost="3" chestChance="10|10|10|20" shopChance="40" diamondDealable="2">pickaxe.png</pickaxe>
-        <spell_fireball flyaway="|426|FIREBALL SPELL|" hint="|590|HORIZONTAL FIRE BLAST|" isSpell="True" cooldown="10" slot="spell" coinCost="50" diamondCost="1" chestChance="10" shopChance="5" unlocked="true" diamondDealable="4">spell_fireball.png</spell_fireball>
-        <spell_freeze_enemies flyaway="|427|FREEZE ENEMIES SPELL|" hint="|591|FREEZE ENEMIES|" isSpell="True" cooldown="15" slot="spell" imageH="27" coinCost="125" diamondCost="3" chestChance="5" shopChance="5" diamondDealable="5">spell_freeze_enemies.png</spell_freeze_enemies>
-        <spell_heal flyaway="|428|HEAL SPELL|" isSpell="True" hint="|592|RESTORE 0.5 HEALTH|" cooldown="15" slot="spell" imageW="25" coinCost="150" diamondCost="5" chestChance="8" shopChance="5" diamondDealable="6">spell_heal.png</spell_heal>
-        <spell_bomb flyaway="|429|BOMB SPELL|" isSpell="True" hint="|593|BOMB SPELL|" cooldown="25" slot="spell" imageW="26" coinCost="150" diamondCost="6" chestChance="8" shopChance="5" diamondDealable="3">spell_bomb.png</spell_bomb>
-        <spell_shield flyaway="|430|SHIELD SPELL|" isSpell="True" hint="|594|TEMPORARY SHIELD|" cooldown="20" slot="spell" coinCost="100" diamondCost="6" chestChance="8" shopChance="5" diamondDealable="4">spell_shield.png</spell_shield>
-        <spell_transmute flyaway="|431|TRANSMUTE SPELL|" isSpell="True" hint="|595|TRANSFORM NEARBY ITEMS|" cooldown="20" slot="spell" coinCost="150" diamondCost="6" chestChance="3" shopChance="3" imageW="27" imageH="26" diamondDealable="3">spell_transmute.png</spell_transmute>
-        <spell_charm levelEditor="False" flyaway="|432|CHARM SPELL|" isSpell="True" hint="|596|CHARM NEARBY ENEMIES|" cooldown="10" slot="spell" coinCost="100" imageW="27" imageH="26">spell_charm.png</spell_charm>
-        <torch_1 flyaway="|433|TORCH|" slotPriority="0" hint="|597|+1 VISION RADIUS|" slot="torch" coinCost="3" isTorch="True" data="1" chestChance="100|60|5|0" shopChance="150|50|25|0" unlocked="true" diamondDealable="1">torch_1.png</torch_1>
-        <torch_2 flyaway="|434|BRIGHT TORCH|" slotPriority="0" hint="|598|+2 VISION RADIUS|" slot="torch" coinCost="15" diamondCost="1" isTorch="True" data="2" chestChance="1|45|90|25|0" shopChance="30|100|75|50|25|0" diamondDealable="2">torch_2.png</torch_2>
-        <torch_3 flyaway="|435|LUMINOUS TORCH|" slotPriority="0" hint="|599|+3 VISION RADIUS|" slot="torch" coinCost="40" diamondCost="5" isTorch="True" data="3" chestChance="0|1|40|100" shopChance="1|25|75|100" diamondDealable="3">torch_3.png</torch_3>
-        <torch_foresight flyaway="|436|TORCH OF FORESIGHT|" slotPriority="0" hint="|600|+1 VISION + TRAPSIGHT|" slot="torch" coinCost="20" diamondCost="5" isTorch="True" data="1" chestChance="10|25|30" shopChance="25|50" diamondDealable="4" urnChance="2">torch_foresight.png</torch_foresight>
-        <torch_glass flyaway="|437|GLASS TORCH|" slotPriority="0" hint="|601|MAGIC VISION, BREAKABLE|" slot="torch" coinCost="30" diamondCost="6" isTorch="True" isGlass="True" imageW="24" imageH="27" data="3" chestChance="2|15|30|100" shopChance="2|25|75|100" diamondDealable="3">torch_glass.png</torch_glass>
-        <torch_infernal flyaway="|438|INFERNAL TORCH|" slotPriority="0" hint="|602|CONSUMES TORCHES ON WALLS|" slot="torch" coinCost="30" diamondCost="5" isTorch="True" data="1" chestChance="2|10|20|100" shopChance="2|45|90|100" diamondDealable="3">torch_infernal.png</torch_infernal>
-        <torch_obsidian flyaway="|439|OBSIDIAN TORCH|" slotPriority="0" hint="|603|MULTIPLIER-BASED LIGHT|" slot="torch" coinCost="20" diamondCost="3" isTorch="True" numFrames="3" imageW="24" imageH="27" data="1" chestChance="10|40|25" shopChance="10|20|5" diamondDealable="3">torch_obsidian.png</torch_obsidian>
+        <armor_chainmail>armor_chainmail.png</armor_chainmail>
+        <armor_heavyplate>armor_heavyplate.png</armor_heavyplate>
+        <armor_leather>armor_leather.png</armor_leather>
+        <armor_platemail>armor_platemail.png</armor_platemail>
+        <armor_platemail_dorian>armor_platemail_dorian.png</armor_platemail_dorian>
+        <armor_gi>armor_gi.png</armor_gi>
+        <armor_glass>armor_glass.png</armor_glass>
+        <armor_obsidian>armor_obsidian.png</armor_obsidian>
+        <feet_ballet_shoes>feet_ballet_shoes.png</feet_ballet_shoes>
+        <feet_boots_speed>feet_boots_speed.png</feet_boots_speed>
+        <feet_boots_winged>feet_boots_winged.png</feet_boots_winged>
+        <feet_boots_explorers>feet_boots_explorers.png</feet_boots_explorers>
+        <feet_boots_lead>feet_boots_lead.png</feet_boots_lead>
+        <feet_boots_leaping>feet_boots_leaping.png</feet_boots_leaping>
+        <feet_boots_lunging>feet_boots_lunging.png</feet_boots_lunging>
+        <feet_boots_pain>feet_boots_pain.png</feet_boots_pain>
+        <feet_greaves>feet_greaves.png</feet_greaves>
+        <feet_boots_strength>feet_boots_strength.png</feet_boots_strength>
+        <food_1>food_1.png</food_1>
+        <food_2>food_2.png</food_2>
+        <food_3>food_3.png</food_3>
+        <food_4>food_4.png</food_4>
+        <holy_water>holy_water.png</holy_water>
+        <bomb>bomb.png</bomb>
+        <bomb_3>bomb_3.png</bomb_3>
+        <war_drum>war_drum.png</war_drum>
+        <blood_drum>blood_drum.png</blood_drum>
+        <heart_transplant>heart_transplant.png</heart_transplant>
+        <head_crown_of_thorns>head_crown_of_thorns.png</head_crown_of_thorns>
+        <head_crown_of_greed>head_crown_of_greed.png</head_crown_of_greed>
+        <head_crown_of_teleportation>head_crown_of_teleportation.png</head_crown_of_teleportation>
+        <head_circlet_telepathy>head_circlet_telepathy.png</head_circlet_telepathy>
+        <head_miners_cap>head_miners_cap.png</head_miners_cap>
+        <head_monocle>head_monocle.png</head_monocle>
+        <head_helm>head_helmet.png</head_helm>
+        <head_glass_jaw>head_glass_jaw.png</head_glass_jaw>
+        <head_blast_helm>head_blast_helm.png</head_blast_helm>
+        <head_sunglasses>head_sunglasses.png</head_sunglasses>
+        <hud_backpack>hud_backpack.png</hud_backpack>
+        <holster>holster.png</holster>
+        <bag_holding>bag_holding.png</bag_holding>
+        <misc_compass>misc_compass.png</misc_compass>
+        <misc_coupon>misc_coupon.png</misc_coupon>
+        <misc_heart_container>misc_heart_container.png</misc_heart_container>
+        <misc_heart_container2>misc_heart_container2.png</misc_heart_container2>
+        <misc_heart_container_empty>misc_heart_container_empty.png</misc_heart_container_empty>
+        <misc_heart_container_empty2>misc_heart_container_empty2.png</misc_heart_container_empty2>
+        <misc_key>misc_key.png</misc_key>
+        <misc_map>misc_map.png</misc_map>
+        <misc_potion>misc_potion.png</misc_potion>
+        <charm_frost>charm_frost.png</charm_frost>
+        <charm_luck>charm_lucky.png</charm_luck>
+        <charm_strength>charm_strength.png</charm_strength>
+        <resource_coin0>resource_coin1.png</resource_coin0>
+        <resource_coin1>resource_coin1.png</resource_coin1>
+        <resource_coin2>resource_coin2.png</resource_coin2>
+        <resource_coin3>resource_coin3.png</resource_coin3>
+        <resource_coin4>resource_coin4.png</resource_coin4>
+        <resource_coin5>resource_coin5.png</resource_coin5>
+        <resource_coin6>resource_coin6.png</resource_coin6>
+        <resource_coin7>resource_coin7.png</resource_coin7>
+        <resource_coin8>resource_coin8.png</resource_coin8>
+        <resource_coin9>resource_coin9.png</resource_coin9>
+        <resource_coin10>resource_coin10.png</resource_coin10>
+        <resource_coin50>resource_hoard.png</resource_coin50>
+        <resource_coin100>resource_hoard.png</resource_coin100>
+        <resource_coin150>resource_hoard.png</resource_coin150>
+        <resource_diamond>resource_diamond.png</resource_diamond>
+        <resource_diamond2>resource_diamond2.png</resource_diamond2>
+        <resource_diamond3>resource_diamond3.png</resource_diamond3>
+        <resource_diamond4>resource_diamond4.png</resource_diamond4>
+        <resource_hoard1>resource_hoard.png</resource_hoard1>
+        <resource_hoard2>resource_hoard.png</resource_hoard2>
+        <resource_hoard3>resource_hoard.png</resource_hoard3>
+        <resource_hoard4>resource_hoard.png</resource_hoard4>
+        <resource_hoard_gold_small>resource_hoard_gold_small.png</resource_hoard_gold_small>
+        <resource_hoard_gold>resource_hoard_gold.png</resource_hoard_gold>
+        <ring_courage>ring_courage.png</ring_courage>
+        <ring_war>ring_war.png</ring_war>
+        <ring_peace>ring_peace.png</ring_peace>
+        <ring_mana>ring_mana.png</ring_mana>
+        <ring_shadows>ring_shadows.png</ring_shadows>
+        <ring_might>ring_might.png</ring_might>
+        <ring_charisma>ring_charisma.png</ring_charisma>
+        <ring_luck>ring_luck.png</ring_luck>
+        <ring_gold>ring_gold.png</ring_gold>
+        <ring_phasing>ring_phasing.png</ring_phasing>
+        <ring_regeneration>ring_regeneration.png</ring_regeneration>
+        <ring_protection>ring_protection.png</ring_protection>
+        <ring_shielding>ring_shielding.png</ring_shielding>
+        <ring_becoming>ring_becoming.png</ring_becoming>
+        <ring_wonder>ring_wonder.png</ring_wonder>
+        <scroll_earthquake>scroll_brown.png</scroll_earthquake>
+        <scroll_fear>scroll_black.png</scroll_fear>
+        <scroll_fireball>scroll_red.png</scroll_fireball>
+        <scroll_freeze_enemies>scroll_white.png</scroll_freeze_enemies>
+        <scroll_gigantism>scroll_purple.png</scroll_gigantism>
+        <scroll_riches>scroll_yellow.png</scroll_riches>
+        <scroll_shield>scroll_magenta.png</scroll_shield>
+        <scroll_enchant_weapon>scroll_orange.png</scroll_enchant_weapon>
+        <scroll_need>scroll_green.png</scroll_need>
+        <scroll_transmute>scroll_transmute.png</scroll_transmute>
+        <shovel_crystal>shovel_crystal.png</shovel_crystal>
+        <shovel_titanium>shovel_titanium.png</shovel_titanium>
+        <shovel_blood>shovel_blood.png</shovel_blood>
+        <shovel_obsidian>shovel_obsidian.png</shovel_obsidian>
+        <shovel_glass>shovel_glass.png</shovel_glass>
+        <shovel_shard>shovel_shard.png</shovel_shard>
+        <shovel_basic>shovel_basic.png</shovel_basic>
+        <pickaxe>pickaxe.png</pickaxe>
+        <spell_fireball>spell_fireball.png</spell_fireball>
+        <spell_freeze_enemies>spell_freeze_enemies.png</spell_freeze_enemies>
+        <spell_heal>spell_heal.png</spell_heal>
+        <spell_bomb>spell_bomb.png</spell_bomb>
+        <spell_shield>spell_shield.png</spell_shield>
+        <spell_transmute>spell_transmute.png</spell_transmute>
+        <spell_charm>spell_charm.png</spell_charm>
+        <torch_1>torch_1.png</torch_1>
+        <torch_2>torch_2.png</torch_2>
+        <torch_3>torch_3.png</torch_3>
+        <torch_foresight>torch_foresight.png</torch_foresight>
+        <torch_glass>torch_glass.png</torch_glass>
+        <torch_infernal>torch_infernal.png</torch_infernal>
+        <torch_obsidian>torch_obsidian.png</torch_obsidian>
 
-        <!-- WEAPONS -->
-        <weapon_flower slot="weapon" hint="|440|FLOWER|" coinCost="1" flyaway="|440|FLOWER|" isWeapon="True" chestChance="0" shopChance="0">weapon_flower.png</weapon_flower>
-        <weapon_golden_lute levelEditor="False" slot="weapon" hint="|441|GOLDEN LUTE|" coinCost="1" flyaway="|441|GOLDEN LUTE|" isWeapon="True" isPiercing="True" chestChance="0" shopChance="0" imageW="30" imageH="25">weapon_golden_lute.png</weapon_golden_lute>
-        <weapon_dagger slot="weapon" hint="|604|DAGGER, THROWABLE|" coinCost="1" flyaway="|442|DAGGER|" isWeapon="True" isDagger="True" chestChance="0" shopChance="0">weapon_dagger.png</weapon_dagger>
-        <weapon_dagger_shard slot="weapon" hint="|443|GLASS SHARD|" coinCost="1" flyaway="|443|GLASS SHARD|" isWeapon="True" isDagger="True" chestChance="0" shopChance="0">weapon_dagger_shard.png</weapon_dagger_shard>
-        <weapon_titanium_dagger slot="weapon" hint="|605|2 DAMAGE|" coinCost="10" flyaway="|444|TITANIUM DAGGER|" isWeapon="True" isDagger="True" isTitanium="True" chestChance="50|0" shopChance="25|0" unlocked="true" diamondDealable="1">weapon_dagger_titanium.png</weapon_titanium_dagger>
-        <weapon_obsidian_dagger slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" numFrames="3" coinCost="25" flyaway="|445|OBSIDIAN DAGGER|" isWeapon="True" isDagger="True" isObsidian="True" chestChance="20|10|0" shopChance="50|10|0" unlocked="true" diamondDealable="2">weapon_dagger_obsidian.png</weapon_obsidian_dagger>
-        <weapon_golden_dagger slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" coinCost="15" flyaway="|446|GOLDEN DAGGER|" isWeapon="True" isDagger="True" isGold="True" chestChance="10|5|0" shopChance="50|0" unlocked="true" diamondDealable="1">weapon_dagger_golden.png</weapon_golden_dagger>
-        <weapon_blood_dagger slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" coinCost="5" flyaway="|447|BLOOD DAGGER|" isWeapon="True" isDagger="True" isBlood="True" chestChance="25|1|0" shopChance="25|0" unlocked="true" diamondDealable="1">weapon_dagger_blood.png</weapon_blood_dagger>
-        <weapon_glass_dagger slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" coinCost="20" flyaway="|448|GLASS DAGGER|" isWeapon="True" isDagger="True" isGlass="True" chestChance="2|3|0" shopChance="0" lockedShopChance="5" unlocked="true" diamondDealable="2">weapon_dagger_glass.png</weapon_glass_dagger>
-        <weapon_dagger_jeweled slot="weapon" hint="|610|5 DAMAGE|" coinCost="100" flyaway="|449|JEWELED DAGGER|" isWeapon="True" isDagger="True" chestChance="2" shopChance="25" unlocked="true">weapon_dagger_jeweled.png</weapon_dagger_jeweled>
-        <weapon_dagger_frost slot="weapon" isPiercing="True" hint="|611|FREEZE ENEMIES, KILL FROZEN ENEMIES, PIERCING|" coinCost="40" flyaway="|450|DAGGER OF FROST|" isWeapon="True" isDagger="True" isFrost="True" chestChance="10|5|0" shopChance="10|5|1" unlocked="true" diamondDealable="2">weapon_dagger_frost.png</weapon_dagger_frost>
-        <weapon_dagger_phasing slot="weapon" hint="|612|PHASING ATTACK, 2 DMG|" coinCost="25" flyaway="|451|DAGGER OF PHASING|" isWeapon="True" isDagger="True" isPhasing="True" chestChance="10|5|3" shopChance="10|5" unlocked="true" diamondDealable="2">weapon_dagger_phasing.png</weapon_dagger_phasing>
-        <weapon_broadsword slot="weapon" hint="|613|WIDE ATTACK|" coinCost="30" flyaway="|452|BROADSWORD|" isWeapon="True" isBroadsword="True" chestChance="100|25|0" shopChance="0|50|0" unlocked="true" diamondDealable="1">weapon_broadsword.png</weapon_broadsword>
-        <weapon_titanium_broadsword slot="weapon" hint="|605|2 DAMAGE|" coinCost="75" flyaway="|453|TITANIUM BROADSWORD|" isWeapon="True" isBroadsword="True" isTitanium="True" chestChance="1|5|15|25" shopChance="25|50|25|0" unlocked="true" diamondDealable="3">weapon_broadsword_titanium.png</weapon_titanium_broadsword>
-        <weapon_obsidian_broadsword slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" imageW="26" imageH="26" numFrames="3" coinCost="250" flyaway="|454|OBSIDIAN BROADSWORD|" isWeapon="True" isBroadsword="True" isObsidian="True" chestChance="1|1|3|35" shopChance="0" lockedShopChance="100" unlocked="true" diamondDealable="4">weapon_broadsword_obsidian.png</weapon_obsidian_broadsword>
-        <weapon_golden_broadsword slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" coinCost="75" flyaway="|455|GOLDEN BROADSWORD|" isWeapon="True" isBroadsword="True" isGold="True" chestChance="3|5|15|1" shopChance="5|30|40|15|5" unlocked="true" diamondDealable="2">weapon_broadsword_golden.png</weapon_golden_broadsword>
-        <weapon_blood_broadsword slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" coinCost="40" flyaway="|456|BLOOD BROADSWORD|" isWeapon="True" isBroadsword="True" isBlood="True" chestChance="1|3|10|5" shopChance="0|30|40|15|5" unlocked="true" diamondDealable="2">weapon_broadsword_blood.png</weapon_blood_broadsword>
-        <weapon_glass_broadsword slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" coinCost="75" flyaway="|457|GLASS BROADSWORD|" isWeapon="True" isBroadsword="True" isGlass="True" chestChance="1|1|3|25" shopChance="0" lockedShopChance="100" unlocked="true" diamondDealable="4">weapon_broadsword_glass.png</weapon_glass_broadsword>
-        <weapon_longsword slot="weapon" hint="|614|LONG ATTACK|" coinCost="50" diamondCost="3" flyaway="|458|LONGSWORD|" isWeapon="True" isLongsword="True" chestChance="30|75|10|0" shopChance="100|50|25|0" diamondDealable="2">weapon_longsword.png</weapon_longsword>
-        <weapon_titanium_longsword slot="weapon" hint="|605|2 DAMAGE|" coinCost="120" flyaway="|459|TITANIUM LONGSWORD|" isWeapon="True" isLongsword="True" isTitanium="True" chestChance="1|3|5|25" shopChance="0|50|50|25|5" urnChance="10" diamondDealable="4">weapon_longsword_titanium.png</weapon_titanium_longsword>
-        <weapon_obsidian_longsword slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" imageW="26" imageH="26" numFrames="3" coinCost="350" flyaway="|460|OBSIDIAN LONGSWORD|" isWeapon="True" isLongsword="True" isObsidian="True" chestChance="1|1|5|25" shopChance="0" lockedShopChance="100" urnChance="10" diamondDealable="5">weapon_longsword_obsidian.png</weapon_obsidian_longsword>
-        <weapon_golden_longsword slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" coinCost="125" flyaway="|461|GOLDEN LONGSWORD|" isWeapon="True" isLongsword="True" isGold="True" chestChance="1|15|1|0" shopChance="5|15|20|10|5" diamondDealable="3">weapon_longsword_golden.png</weapon_golden_longsword>
-        <weapon_blood_longsword slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" coinCost="65" flyaway="|462|BLOOD LONGSWORD|" isWeapon="True" isLongsword="True" isBlood="True" chestChance="1|5|1|0" shopChance="0|10|15|25" diamondDealable="3">weapon_longsword_blood.png</weapon_blood_longsword>
-        <weapon_glass_longsword slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" coinCost="125" flyaway="|463|GLASS LONGSWORD|" isWeapon="True" isLongsword="True" isGlass="True" chestChance="1|5|10|25" shopChance="0" lockedShopChance="100" diamondDealable="5">weapon_longsword_glass.png</weapon_glass_longsword>
-        <weapon_whip slot="weapon" hint="|615|WIDER ATTACK|" coinCost="20" diamondCost="2" flyaway="|464|WHIP|" isWeapon="True" isWhip="True" chestChance="5|50|0" shopChance="25|50|1" diamondDealable="1">weapon_whip.png</weapon_whip>
-        <weapon_titanium_whip slot="weapon" hint="|605|2 DAMAGE|" coinCost="50" flyaway="|465|TITANIUM WHIP|" isWeapon="True" isWhip="True" isTitanium="True" chestChance="1|1|15|20" shopChance="25|30|50|25|0" diamondDealable="3">weapon_whip_titanium.png</weapon_titanium_whip>
-        <weapon_obsidian_whip slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" numFrames="3" coinCost="150" flyaway="|466|OBSIDIAN WHIP|" isWeapon="True" isWhip="True" isObsidian="True" chestChance="1|1|5|15" shopChance="1" diamondDealable="4">weapon_whip_obsidian.png</weapon_obsidian_whip>
-        <weapon_golden_whip slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" coinCost="50" flyaway="|467|GOLDEN WHIP|" isWeapon="True" isWhip="True" isGold="True" chestChance="3|5|10|0" shopChance="0|5|10|5" diamondDealable="2">weapon_whip_golden.png</weapon_golden_whip>
-        <weapon_blood_whip slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" coinCost="40" flyaway="|468|BLOOD WHIP|" isWeapon="True" isWhip="True" isBlood="True" chestChance="1|5|10|5" shopChance="3" diamondDealable="2">weapon_whip_blood.png</weapon_blood_whip>
-        <weapon_glass_whip slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" coinCost="50" flyaway="|469|GLASS WHIP|" isWeapon="True" isWhip="True" isGlass="True" chestChance="1|5|10|20" shopChance="0" lockedShopChance="100" diamondDealable="4">weapon_whip_glass.png</weapon_glass_whip>
-        <weapon_spear slot="weapon" hint="|616|LONG ATTACK, THROWABLE|" coinCost="40" diamondCost="1" flyaway="|470|SPEAR|" isWeapon="True" isSpear="True" chestChance="30|75|5|0" shopChance="100|50|25|0" diamondDealable="2">weapon_spear.png</weapon_spear>
-        <weapon_titanium_spear slot="weapon" hint="|605|2 DAMAGE|" coinCost="100" flyaway="|471|TITANIUM SPEAR|" isWeapon="True" isSpear="True" isTitanium="True" chestChance="1|5|10|20" shopChance="0|50|50|25|5" diamondDealable="4">weapon_spear_titanium.png</weapon_titanium_spear>
-        <weapon_obsidian_spear slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" numFrames="3" coinCost="300" flyaway="|472|OBSIDIAN SPEAR|" isWeapon="True" isSpear="True" isObsidian="True" chestChance="1|1|10|20" shopChance="0" lockedShopChance="100" diamondDealable="5">weapon_spear_obsidian.png</weapon_obsidian_spear>
-        <weapon_golden_spear slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" coinCost="100" flyaway="|473|GOLDEN SPEAR|" isWeapon="True" isSpear="True" isGold="True"  chestChance="1|1|15|0" shopChance="5|15|20|10|5" diamondDealable="3">weapon_spear_golden.png</weapon_golden_spear>
-        <weapon_blood_spear slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" coinCost="50" flyaway="|474|BLOOD SPEAR|" isWeapon="True" isSpear="True" isBlood="True" chestChance="1|1|10|5" shopChance="0|10|15|10|5" diamondDealable="3">weapon_spear_blood.png</weapon_blood_spear>
-        <weapon_glass_spear slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" coinCost="100" flyaway="|475|GLASS SPEAR|" isWeapon="True" isSpear="True" isGlass="True" chestChance="1|1|5|25" shopChance="0" lockedShopChance="100" diamondDealable="5">weapon_spear_glass.png</weapon_glass_spear>
-        <weapon_rapier slot="weapon" hint="|617|LUNGE FOR DOUBLE DAMAGE|" imageW="26" imageH="27" coinCost="60" diamondCost="3" flyaway="|476|RAPIER|" isWeapon="True" isRapier="True" chestChance="20|40|5|0" shopChance="100|50|25|0" diamondDealable="2">weapon_rapier.png</weapon_rapier>
-        <weapon_titanium_rapier slot="weapon" hint="|605|2 DAMAGE|" imageW="26" imageH="27" coinCost="120" flyaway="|477|TITANIUM RAPIER|" isWeapon="True" isRapier="True" isTitanium="True" chestChance="1|3|10|25" shopChance="0|30|40|15|5" urnChance="10" diamondDealable="4">weapon_rapier_titanium.png</weapon_titanium_rapier>
-        <weapon_obsidian_rapier slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" imageW="26" imageH="27" numFrames="3" coinCost="400" flyaway="|478|OBSIDIAN RAPIER|" isWeapon="True" isRapier="True" isObsidian="True" chestChance="1|1|10|20" shopChance="0" lockedShopChance="100" urnChance="10" diamondDealable="5">weapon_rapier_obsidian.png</weapon_obsidian_rapier>
-        <weapon_golden_rapier slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" imageW="26" imageH="27" coinCost="120" flyaway="|479|GOLDEN RAPIER|" isWeapon="True" isRapier="True" isGold="True" chestChance="1|5|10|0" shopChance="5|30|40|15|5" diamondDealable="3">weapon_rapier_golden.png</weapon_golden_rapier>
-        <weapon_blood_rapier slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" imageW="26" imageH="27" coinCost="75" flyaway="|480|BLOOD RAPIER|" isWeapon="True" isRapier="True" isBlood="True" chestChance="1|5|10|5" shopChance="0|30|40|15|5" diamondDealable="3">weapon_rapier_blood.png</weapon_blood_rapier>
-        <weapon_glass_rapier slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" imageW="26" imageH="27" coinCost="120" flyaway="|481|GLASS RAPIER|" isWeapon="True" isRapier="True" isGlass="True" chestChance="1|2|5|25" shopChance="0" lockedShopChance="100" urnChance="1" diamondDealable="5">weapon_rapier_glass.png</weapon_glass_rapier>
-        <weapon_bow slot="weapon" hint="|618|RANGED ATTACK|" imageW="25" imageH="26" coinCost="150" flyaway="|482|BOW|" isWeapon="True" isBow="True" chestChance="0|0|5|0" shopChance="0" lockedShopChance="100" unlocked="true" diamondDealable="3">weapon_bow.png</weapon_bow>
-        <weapon_titanium_bow slot="weapon" hint="|605|2 DAMAGE|" imageW="25" imageH="26" coinCost="400" flyaway="|483|TITANIUM BOW|" isWeapon="True" isBow="True" isTitanium="True" chestChance="0|0|1" shopChance="0" lockedShopChance="100" unlocked="true" urnChance="10" diamondDealable="6">weapon_bow_titanium.png</weapon_titanium_bow>
-        <weapon_obsidian_bow slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" imageW="25" imageH="26" numFrames="3" coinCost="600" flyaway="|484|OBSIDIAN BOW|" isWeapon="True" isBow="True" isObsidian="True" chestChance="0|0|1|2" shopChance="0" lockedShopChance="15" unlocked="true" urnChance="10" diamondDealable="8">weapon_bow_obsidian.png</weapon_obsidian_bow>
-        <weapon_golden_bow slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" imageW="25" imageH="26" coinCost="300" flyaway="|485|GOLDEN BOW|" isWeapon="True" isBow="True" isGold="True" chestChance="0|0|1" shopChance="0|0|0|0" lockedShopChance="50" unlocked="true" diamondDealable="4">weapon_bow_golden.png</weapon_golden_bow>
-        <weapon_blood_bow slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" imageW="25" imageH="26" coinCost="250" flyaway="|486|BLOOD BOW|" isWeapon="True" isBow="True" isBlood="True" chestChance="0|0|1" shopChance="0|0|0|0" lockedShopChance="25" unlocked="true" diamondDealable="4">weapon_bow_blood.png</weapon_blood_bow>
-        <weapon_glass_bow slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" imageW="25" imageH="26" coinCost="400" flyaway="|487|GLASS BOW|" isWeapon="True" isBow="True" isGlass="True" chestChance="0|0|1" shopChance="0|0|0|0" lockedShopChance="15" unlocked="true" diamondDealable="8">weapon_bow_glass.png</weapon_glass_bow>
-        <weapon_crossbow slot="weapon" isPiercing="True" hint="|619|RANGED ATTACK, NEEDS RELOADING, PIERCING|" imageW="27" imageH="27" numFrames="4" coinCost="100" flyaway="|488|CROSSBOW|" isWeapon="True" isCrossbow="True" chestChance="0|1|1|0" shopChance="0" lockedShopChance="100" unlocked="true" diamondDealable="2">weapon_crossbow.png</weapon_crossbow>
-        <weapon_titanium_crossbow slot="weapon" isPiercing="True" hint="|605|2 DAMAGE|" imageW="27" imageH="27" numFrames="4" coinCost="350" flyaway="|489|TITANIUM CROSSBOW|" isWeapon="True" isCrossbow="True" isTitanium="True" chestChance="0|0|1" shopChance="0" lockedShopChance="100" unlocked="true" diamondDealable="4">weapon_crossbow_titanium.png</weapon_titanium_crossbow>
-        <weapon_obsidian_crossbow slot="weapon" isPiercing="True" hint="|606|MULTIPLIER-BASED DAMAGE|" numFrames="12" imageW="27" imageH="27" coinCost="500" flyaway="|490|OBSIDIAN CROSSBOW|" isWeapon="True" isCrossbow="True" isObsidian="True" chestChance="0|1|1|1" shopChance="0|0|5|1" unlocked="true" diamondDealable="5">weapon_crossbow_obsidian.png</weapon_obsidian_crossbow>
-        <weapon_golden_crossbow slot="weapon" isPiercing="True" hint="|607|HIGH DMG AFTER GOLD PICKUP|" imageW="27" imageH="27" numFrames="4" coinCost="250" flyaway="|491|GOLDEN CROSSBOW|" isWeapon="True" isCrossbow="True" isGold="True" chestChance="0|0|0|1" shopChance="0|0|0|0" lockedShopChance="1" unlocked="true" diamondDealable="3">weapon_crossbow_golden.png</weapon_golden_crossbow>
-        <weapon_blood_crossbow slot="weapon" isPiercing="True" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" imageW="27" imageH="27" numFrames="4" coinCost="225" flyaway="|492|BLOOD CROSSBOW|" isWeapon="True" isCrossbow="True" isBlood="True" chestChance="0|0|1" shopChance="0" lockedShopChance="10" unlocked="true" diamondDealable="3">weapon_crossbow_blood.png</weapon_blood_crossbow>
-        <weapon_glass_crossbow slot="weapon" isPiercing="True" hint="|609|4 DAMAGE, BREAKABLE|" imageW="27" imageH="27" numFrames="4" coinCost="300" flyaway="|493|GLASS CROSSBOW|" isWeapon="True" isCrossbow="True" isGlass="True" chestChance="0|0|1" shopChance="0" lockedShopChance="10" unlocked="true" diamondDealable="5">weapon_crossbow_glass.png</weapon_glass_crossbow>
-        <weapon_flail slot="weapon" hint="|620|KNOCKBACK ATTACK|" coinCost="60" flyaway="|494|FLAIL|" diamondCost="8" isWeapon="True" isFlail="True" chestChance="5|25|10|0" shopChance="40|30|20|0" diamondDealable="2">weapon_flail.png</weapon_flail>
-        <weapon_titanium_flail slot="weapon" hint="|605|2 DAMAGE|" coinCost="120" flyaway="|495|TITANIUM FLAIL|" isWeapon="True" isFlail="True" isTitanium="True" chestChance="1|1|5|10" shopChance="0|20|20|8" diamondDealable="4">weapon_flail_titanium.png</weapon_titanium_flail>
-        <weapon_obsidian_flail slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" coinCost="350" flyaway="|496|OBSIDIAN FLAIL|" isWeapon="True" isFlail="True" isObsidian="True" numFrames="3" chestChance="1|1|3|10" shopChance="0" lockedShopChance="100" diamondDealable="5">weapon_flail_obsidian.png</weapon_obsidian_flail>
-        <weapon_golden_flail slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" coinCost="120" flyaway="|497|GOLDEN FLAIL|" isWeapon="True" isFlail="True" isGold="True" chestChance="1|1|15|0" shopChance="5|15|20|10|5" diamondDealable="3">weapon_flail_gold.png</weapon_golden_flail>
-        <weapon_blood_flail slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" coinCost="80" flyaway="|498|BLOOD FLAIL|" isWeapon="True" isFlail="True" isBlood="True" chestChance="1|1|5|5" shopChance="0|10|15|25" diamondDealable="3">weapon_flail_blood.png</weapon_blood_flail>
-        <weapon_glass_flail slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" coinCost="120" flyaway="|499|GLASS FLAIL|" isWeapon="True" isFlail="True" isGlass="True" chestChance="1|1|5|15" shopChance="0" lockedShopChance="100" diamondDealable="5">weapon_flail_glass.png</weapon_glass_flail>
-        <weapon_cat slot="weapon" hint="|621|MOVE AND ATTACK|" coinCost="50" flyaway="|500|CAT O NINE TAILS|" diamondCost="8" isWeapon="True" isCat="True" chestChance="10|30|20|0" shopChance="40|20|10|0" diamondDealable="2">weapon_cat.png</weapon_cat>
-        <weapon_titanium_cat slot="weapon" hint="|605|2 DAMAGE|" coinCost="120" flyaway="|501|TITANIUM CAT|" isWeapon="True" isCat="True" isTitanium="True" chestChance="1|1|5|15" shopChance="0|20|20|8" diamondDealable="4">weapon_cat_titanium.png</weapon_titanium_cat>
-        <weapon_obsidian_cat slot="weapon" hint="|606|MULTIPLIER-BASED DAMAGE|" coinCost="300" flyaway="|502|OBSIDIAN CAT|" isWeapon="True" isCat="True" isObsidian="True" imageW="25" numFrames="3" chestChance="1|1|5|20" shopChance="0" lockedShopChance="100" diamondDealable="5">weapon_cat_obsidian.png</weapon_obsidian_cat>
-        <weapon_golden_cat slot="weapon" hint="|607|HIGH DMG AFTER GOLD PICKUP|" coinCost="150" flyaway="|503|GOLDEN CAT|" isWeapon="True" isCat="True" isGold="True" chestChance="1|1|15|0" shopChance="5|15|20|10|5" diamondDealable="3">weapon_cat_gold.png</weapon_golden_cat>
-        <weapon_blood_cat slot="weapon" hint="|608|KILL TO HEAL, LOW HEALTH = +DAMAGE|" coinCost="65" flyaway="|504|BLOOD CAT|" isWeapon="True" isCat="True" isBlood="True" chestChance="1|1|10|5" shopChance="0|10|15|25" diamondDealable="3">weapon_cat_blood.png</weapon_blood_cat>
-        <weapon_glass_cat slot="weapon" hint="|609|4 DAMAGE, BREAKABLE|" coinCost="150" flyaway="|505|GLASS CAT|" isWeapon="True" isCat="True" isGlass="True" chestChance="1|1|10|25" shopChance="0" lockedShopChance="100" diamondDealable="5">weapon_cat_glass.png</weapon_glass_cat>
-        <weapon_blunderbuss sound="blunderbussShoot" hint="|622|CONICAL BLAST, NEEDS RELOADING, PIERCING|" slot="weapon" playerKnockback="True" screenFlash="True" screenShake="True" coinCost="350" flyaway="|506|BLUNDERBUSS|" isWeapon="True" isBlunderbuss="True" isPiercing="True" chestChance="0|0|1|2" shopChance="0|0|1" lockedShopChance="25" unlocked="true" urnChance="20" numFrames="2" imageW="25" imageH="36" yOff="-12">weapon_blunderbuss.png</weapon_blunderbuss>
-        <weapon_rifle sound="rifleShoot" hint="|623|RANGED ATTACK, NEEDS LOADING, PIERCING|" slot="weapon" playerKnockback="True" coinCost="400" flyaway="|507|RIFLE|" diamondCost="9" isWeapon="True" isRifle="True" isPiercing="True" chestChance="0|0|1|2" shopChance="0|0|1" lockedShopChance="25" urnChance="20" numFrames="2" imageW="25" imageH="37" yOff="-10">weapon_rifle.png</weapon_rifle>
+        <weapon_flower>weapon_flower.png</weapon_flower>
+        <weapon_golden_lute>weapon_golden_lute.png</weapon_golden_lute>
+        <weapon_dagger>weapon_dagger.png</weapon_dagger>
+        <weapon_dagger_shard>weapon_dagger_shard.png</weapon_dagger_shard>
+        <weapon_titanium_dagger>weapon_dagger_titanium.png</weapon_titanium_dagger>
+        <weapon_obsidian_dagger>weapon_dagger_obsidian.png</weapon_obsidian_dagger>
+        <weapon_golden_dagger>weapon_dagger_golden.png</weapon_golden_dagger>
+        <weapon_blood_dagger>weapon_dagger_blood.png</weapon_blood_dagger>
+        <weapon_glass_dagger>weapon_dagger_glass.png</weapon_glass_dagger>
+        <weapon_dagger_jeweled>weapon_dagger_jeweled.png</weapon_dagger_jeweled>
+        <weapon_dagger_frost>weapon_dagger_frost.png</weapon_dagger_frost>
+        <weapon_dagger_phasing>weapon_dagger_phasing.png</weapon_dagger_phasing>
+        <weapon_broadsword>weapon_broadsword.png</weapon_broadsword>
+        <weapon_titanium_broadsword>weapon_broadsword_titanium.png</weapon_titanium_broadsword>
+        <weapon_obsidian_broadsword>weapon_broadsword_obsidian.png</weapon_obsidian_broadsword>
+        <weapon_golden_broadsword>weapon_broadsword_golden.png</weapon_golden_broadsword>
+        <weapon_blood_broadsword>weapon_broadsword_blood.png</weapon_blood_broadsword>
+        <weapon_glass_broadsword>weapon_broadsword_glass.png</weapon_glass_broadsword>
+        <weapon_longsword>weapon_longsword.png</weapon_longsword>
+        <weapon_titanium_longsword>weapon_longsword_titanium.png</weapon_titanium_longsword>
+        <weapon_obsidian_longsword>weapon_longsword_obsidian.png</weapon_obsidian_longsword>
+        <weapon_golden_longsword>weapon_longsword_golden.png</weapon_golden_longsword>
+        <weapon_blood_longsword>weapon_longsword_blood.png</weapon_blood_longsword>
+        <weapon_glass_longsword>weapon_longsword_glass.png</weapon_glass_longsword>
+        <weapon_whip>weapon_whip.png</weapon_whip>
+        <weapon_titanium_whip>weapon_whip_titanium.png</weapon_titanium_whip>
+        <weapon_obsidian_whip>weapon_whip_obsidian.png</weapon_obsidian_whip>
+        <weapon_golden_whip>weapon_whip_golden.png</weapon_golden_whip>
+        <weapon_blood_whip>weapon_whip_blood.png</weapon_blood_whip>
+        <weapon_glass_whip>weapon_whip_glass.png</weapon_glass_whip>
+        <weapon_spear>weapon_spear.png</weapon_spear>
+        <weapon_titanium_spear>weapon_spear_titanium.png</weapon_titanium_spear>
+        <weapon_obsidian_spear>weapon_spear_obsidian.png</weapon_obsidian_spear>
+        <weapon_golden_spear>weapon_spear_golden.png</weapon_golden_spear>
+        <weapon_blood_spear>weapon_spear_blood.png</weapon_blood_spear>
+        <weapon_glass_spear>weapon_spear_glass.png</weapon_glass_spear>
+        <weapon_rapier>weapon_rapier.png</weapon_rapier>
+        <weapon_titanium_rapier>weapon_rapier_titanium.png</weapon_titanium_rapier>
+        <weapon_obsidian_rapier>weapon_rapier_obsidian.png</weapon_obsidian_rapier>
+        <weapon_golden_rapier>weapon_rapier_golden.png</weapon_golden_rapier>
+        <weapon_blood_rapier>weapon_rapier_blood.png</weapon_blood_rapier>
+        <weapon_glass_rapier>weapon_rapier_glass.png</weapon_glass_rapier>
+        <weapon_bow>weapon_bow.png</weapon_bow>
+        <weapon_titanium_bow>weapon_bow_titanium.png</weapon_titanium_bow>
+        <weapon_obsidian_bow>weapon_bow_obsidian.png</weapon_obsidian_bow>
+        <weapon_golden_bow>weapon_bow_golden.png</weapon_golden_bow>
+        <weapon_blood_bow>weapon_bow_blood.png</weapon_blood_bow>
+        <weapon_glass_bow>weapon_bow_glass.png</weapon_glass_bow>
+        <weapon_crossbow>weapon_crossbow.png</weapon_crossbow>
+        <weapon_titanium_crossbow>weapon_crossbow_titanium.png</weapon_titanium_crossbow>
+        <weapon_obsidian_crossbow>weapon_crossbow_obsidian.png</weapon_obsidian_crossbow>
+        <weapon_golden_crossbow>weapon_crossbow_golden.png</weapon_golden_crossbow>
+        <weapon_blood_crossbow>weapon_crossbow_blood.png</weapon_blood_crossbow>
+        <weapon_glass_crossbow>weapon_crossbow_glass.png</weapon_glass_crossbow>
+        <weapon_flail>weapon_flail.png</weapon_flail>
+        <weapon_titanium_flail>weapon_flail_titanium.png</weapon_titanium_flail>
+        <weapon_obsidian_flail>weapon_flail_obsidian.png</weapon_obsidian_flail>
+        <weapon_golden_flail>weapon_flail_gold.png</weapon_golden_flail>
+        <weapon_blood_flail>weapon_flail_blood.png</weapon_blood_flail>
+        <weapon_glass_flail>weapon_flail_glass.png</weapon_glass_flail>
+        <weapon_cat>weapon_cat.png</weapon_cat>
+        <weapon_titanium_cat>weapon_cat_titanium.png</weapon_titanium_cat>
+        <weapon_obsidian_cat>weapon_cat_obsidian.png</weapon_obsidian_cat>
+        <weapon_golden_cat>weapon_cat_gold.png</weapon_golden_cat>
+        <weapon_blood_cat>weapon_cat_blood.png</weapon_blood_cat>
+        <weapon_glass_cat>weapon_cat_glass.png</weapon_glass_cat>
+        <charm_gluttony yOff="-9">charm_gluttony.png</charm_gluttony>
+        <charm_nazar yOff="-5">charm_nazar.png</charm_nazar>
+        <charm_protection yOff="-3">charm_protection.png</charm_protection>
+        <charm_risk yOff="-3">charm_risk.png</charm_risk>
+        <weapon_blunderbuss yOff="-12">weapon_blunderbuss.png</weapon_blunderbuss>
+        <weapon_rifle yOff="-10">weapon_rifle.png</weapon_rifle>
     </items>
     <enemies>
         <armadillo type="1" id="110" friendlyName="White Armadillo">
@@ -1915,23 +1914,25 @@
         <door_side>door_side.png</door_side>
         <floor_dirt1>floor_dirt1.png</floor_dirt1>
         <floor_tar>floor_tar.png</floor_tar>
-        <shrine_blood     xOff="-5" yOff="-28">shrine_blood.png</shrine_blood>
-        <shrine_chance    xOff="-5" yOff="-28">shrine_chance.png</shrine_chance>
-        <shrine_darkness  xOff="-5" yOff="-28">shrine_darkness.png</shrine_darkness>
-        <shrine_glass     xOff="-5" yOff="-28">shrine_glass.png</shrine_glass>
-        <shrine_no_return xOff="-5" yOff="-28">shrine_no_return.png</shrine_no_return>
-        <shrine_pace      xOff="-5" yOff="-28">shrine_pace.png</shrine_pace>
-        <shrine_peace     xOff="-5" yOff="-28">shrine_peace.png</shrine_peace>
-        <shrine_phasing   xOff="-5" yOff="-28">shrine_phasing.png</shrine_phasing>
-        <shrine_rhythm    xOff="-5" yOff="-28">shrine_rhythm.png</shrine_rhythm>
-        <shrine_risk      xOff="-5" yOff="-28">shrine_risk.png</shrine_risk>
-        <shrine_sacrifice xOff="-5" yOff="-28">shrine_sacrifice.png</shrine_sacrifice>
-        <shrine_space     xOff="-5" yOff="-28">shrine_space.png</shrine_space>
-        <shrine_war       xOff="-5" yOff="-28">shrine_war.png</shrine_war>
+        <shrine_blood>shrine_blood.png</shrine_blood>
+        <shrine_chance>shrine_chance.png</shrine_chance>
+        <shrine_darkness>shrine_darkness.png</shrine_darkness>
+        <shrine_glass>shrine_glass.png</shrine_glass>
+        <shrine_no_return>shrine_no_return.png</shrine_no_return>
+        <shrine_pace>shrine_pace.png</shrine_pace>
+        <shrine_peace>shrine_peace.png</shrine_peace>
+        <shrine_phasing>shrine_phasing.png</shrine_phasing>
+        <shrine_rhythm>shrine_rhythm.png</shrine_rhythm>
+        <shrine_risk>shrine_risk.png</shrine_risk>
+        <shrine_sacrifice>shrine_sacrifice.png</shrine_sacrifice>
+        <shrine_space>shrine_space.png</shrine_space>
+        <shrine_war>shrine_war.png</shrine_war>
         <stairs>stairs.png</stairs>
         <wall_catacomb_crypt1>wall_catacomb_crypt1.png</wall_catacomb_crypt1>
         <wall_dirt_crypt>wall_dirt_crypt.png</wall_dirt_crypt>
         <wall_shop_crypt>wall_shop_crypt.png</wall_shop_crypt>
+        <wall_shop_crypt_dark>wall_shop_crypt_dark.png</wall_shop_crypt_dark>
+        <TEMP_shop_floor>TEMP_shop_floor.png</TEMP_shop_floor>
         <wall_shop_crypt_cracked>wall_shop_crypt_cracked.png</wall_shop_crypt_cracked>
         <wall_stone_crypt>wall_stone_crypt.png</wall_stone_crypt>
         <wall_torch>wall_torch.png</wall_torch>
@@ -1958,16 +1959,6 @@
         <zone4_wall_dirt>zone4_wall_dirt.png</zone4_wall_dirt>
         <zone4_wall_dirt_crack>zone4_wall_dirt_crack.png</zone4_wall_dirt_crack>
         <zone4_wall_rock_A>zone4_wall_rock_A.png</zone4_wall_rock_A>
-
-        <!-- stuff I'm unsure if I need/can save -->
-            <wall_dirt_crypt_diamond1>wall_dirt_crypt_diamond1.png</wall_dirt_crypt_diamond1>
-            <wall_dirt_zone2_diamond1>wall_dirt_zone2_diamond1.png</wall_dirt_zone2_diamond1>
-            <wall_dirt_zone3HOT_diamond1>wall_dirt_zone3HOT_diamond1.png</wall_dirt_zone3HOT_diamond1>
-            <wall_dirt_zone3cold_diamond1>wall_dirt_zone3cold_diamond1.png</wall_dirt_zone3cold_diamond1>
-            <wall_dirt_zone4_diamond1>wall_dirt_zone4_diamond1.png</wall_dirt_zone4_diamond1>
-
-            <wall_shop_crypt_dark>wall_shop_crypt_dark.png</wall_shop_crypt_dark>
-            <TEMP_shop_floor>TEMP_shop_floor.png</TEMP_shop_floor>
     </walls>
     <traps>
         <bombtrap>bombtrap.png</bombtrap>
@@ -2000,236 +1991,5 @@
     </traps>
 </necrodancer>
 
-
-
-
-
 <!-- attributes to add as needed:
     imageW="25" imageH="37" xOff="-10" yOff="-10" -->
-
-
-
-<!--
-
-
-
-
-to organize:
-<addchest_black>addchest_black.png</addchest_black>
-<addchest_red>addchest_red.png</addchest_red>
-<addchest_white>addchest_white.png</addchest_white>
-<armor_chainmail>armor_chainmail.png</armor_chainmail>
-<armor_heavyplate>armor_heavyplate.png</armor_heavyplate>
-<armor_leather>armor_leather.png</armor_leather>
-<armor_platemail>armor_platemail.png</armor_platemail>
-<armor_platemail_dorian>armor_platemail_dorian.png</armor_platemail_dorian>
-<armor_gi>armor_gi.png</armor_gi>
-<armor_glass>armor_glass.png</armor_glass>
-<armor_obsidian>armor_obsidian.png</armor_obsidian>
-<coins_x15>coins_x15.png</coins_x15>
-<coins_x2>coins_x2.png</coins_x2>
-<feet_ballet_shoes>feet_ballet_shoes.png</feet_ballet_shoes>
-<feet_boots_speed>feet_boots_speed.png</feet_boots_speed>
-<feet_boots_winged>feet_boots_winged.png</feet_boots_winged>
-<feet_boots_explorers>feet_boots_explorers.png</feet_boots_explorers>
-<feet_boots_lead>feet_boots_lead.png</feet_boots_lead>
-<feet_boots_leaping>feet_boots_leaping.png</feet_boots_leaping>
-<feet_boots_lunging>feet_boots_lunging.png</feet_boots_lunging>
-<feet_boots_pain>feet_boots_pain.png</feet_boots_pain>
-<feet_greaves>feet_greaves.png</feet_greaves>
-<feet_boots_strength>feet_boots_strength.png</feet_boots_strength>
-<food_1>food_1.png</food_1>
-<food_2>food_2.png</food_2>
-<food_3>food_3.png</food_3>
-<food_4>food_4.png</food_4>
-<holy_water>holy_water.png</holy_water>
-<lord_crown>lord_crown.png</lord_crown>
-<bomb>bomb.png</bomb>
-<bomb_3>bomb_3.png</bomb_3>
-<war_drum>war_drum.png</war_drum>
-<blood_drum>blood_drum.png</blood_drum>
-<double_heart_transplant>double_heart_transplant.png</double_heart_transplant>
-<heart_transplant>heart_transplant.png</heart_transplant>
-<head_crown_of_thorns>head_crown_of_thorns.png</head_crown_of_thorns>
-<head_crown_of_greed>head_crown_of_greed.png</head_crown_of_greed>
-<head_crown_of_teleportation>head_crown_of_teleportation.png</head_crown_of_teleportation>
-<head_circlet_telepathy>head_circlet_telepathy.png</head_circlet_telepathy>
-<head_miners_cap>head_miners_cap.png</head_miners_cap>
-<head_monocle>head_monocle.png</head_monocle>
-<head_ninja_mask>head_ninja_mask.png</head_ninja_mask>
-<head_helm>head_helmet.png</head_helm>
-<head_glass_jaw>head_glass_jaw.png</head_glass_jaw>
-<head_blast_helm>head_blast_helm.png</head_blast_helm>
-<head_sunglasses>head_sunglasses.png</head_sunglasses>
-<hud_backpack>hud_backpack.png</hud_backpack>
-<holster>holster.png</holster>
-<bag_holding>bag_holding.png</bag_holding>
-<misc_compass>misc_compass.png</misc_compass>
-<misc_coupon>misc_coupon.png</misc_coupon>
-<misc_golden_key>misc_key_golden.png</misc_golden_key>
-<misc_golden_key2>misc_key_golden.png</misc_golden_key2>
-<misc_golden_key3>misc_key_golden.png</misc_golden_key3>
-<misc_glass_key>misc_key_glass.png</misc_glass_key>
-<misc_heart_container>misc_heart_container.png</misc_heart_container>
-<misc_heart_container2>misc_heart_container2.png</misc_heart_container2>
-<misc_heart_container_empty>misc_heart_container_empty.png</misc_heart_container_empty>
-<misc_heart_container_empty2>misc_heart_container_empty2.png</misc_heart_container_empty2>
-<misc_key>misc_key.png</misc_key>
-<misc_magnet>misc_magnet.png</misc_magnet>
-<misc_map>misc_map.png</misc_map>
-<misc_potion>misc_potion.png</misc_potion>
-<charm_frost>charm_frost.png</charm_frost>
-<charm_luck>charm_lucky.png</charm_luck>
-<charm_strength>charm_strength.png</charm_strength>
-<perm_heart2>perm_heart2.png</perm_heart2>
-<perm_heart3>perm_heart3.png</perm_heart3>
-<perm_heart4>perm_heart4.png</perm_heart4>
-<perm_heart5>perm_heart5.png</perm_heart5>
-<perm_heart6>perm_heart5.png</perm_heart6>
-<resource_coin0>resource_coin1.png</resource_coin0>
-<resource_coin1>resource_coin1.png</resource_coin1>
-<resource_coin2>resource_coin2.png</resource_coin2>
-<resource_coin3>resource_coin3.png</resource_coin3>
-<resource_coin4>resource_coin4.png</resource_coin4>
-<resource_coin5>resource_coin5.png</resource_coin5>
-<resource_coin6>resource_coin6.png</resource_coin6>
-<resource_coin7>resource_coin7.png</resource_coin7>
-<resource_coin8>resource_coin8.png</resource_coin8>
-<resource_coin9>resource_coin9.png</resource_coin9>
-<resource_coin10>resource_coin10.png</resource_coin10>
-<resource_coin50>resource_hoard.png</resource_coin50>
-<resource_coin100>resource_hoard.png</resource_coin100>
-<resource_coin150>resource_hoard.png</resource_coin150>
-<resource_diamond>resource_diamond.png</resource_diamond>
-<resource_diamond2>resource_diamond2.png</resource_diamond2>
-<resource_diamond3>resource_diamond3.png</resource_diamond3>
-<resource_diamond4>resource_diamond4.png</resource_diamond4>
-<resource_hoard1>resource_hoard.png</resource_hoard1>
-<resource_hoard2>resource_hoard.png</resource_hoard2>
-<resource_hoard3>resource_hoard.png</resource_hoard3>
-<resource_hoard4>resource_hoard.png</resource_hoard4>
-<resource_hoard_gold_small>resource_hoard_gold_small.png</resource_hoard_gold_small>
-<resource_hoard_gold>resource_hoard_gold.png</resource_hoard_gold>
-<ring_courage>ring_courage.png</ring_courage>
-<ring_war>ring_war.png</ring_war>
-<ring_peace>ring_peace.png</ring_peace>
-<ring_mana>ring_mana.png</ring_mana>
-<ring_shadows>ring_shadows.png</ring_shadows>
-<ring_might>ring_might.png</ring_might>
-<ring_charisma>ring_charisma.png</ring_charisma>
-<ring_luck>ring_luck.png</ring_luck>
-<ring_gold>ring_gold.png</ring_gold>
-<ring_phasing>ring_phasing.png</ring_phasing>
-<ring_regeneration>ring_regeneration.png</ring_regeneration>
-<ring_protection>ring_protection.png</ring_protection>
-<ring_shielding>ring_shielding.png</ring_shielding>
-<ring_becoming>ring_becoming.png</ring_becoming>
-<ring_wonder>ring_wonder.png</ring_wonder>
-<scroll_earthquake>scroll_brown.png</scroll_earthquake>
-<scroll_fear>scroll_black.png</scroll_fear>
-<scroll_fireball>scroll_red.png</scroll_fireball>
-<scroll_freeze_enemies>scroll_white.png</scroll_freeze_enemies>
-<scroll_gigantism>scroll_purple.png</scroll_gigantism>
-<scroll_riches>scroll_yellow.png</scroll_riches>
-<scroll_shield>scroll_magenta.png</scroll_shield>
-<scroll_enchant_weapon>scroll_orange.png</scroll_enchant_weapon>
-<scroll_need>scroll_green.png</scroll_need>
-<scroll_transmute>scroll_transmute.png</scroll_transmute>
-<shovel_crystal>shovel_crystal.png</shovel_crystal>
-<shovel_titanium>shovel_titanium.png</shovel_titanium>
-<shovel_blood>shovel_blood.png</shovel_blood>
-<shovel_obsidian>shovel_obsidian.png</shovel_obsidian>
-<shovel_glass>shovel_glass.png</shovel_glass>
-<shovel_shard>shovel_shard.png</shovel_shard>
-<shovel_basic>shovel_basic.png</shovel_basic>
-<pickaxe>pickaxe.png</pickaxe>
-<spell_fireball>spell_fireball.png</spell_fireball>
-<spell_freeze_enemies>spell_freeze_enemies.png</spell_freeze_enemies>
-<spell_heal>spell_heal.png</spell_heal>
-<spell_bomb>spell_bomb.png</spell_bomb>
-<spell_shield>spell_shield.png</spell_shield>
-<spell_transmute>spell_transmute.png</spell_transmute>
-<spell_charm>spell_charm.png</spell_charm>
-<torch_1>torch_1.png</torch_1>
-<torch_2>torch_2.png</torch_2>
-<torch_3>torch_3.png</torch_3>
-<torch_foresight>torch_foresight.png</torch_foresight>
-<torch_glass>torch_glass.png</torch_glass>
-<torch_infernal>torch_infernal.png</torch_infernal>
-<torch_obsidian>torch_obsidian.png</torch_obsidian>
-
-<weapon_flower>weapon_flower.png</weapon_flower>
-<weapon_golden_lute>weapon_golden_lute.png</weapon_golden_lute>
-<weapon_dagger>weapon_dagger.png</weapon_dagger>
-<weapon_dagger_shard>weapon_dagger_shard.png</weapon_dagger_shard>
-<weapon_titanium_dagger>weapon_dagger_titanium.png</weapon_titanium_dagger>
-<weapon_obsidian_dagger>weapon_dagger_obsidian.png</weapon_obsidian_dagger>
-<weapon_golden_dagger>weapon_dagger_golden.png</weapon_golden_dagger>
-<weapon_blood_dagger>weapon_dagger_blood.png</weapon_blood_dagger>
-<weapon_glass_dagger>weapon_dagger_glass.png</weapon_glass_dagger>
-<weapon_dagger_jeweled>weapon_dagger_jeweled.png</weapon_dagger_jeweled>
-<weapon_dagger_frost>weapon_dagger_frost.png</weapon_dagger_frost>
-<weapon_dagger_phasing>weapon_dagger_phasing.png</weapon_dagger_phasing>
-<weapon_broadsword>weapon_broadsword.png</weapon_broadsword>
-<weapon_titanium_broadsword>weapon_broadsword_titanium.png</weapon_titanium_broadsword>
-<weapon_obsidian_broadsword>weapon_broadsword_obsidian.png</weapon_obsidian_broadsword>
-<weapon_golden_broadsword>weapon_broadsword_golden.png</weapon_golden_broadsword>
-<weapon_blood_broadsword>weapon_broadsword_blood.png</weapon_blood_broadsword>
-<weapon_glass_broadsword>weapon_broadsword_glass.png</weapon_glass_broadsword>
-<weapon_longsword>weapon_longsword.png</weapon_longsword>
-<weapon_titanium_longsword>weapon_longsword_titanium.png</weapon_titanium_longsword>
-<weapon_obsidian_longsword>weapon_longsword_obsidian.png</weapon_obsidian_longsword>
-<weapon_golden_longsword>weapon_longsword_golden.png</weapon_golden_longsword>
-<weapon_blood_longsword>weapon_longsword_blood.png</weapon_blood_longsword>
-<weapon_glass_longsword>weapon_longsword_glass.png</weapon_glass_longsword>
-<weapon_whip>weapon_whip.png</weapon_whip>
-<weapon_titanium_whip>weapon_whip_titanium.png</weapon_titanium_whip>
-<weapon_obsidian_whip>weapon_whip_obsidian.png</weapon_obsidian_whip>
-<weapon_golden_whip>weapon_whip_golden.png</weapon_golden_whip>
-<weapon_blood_whip>weapon_whip_blood.png</weapon_blood_whip>
-<weapon_glass_whip>weapon_whip_glass.png</weapon_glass_whip>
-<weapon_spear>weapon_spear.png</weapon_spear>
-<weapon_titanium_spear>weapon_spear_titanium.png</weapon_titanium_spear>
-<weapon_obsidian_spear>weapon_spear_obsidian.png</weapon_obsidian_spear>
-<weapon_golden_spear>weapon_spear_golden.png</weapon_golden_spear>
-<weapon_blood_spear>weapon_spear_blood.png</weapon_blood_spear>
-<weapon_glass_spear>weapon_spear_glass.png</weapon_glass_spear>
-<weapon_rapier>weapon_rapier.png</weapon_rapier>
-<weapon_titanium_rapier>weapon_rapier_titanium.png</weapon_titanium_rapier>
-<weapon_obsidian_rapier>weapon_rapier_obsidian.png</weapon_obsidian_rapier>
-<weapon_golden_rapier>weapon_rapier_golden.png</weapon_golden_rapier>
-<weapon_blood_rapier>weapon_rapier_blood.png</weapon_blood_rapier>
-<weapon_glass_rapier>weapon_rapier_glass.png</weapon_glass_rapier>
-<weapon_bow>weapon_bow.png</weapon_bow>
-<weapon_titanium_bow>weapon_bow_titanium.png</weapon_titanium_bow>
-<weapon_obsidian_bow>weapon_bow_obsidian.png</weapon_obsidian_bow>
-<weapon_golden_bow>weapon_bow_golden.png</weapon_golden_bow>
-<weapon_blood_bow>weapon_bow_blood.png</weapon_blood_bow>
-<weapon_glass_bow>weapon_bow_glass.png</weapon_glass_bow>
-<weapon_crossbow>weapon_crossbow.png</weapon_crossbow>
-<weapon_titanium_crossbow>weapon_crossbow_titanium.png</weapon_titanium_crossbow>
-<weapon_obsidian_crossbow>weapon_crossbow_obsidian.png</weapon_obsidian_crossbow>
-<weapon_golden_crossbow>weapon_crossbow_golden.png</weapon_golden_crossbow>
-<weapon_blood_crossbow>weapon_crossbow_blood.png</weapon_blood_crossbow>
-<weapon_glass_crossbow>weapon_crossbow_glass.png</weapon_glass_crossbow>
-<weapon_flail>weapon_flail.png</weapon_flail>
-<weapon_titanium_flail>weapon_flail_titanium.png</weapon_titanium_flail>
-<weapon_obsidian_flail>weapon_flail_obsidian.png</weapon_obsidian_flail>
-<weapon_golden_flail>weapon_flail_gold.png</weapon_golden_flail>
-<weapon_blood_flail>weapon_flail_blood.png</weapon_blood_flail>
-<weapon_glass_flail>weapon_flail_glass.png</weapon_glass_flail>
-<weapon_cat>weapon_cat.png</weapon_cat>
-<weapon_titanium_cat>weapon_cat_titanium.png</weapon_titanium_cat>
-<weapon_obsidian_cat>weapon_cat_obsidian.png</weapon_obsidian_cat>
-<weapon_golden_cat>weapon_cat_gold.png</weapon_golden_cat>
-<weapon_blood_cat>weapon_cat_blood.png</weapon_blood_cat>
-<weapon_glass_cat>weapon_cat_glass.png</weapon_glass_cat>
-<charm_gluttony yOff="-9">charm_gluttony.png</charm_gluttony>
-<charm_nazar yOff="-5">charm_nazar.png</charm_nazar>
-<charm_protection yOff="-3">charm_protection.png</charm_protection>
-<charm_risk yOff="-3">charm_risk.png</charm_risk>
-<weapon_blunderbuss yOff="-12">weapon_blunderbuss.png</weapon_blunderbuss>
-<weapon_rifle yOff="-10">weapon_rifle.png</weapon_rifle>
-
-
--->

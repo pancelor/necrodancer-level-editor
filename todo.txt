@@ -4,7 +4,7 @@ think about how to put multiple things on a single grid square. probably have 2 
 
 recent spites panel... also maybe a middle-click option
 
-remove shopkeeper ghost?
+remove shopkeeper monster / ghost
 
 choose what to do when you try to drag off-grid... probably just don't let it happen. awkward because now selections have to know about the grid again...
     well they kinda do already... (PIX)
